@@ -8,6 +8,8 @@ class Participant extends Model
 {
     protected $fillable = [
         'dni',
+        'ruc',
+        'razon_social', // Added
         'nombres',
         'apellidos',
         'email',
@@ -22,5 +24,6 @@ class Participant extends Model
         'codigo_pago',
         'tipo_comprobante',
         'foto_voucher',
+        'status',
     ];
 }

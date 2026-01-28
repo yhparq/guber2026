@@ -8,8 +8,8 @@ import { type BreadcrumbItem } from '@/types';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 
 defineProps<{
-    participants: Array<{ id: number, name: string, email: string }>;
-    corporateParticipants: Array<{ id: number, company_name: string, contact_email: string }>;
+    participants: Array<{ id: number, nombres: string, apellidos: string, email: string }>;
+    corporateParticipants: Array<{ id: number, razon_social: string, email: string, nombres: string, apellidos: string }>;
     courses: Array<{ id: number, title: string, description: string }>;
     photos: Array<{ id: number, title: string, path: string }>;
 }>();
@@ -32,10 +32,10 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
                 <!-- Participants -->
                 <div class="rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border">
-                    <h2 class="mb-4 text-lg font-bold">Participantes</h2>
+                    <h2 class="mb-4 text-lg font-bold">Participantes Recientes</h2>
                     <ul>
                         <li v-for="participant in participants" :key="participant.id" class="border-b border-sidebar-border/70 py-2 last:border-0 dark:border-sidebar-border">
-                            {{ participant.name }} <span class="text-sm text-gray-500">({{ participant.email }})</span>
+                            {{ participant.nombres }} {{ participant.apellidos }} <span class="text-sm text-gray-500">({{ participant.email }})</span>
                         </li>
                         <li v-if="participants.length === 0" class="text-gray-500">No participantes encontrados.</li>
                     </ul>
@@ -43,10 +43,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <!-- Corporate Participants -->
                 <div class="rounded-xl border border-sidebar-border/70 p-4 dark:border-sidebar-border">
-                    <h2 class="mb-4 text-lg font-bold">Participantes Corporativos</h2>
+                    <h2 class="mb-4 text-lg font-bold">Corporativos Recientes</h2>
                     <ul>
                         <li v-for="cp in corporateParticipants" :key="cp.id" class="border-b border-sidebar-border/70 py-2 last:border-0 dark:border-sidebar-border">
-                            {{ cp.company_name }} <span class="text-sm text-gray-500">({{ cp.contact_email }})</span>
+                            <span class="font-bold">{{ cp.razon_social }}</span> - {{ cp.nombres }} {{ cp.apellidos }} 
+                            <div class="text-sm text-gray-500">{{ cp.email }}</div>
                         </li>
                         <li v-if="corporateParticipants.length === 0" class="text-gray-500">No participantes corporativos encontrados.</li>
                     </ul>

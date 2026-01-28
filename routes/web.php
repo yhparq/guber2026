@@ -1,7 +1,12 @@
 <?php
 
+use App\Models\CorporateParticipant;
+use App\Models\Course;
+use App\Models\Participant;
+use App\Models\Photo;
 use App\Http\Controllers\CorporateParticipantController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DniController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +18,9 @@ Route::get('/', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+// DNI Search API
+Route::get('/api/dni/{dni}', [DniController::class, 'buscar'])->name('api.dni');
 
 Route::get('/inscripciones', function () {
     return Inertia::render('Inscripciones', [
@@ -29,18 +37,24 @@ Route::post('/inscripcion-corporativa', [CorporateParticipantController::class, 
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
+        return redirect()->route('participants.index');
     })->name('dashboard');
 
     // Participants
     Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
     Route::get('participants/create', [ParticipantController::class, 'create'])->name('participants.create');
     Route::post('participants', [ParticipantController::class, 'store'])->name('participants.store');
+    Route::get('participants/{participant}/edit', [ParticipantController::class, 'edit'])->name('participants.edit');
+    Route::put('participants/{participant}', [ParticipantController::class, 'update'])->name('participants.update');
+    Route::delete('participants/{participant}', [ParticipantController::class, 'destroy'])->name('participants.destroy');
 
     // Corporate Participants
     Route::get('corporate-participants', [CorporateParticipantController::class, 'index'])->name('corporate-participants.index');
     Route::get('corporate-participants/create', [CorporateParticipantController::class, 'create'])->name('corporate-participants.create');
     Route::post('corporate-participants', [CorporateParticipantController::class, 'store'])->name('corporate-participants.store');
+    Route::get('corporate-participants/{corporateParticipant}/edit', [CorporateParticipantController::class, 'edit'])->name('corporate-participants.edit');
+    Route::put('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'update'])->name('corporate-participants.update');
+    Route::delete('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'destroy'])->name('corporate-participants.destroy');
 
     // Courses
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');

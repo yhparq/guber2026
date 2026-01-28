@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, router } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { User, Mail, Phone, MapPin, Building, CreditCard, Upload, CheckCircle, AlertCircle } from 'lucide-vue-next';
+import { User, Mail, Phone, MapPin, Building, CreditCard, Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
+import axios from 'axios';
 
 defineProps<{
     canRegister?: boolean;
@@ -22,17 +24,44 @@ const form = useForm({
     modalidad_participante: '',
     codigo_pago: '',
     tipo_comprobante: '',
+    ruc: '',
+    razon_social: '',
     foto_voucher: null as File | null,
+});
+
+const isSearchingDni = ref(false);
+const showSuccessModal = ref(false);
+
+watch(() => form.dni, async (newDni) => {
+    if (newDni && newDni.length === 8) {
+        isSearchingDni.value = true;
+        try {
+            const response = await axios.get(`/api/dni/${newDni}`);
+            if (response.data && response.data.success) {
+                const data = response.data.data;
+                form.nombres = data.nombres;
+                form.apellidos = `${data.apellido_paterno} ${data.apellido_materno}`;
+            }
+        } catch (error) {
+            console.error('Error buscando DNI:', error);
+        } finally {
+            isSearchingDni.value = false;
+        }
+    }
 });
 
 const submit = () => {
     form.post('/inscripcion-individual', {
         onSuccess: () => {
             form.reset();
-            // You might want to show a success message or redirect to a thank you page
-            alert('¡Inscripción realizada con éxito!');
+            showSuccessModal.value = true;
         },
     });
+};
+
+const closeSuccessModal = () => {
+    showSuccessModal.value = false;
+    router.visit('/inscripciones');
 };
 
 const categories = ['Estudiante', 'Profesional', 'Público General'];
@@ -77,7 +106,7 @@ const professionalColleges = [
 
                 <div class="text-center mb-12">
                     <h1 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-                        Inscripción <span class="text-primary">Individual</span>
+                        INSCRIPCIÓN <span class="text-primary">INDIVIDUAL</span>
                     </h1>
                     <p class="text-gray-600 max-w-2xl mx-auto">
                         Completa el formulario para registrar tu participación en la XI Convención Nacional Guber 2026.
@@ -105,7 +134,12 @@ const professionalColleges = [
 
                             <div class="space-y-2">
                                 <label for="dni" class="text-sm font-medium text-gray-700">DNI *</label>
-                                <input id="dni" v-model="form.dni" type="text" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Número de DNI" />
+                                <div class="relative">
+                                    <input id="dni" v-model="form.dni" type="text" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Número de DNI" maxlength="8" />
+                                    <div v-if="isSearchingDni" class="absolute right-3 top-1/2 -translate-y-1/2">
+                                        <Loader2 class="w-5 h-5 text-primary animate-spin" />
+                                    </div>
+                                </div>
                                 <p v-if="form.errors.dni" class="text-red-500 text-xs">{{ form.errors.dni }}</p>
                             </div>
 
@@ -205,6 +239,17 @@ const professionalColleges = [
                                     <option value="" disabled>Seleccione una opción</option>
                                     <option v-for="type in receiptTypes" :key="type" :value="type">{{ type }}</option>
                                 </select>
+                            </div>
+
+                            <div v-if="form.tipo_comprobante === 'Factura'" class="space-y-2">
+                                <label for="ruc" class="text-sm font-medium text-gray-700">RUC *</label>
+                                <input id="ruc" v-model="form.ruc" type="text" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Ingrese su RUC" />
+                                <p v-if="form.errors.ruc" class="text-red-500 text-xs">{{ form.errors.ruc }}</p>
+                            </div>
+
+                            <div v-if="form.tipo_comprobante === 'Factura'" class="space-y-2">
+                                <label for="razon_social" class="text-sm font-medium text-gray-700">Razón Social *</label>
+                                <input id="razon_social" v-model="form.razon_social" type="text" required class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Razón Social para la factura" />
                             </div>
 
                             <div class="md:col-span-2 space-y-2">
@@ -318,6 +363,40 @@ const professionalColleges = [
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="border-t border-gray-100 pt-4">
+                                    <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-[#059c5b] rounded-full"></span>
+                                        Interbank
+                                    </h4>
+                                    <div class="pl-4 text-sm text-gray-600 space-y-2">
+                                        <div class="bg-[#059c5b]/5 p-3 rounded-lg border border-[#059c5b]/20">
+                                            <p class="text-xs text-[#059c5b] uppercase tracking-wide mb-1">Cuenta Corriente</p>
+                                            <p class="font-mono font-bold text-[#059c5b] text-base">335-300400846-2</p>
+                                        </div>
+                                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                            <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Código de Cuenta Interbancaria</p>
+                                            <p class="font-mono font-medium text-gray-800 text-sm">003-335-003004008462-73</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="border-t border-gray-100 pt-4">
+                                    <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-[#002a8d] rounded-full"></span>
+                                        Banco de Crédito (BCP)
+                                    </h4>
+                                    <div class="pl-4 text-sm text-gray-600 space-y-2">
+                                        <div class="bg-[#002a8d]/5 p-3 rounded-lg border border-[#002a8d]/20">
+                                            <p class="text-xs text-[#002a8d] uppercase tracking-wide mb-1">Cuenta Corriente</p>
+                                            <p class="font-mono font-bold text-[#002a8d] text-base">485-9971744-0-73</p>
+                                        </div>
+                                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                            <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Código de Cuenta Interbancaria</p>
+                                            <p class="font-mono font-medium text-gray-800 text-sm">002-485-009971744073-11</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -334,6 +413,26 @@ const professionalColleges = [
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div v-if="showSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform scale-100 animate-in zoom-in-95 duration-200">
+                <div class="bg-green-600 p-6 flex flex-col items-center justify-center text-white">
+                    <div class="bg-white/20 p-4 rounded-full mb-4">
+                        <CheckCircle class="w-12 h-12 text-white" />
+                    </div>
+                    <h3 class="text-2xl font-black text-center">¡INSCRIPCIÓN EXITOSA!</h3>
+                </div>
+                <div class="p-8 text-center">
+                    <p class="text-gray-600 mb-8 text-lg">
+                        Tu registro se ha completado correctamente. Hemos recibido tus datos y constancia de pago.
+                    </p>
+                    <button @click="closeSuccessModal" class="w-full py-3.5 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        Aceptar
+                    </button>
                 </div>
             </div>
         </div>

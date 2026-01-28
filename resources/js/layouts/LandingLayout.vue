@@ -2,7 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { dashboard, login, register } from '@/routes';
 import { ref } from 'vue';
-import { Menu, X, MessageCircle, FileText } from 'lucide-vue-next';
+import { Menu, X, MessageCircle, FileText, Calendar, MapPin, Clock, Mail, Phone } from 'lucide-vue-next';
 
 withDefaults(
     defineProps<{
@@ -33,24 +33,6 @@ const isMenuOpen = ref(false);
                     <a href="#speakers" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Coreferencistas</a>
                     <a href="#topics" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Temario</a>
                     <a href="#info" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Información</a>
-                    
-                    <div class="flex items-center gap-4 ml-4">
-                        <Link
-                            v-if="$page.props.auth.user"
-                            :href="dashboard()"
-                            class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors"
-                        >
-                            Dashboard
-                        </Link>
-                        <template v-else>
-                            <Link
-                                :href="login()"
-                                class="rounded-full bg-white px-6 py-2 text-sm font-bold text-primary hover:text-brand-yellow transition-all shadow-md"
-                            >
-                                Ingresar
-                            </Link>
-                        </template>
-                    </div>
                 </nav>
 
                 <!-- Mobile Menu Button -->
@@ -69,22 +51,6 @@ const isMenuOpen = ref(false);
                     <a href="#speakers" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
                     <a href="#topics" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Temario</a>
                     <a href="#info" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Información</a>
-                    <hr class="border-white/20" />
-                    <Link
-                        v-if="$page.props.auth.user"
-                        :href="dashboard()"
-                        class="text-sm font-medium text-white hover:text-brand-yellow transition-colors"
-                    >
-                        Dashboard
-                    </Link>
-                    <template v-else>
-                        <Link
-                            :href="login()"
-                            class="text-sm font-medium text-white font-bold bg-white/10 px-4 py-2 rounded-lg text-center"
-                        >
-                            Ingresar
-                        </Link>
-                    </template>
                 </nav>
             </div>
         </header>
@@ -93,15 +59,91 @@ const isMenuOpen = ref(false);
             <slot />
         </main>
 
-        <footer class="border-t border-primary bg-white py-8">
-            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-2">
-                    <img src="/media/imgs/logo1.png" alt="Guber Logo" class="h-6 w-auto opacity-80" />
-                    <span class="text-sm font-semibold text-black">Guber 2026</span>
+        <footer class="border-t-4 border-primary bg-white pt-16 pb-8 text-black">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                    <!-- Column 1: Informacion General -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-black uppercase tracking-wider text-primary border-b-2 border-primary w-fit pb-1">INFORMACIÓN GENERAL</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
+                                    <Calendar class="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p class="font-bold text-lg leading-tight">GUBER 2026</p>
+                                    <p class="text-gray-600">23, 24 y 25 de abril</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
+                                    <Users class="w-5 h-5" />
+                                </div>
+                                <p class="text-gray-600 font-medium pt-2">Presencial y Virtual</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
+                                    <MapPin class="w-5 h-5" />
+                                </div>
+                                <a 
+                                    href="https://maps.google.com/?q=UNIVERSIDAD+NACIONAL+AMAZONICA+DE+MADRE+DE+DIOS" 
+                                    target="_blank" 
+                                    class="text-gray-600 hover:text-primary transition-colors text-sm font-medium leading-relaxed underline decoration-dotted"
+                                >
+                                    AUDITORIO de la UNIVERSIDAD NACIONAL AMAZÓNICA DE MADRE DE DIOS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Contacto -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-black uppercase tracking-wider text-primary border-b-2 border-primary w-fit pb-1">CCP MADRE DE DIOS</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <MapPin class="w-5 h-5 text-primary mt-1 shrink-0" />
+                                <p class="text-sm text-gray-600">Jr. Libertad 850, Puerto Maldonado, Perú</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <Clock class="w-5 h-5 text-primary mt-1 shrink-0" />
+                                <div class="text-xs text-gray-600 space-y-1">
+                                    <p><span class="font-bold">Lunes a Viernes:</span> 09:00 a 13:00 hrs. y 15:00 a 18:00 hrs.</p>
+                                    <p><span class="font-bold">Sábados:</span> 09:00 a 13:00 hrs.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <Mail class="w-5 h-5 text-primary shrink-0" />
+                                <a href="mailto:ccp@gmail.com" class="text-sm text-gray-600 hover:text-primary transition-colors underline decoration-dotted">ccp@gmail.com</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <Phone class="w-5 h-5 text-primary shrink-0" />
+                                <div class="text-sm text-gray-600 font-bold space-y-0.5">
+                                    <p>+51 997 161 347</p>
+                                    <p>997 161 347</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Logo -->
+                    <div class="flex flex-col items-center md:items-end justify-start">
+                        <img src="/media/imgs/logo1.png" alt="Guber 2026 Logo" class="w-64 h-auto drop-shadow-xl" />
+                        <div class="mt-6 text-right hidden md:block">
+                            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black">Puerto Maldonado</p>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black">Capital de la Biodiversidad</p>
+                        </div>
+                    </div>
                 </div>
-                <p class="text-sm text-black">
-                    &copy; 2026 Guber. Todos los derechos reservados.
-                </p>
+
+                <div class="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">
+                        &copy; 2026 Guber. Todos los derechos reservados.
+                    </p>
+                    <div class="flex gap-6">
+                        <!-- Redes Sociales placeholders -->
+                        <span class="text-[10px] font-black text-primary/40 uppercase tracking-widest">Excelencia en Gestión</span>
+                    </div>
+                </div>
             </div>
         </footer>
 
@@ -109,7 +151,7 @@ const isMenuOpen = ref(false);
         <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
             <!-- WhatsApp Button -->
             <a 
-                href="https://wa.me/51900000000" 
+                href="https://wa.me/51997161347" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="flex items-center gap-3 bg-primary text-white px-5 py-2.5 rounded-full shadow-lg hover:bg-primary/90 hover:scale-105 transition-all duration-300 group"

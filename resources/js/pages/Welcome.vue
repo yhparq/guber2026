@@ -56,9 +56,7 @@ const thematicAxes = [
 ];
 
 const slides = [
-    { image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" },
-    { image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" },
-    { image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" },
+    { image: "/media/imgs/slider1.png" },
 ];
 
 const isModalOpen = ref(false);
@@ -169,19 +167,19 @@ const bankMethods = [
 
     <LandingLayout :can-register="canRegister">
         <!-- Hero Section with Carousel Banners -->
-        <section class="relative bg-white min-h-[40vh] md:min-h-[70vh] overflow-hidden flex items-center justify-center">
+        <section class="relative bg-white overflow-hidden">
             <!-- Carousel Container -->
-            <div class="absolute inset-0 z-0 embla h-full w-full" ref="emblaRef">
-                <div class="flex h-full w-full">
-                    <div v-for="(slide, index) in slides" :key="index" class="flex-[0_0_100%] min-w-0 h-full relative">
-                        <img :src="slide.image" :alt="'Banner ' + index" class="w-full h-full object-cover" />
+            <div class="embla w-full" ref="emblaRef">
+                <div class="flex w-full">
+                    <div v-for="(slide, index) in slides" :key="index" class="flex-[0_0_100%] min-w-0 relative">
+                        <img :src="slide.image" :alt="'Banner ' + index" class="w-full h-auto" />
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="info" class="py-40 bg-white">
+        <section id="info" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl font-heading font-bold text-black mb-6 max-w-5xl mx-auto">XI CONVENCIÓN NACIONAL DE CONTABILIDAD GUBERNAMENTAL Y GESTIÓN PÚBLICA – GUBER 2026</h2>
@@ -450,16 +448,38 @@ const bankMethods = [
             </div>
         </section>
 
-        <!-- Map Section (Placeholder) -->
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-4xl font-heading font-bold text-black mb-8">Ubicación</h2>
-                <div class="bg-white w-full h-96 rounded-xl flex items-center justify-center border-2 border-black">
-                    <p class="text-black flex items-center gap-2">
-                        <MapPin class="w-6 h-6" />
-                        Mapa de Google Maps aquí (Lima, Perú)
-                    </p>
-                </div>
+        <!-- Map Section -->
+        <section class="relative py-40 bg-gray-900 overflow-hidden flex items-center justify-center">
+            <!-- Google Maps Background -->
+            <div class="absolute inset-0 z-0">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Universidad+Nacional+Amazonica+de+Madre+de+Dios&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; filter: grayscale(100%) invert(90%) contrast(80%);" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 text-center container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-8 drop-shadow-lg">
+                    ¿CÓMO LLEGAR?
+                </h2>
+                
+                <a 
+                    href="https://maps.google.com/?q=Universidad+Nacional+Amazonica+de+Madre+de+Dios" 
+                    target="_blank" 
+                    class="inline-flex items-center gap-3 bg-brand-yellow text-white px-8 py-4 rounded-full font-bold text-lg shadow-[0_0_20px_rgba(188,128,32,0.5)] hover:scale-105 hover:bg-brand-yellow/90 transition-all duration-300 group"
+                >
+                    <MapPin class="w-6 h-6 animate-bounce" />
+                    UBÍCANOS EN GOOGLE MAPS
+                </a>
             </div>
         </section>
 

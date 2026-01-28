@@ -16,10 +16,10 @@ defineProps<{
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16 max-w-3xl mx-auto">
                     <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-                        Inscripciones <span class="text-primary">GUBER 2026</span>
+                        Participa con <span class="text-primary">Nosotros</span>
                     </h1>
                     <p class="text-xl text-gray-600">
-                        Selecciona el tipo de inscripción que deseas realizar. Contamos con beneficios exclusivos tanto para participantes individuales como para delegaciones corporativas.
+                        Forma parte de la GUBER 2026, el evento más importante en Gestión Pública. Elige tu tipo de inscripción y únete a miles de profesionales.
                     </p>
                 </div>
 
@@ -32,28 +32,21 @@ defineProps<{
                             </div>
                         </div>
                         <div class="p-8">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors">Inscripción Individual</h2>
-                            <p class="text-gray-600 mb-6 min-h-[80px]">
-                                Ideal para profesionales, estudiantes y público en general que deseen asistir por cuenta propia. Accede a todas las conferencias y obtén tu certificación personal.
-                            </p>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors text-center">INSCRIPCIÓN INDIVIDUAL</h2>
                             
                             <ul class="space-y-3 mb-8">
                                 <li class="flex items-center gap-3 text-sm text-gray-600">
                                     <CheckCircle class="w-5 h-5 text-primary shrink-0" />
-                                    <span>Certificado a nombre propio</span>
+                                    <span>Registro rápido y sencillo</span>
                                 </li>
                                 <li class="flex items-center gap-3 text-sm text-gray-600">
                                     <CheckCircle class="w-5 h-5 text-primary shrink-0" />
-                                    <span>Material digital incluido</span>
-                                </li>
-                                <li class="flex items-center gap-3 text-sm text-gray-600">
-                                    <CheckCircle class="w-5 h-5 text-primary shrink-0" />
-                                    <span>Acceso a networking</span>
+                                    <span>Acceso completo al evento</span>
                                 </li>
                             </ul>
 
                             <Link href="/inscripcion-individual" class="flex items-center justify-center gap-2 w-full py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-primary hover:shadow-lg transition-all duration-300">
-                                <span>Inscribirme Ahora</span>
+                                <span>Comenzar Inscripción Individual</span>
                                 <ArrowRight class="w-5 h-5" />
                             </Link>
                         </div>
@@ -61,34 +54,31 @@ defineProps<{
 
                     <!-- Corporate Registration Card -->
                     <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group border border-gray-100">
-                        <div class="bg-blue-50 p-8 flex items-center justify-center border-b border-blue-100 group-hover:bg-blue-100/50 transition-colors">
+                        <div class="bg-primary/5 p-8 flex items-center justify-center border-b border-primary/10 group-hover:bg-primary/10 transition-colors">
                             <div class="bg-white p-4 rounded-full shadow-md group-hover:scale-110 transition-transform duration-300">
-                                <Building2 class="w-12 h-12 text-blue-600" />
+                                <Building2 class="w-12 h-12 text-primary" />
                             </div>
                         </div>
                         <div class="p-8">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">Inscripción Corporativa</h2>
-                            <p class="text-gray-600 mb-6 min-h-[80px]">
-                                Diseñado para instituciones y empresas. Registra a múltiples colaboradores (mínimo 3) con una tarifa preferencial y facturación unificada.
-                            </p>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors text-center">INSCRIPCIÓN CORPORATIVA</h2>
                             
                             <ul class="space-y-3 mb-8">
                                 <li class="flex items-center gap-3 text-sm text-gray-600">
-                                    <CheckCircle class="w-5 h-5 text-blue-600 shrink-0" />
-                                    <span>Facturación corporativa</span>
+                                    <CheckCircle class="w-5 h-5 text-primary shrink-0" />
+                                    <span>Registro de múltiples participantes</span>
                                 </li>
                                 <li class="flex items-center gap-3 text-sm text-gray-600">
-                                    <CheckCircle class="w-5 h-5 text-blue-600 shrink-0" />
-                                    <span>Descuentos por volumen</span>
+                                    <CheckCircle class="w-5 h-5 text-primary shrink-0" />
+                                    <span>Rápido y Sencillo</span>
                                 </li>
                                 <li class="flex items-center gap-3 text-sm text-gray-600">
-                                    <CheckCircle class="w-5 h-5 text-blue-600 shrink-0" />
-                                    <span>Gestión centralizada</span>
+                                    <CheckCircle class="w-5 h-5 text-primary shrink-0" />
+                                    <span>Acceso completo al evento</span>
                                 </li>
                             </ul>
 
-                            <Link href="/inscripcion-corporativa" class="flex items-center justify-center gap-2 w-full py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-blue-600 hover:shadow-lg transition-all duration-300">
-                                <span>Registrar Delegación</span>
+                            <Link href="/inscripcion-corporativa" class="flex items-center justify-center gap-2 w-full py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-primary hover:shadow-lg transition-all duration-300">
+                                <span>Comenzar Inscripción Corporativa</span>
                                 <ArrowRight class="w-5 h-5" />
                             </Link>
                         </div>

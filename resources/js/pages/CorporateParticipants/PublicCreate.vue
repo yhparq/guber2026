@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Head, useForm, router } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { Users, Building2, CreditCard, Upload, CheckCircle, Trash2, Plus, AlertCircle, MapPin, Loader2 } from 'lucide-vue-next';
+import { Users, Building2, CreditCard, Upload, CheckCircle, Trash2, Plus, AlertCircle, MapPin, Loader2, Award } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 import axios from 'axios';
+import CategoriesModal from '@/components/CategoriesModal.vue';
 
 defineProps<{
     canRegister?: boolean;
@@ -14,6 +15,7 @@ const maxParticipants = 20;
 const minParticipants = 5;
 const searchingStates = ref<boolean[]>([]); // Track searching state per index
 const showSuccessModal = ref(false);
+const showCategoriesModal = ref(false);
 
 const professionalColleges = [
     'NO PERTENEZCO A NINGÚN COLEGIO DEPARTAMENTAL',
@@ -44,7 +46,7 @@ const professionalColleges = [
     'COLEGIO DE CONTADORES PÚBLICOS DE UCAYALI'
 ];
 
-const categories = ['Estudiante', 'Profesional', 'Público General'];
+const categories = ['PLENOS', 'OBSERVADORES', 'ESTUDIANTES'];
 const modalities = ['Presencial', 'Virtual'];
 const receiptTypes = ['Factura', 'Boleta'];
 const individualReceiptTypes = ['Boleta', 'Factura'];
@@ -363,6 +365,11 @@ const closeSuccessModal = () => {
                             </ul>
                         </div>
 
+                        <button type="button" @click="showCategoriesModal = true" class="w-full bg-white border-2 border-primary text-primary font-bold py-3.5 rounded-2xl hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-sm group">
+                            <Award class="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            Ver Beneficios por Categoría
+                        </button>
+
                         <!-- Payment Methods -->
                         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                             <div class="bg-primary px-6 py-4 flex items-center gap-3">
@@ -466,5 +473,7 @@ const closeSuccessModal = () => {
                 </div>
             </div>
         </div>
+
+        <CategoriesModal :is-open="showCategoriesModal" @close="showCategoriesModal = false" />
     </LandingLayout>
 </template>

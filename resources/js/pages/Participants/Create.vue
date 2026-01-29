@@ -110,9 +110,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <!-- Simple select using native HTML for now, could use a UI Select component if available -->
                     <select id="categoria_participante" v-model="form.categoria_participante" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-sidebar-border dark:text-white">
                         <option value="" disabled>Seleccione una categoría</option>
-                        <option value="Estudiante">Estudiante</option>
-                        <option value="Profesional">Profesional</option>
-                        <option value="Publico General">Público General</option>
+                        <option value="ESTUDIANTES">ESTUDIANTES</option>
+                        <option value="PLENOS">PLENOS</option>
+                        <option value="OBSERVADORES">OBSERVADORES</option>
                     </select>
                     <InputError :message="form.errors.categoria_participante" />
                 </div>

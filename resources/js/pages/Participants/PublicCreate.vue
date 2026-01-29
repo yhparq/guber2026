@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Head, useForm, router } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { User, Mail, Phone, MapPin, Building, CreditCard, Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-vue-next';
+import { User, Mail, Phone, MapPin, Building, CreditCard, Upload, CheckCircle, AlertCircle, Loader2, Award } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 import axios from 'axios';
+import CategoriesModal from '@/components/CategoriesModal.vue';
 
 defineProps<{
     canRegister?: boolean;
@@ -31,6 +32,7 @@ const form = useForm({
 
 const isSearchingDni = ref(false);
 const showSuccessModal = ref(false);
+const showCategoriesModal = ref(false);
 
 watch(() => form.dni, async (newDni) => {
     if (newDni && newDni.length === 8) {
@@ -64,7 +66,7 @@ const closeSuccessModal = () => {
     router.visit('/inscripciones');
 };
 
-const categories = ['Estudiante', 'Profesional', 'Público General'];
+const categories = ['PLENOS', 'OBSERVADORES', 'ESTUDIANTES'];
 const modalities = ['Presencial', 'Virtual'];
 const receiptTypes = ['Boleta', 'Factura'];
 const professionalColleges = [
@@ -321,6 +323,11 @@ const professionalColleges = [
                             </ul>
                         </div>
 
+                        <button type="button" @click="showCategoriesModal = true" class="w-full bg-white border-2 border-primary text-primary font-bold py-3.5 rounded-2xl hover:bg-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-sm group">
+                            <Award class="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            Ver Beneficios por Categoría
+                        </button>
+
                         <!-- Payment Methods -->
                         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                             <div class="bg-primary px-6 py-4 flex items-center gap-3">
@@ -436,5 +443,7 @@ const professionalColleges = [
                 </div>
             </div>
         </div>
+
+        <CategoriesModal :is-open="showCategoriesModal" @close="showCategoriesModal = false" />
     </LandingLayout>
 </template>

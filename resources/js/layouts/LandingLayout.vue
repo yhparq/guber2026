@@ -113,13 +113,12 @@ const isMenuOpen = ref(false);
                             </div>
                             <div class="flex items-center gap-3">
                                 <Mail class="w-5 h-5 text-primary shrink-0" />
-                                <a href="mailto:ccp@gmail.com" class="text-sm text-gray-600 hover:text-primary transition-colors underline decoration-dotted">ccp@gmail.com</a>
+                                <a href="mailto:ccpmdd@gmail.com" class="text-sm text-gray-600 hover:text-primary transition-colors underline decoration-dotted">ccpmdd@gmail.com</a>
                             </div>
                             <div class="flex items-center gap-3">
                                 <Phone class="w-5 h-5 text-primary shrink-0" />
                                 <div class="text-sm text-gray-600 font-bold space-y-0.5">
                                     <p>+51 997 161 347</p>
-                                    <p>997 161 347</p>
                                 </div>
                             </div>
                         </div>

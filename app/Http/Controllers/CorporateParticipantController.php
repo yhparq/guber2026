@@ -85,7 +85,7 @@ class CorporateParticipantController extends Controller
             'codigo_pago' => 'required|string',
             'tipo_comprobante' => 'nullable|string',
             'foto_voucher' => 'required|image|max:2048',
-            'participants' => 'required|array|min:2',
+            'participants' => 'required|array|min:5',
             'participants.*.dni' => 'required|string',
             'participants.*.nombres' => 'required|string',
             'participants.*.apellidos' => 'required|string',

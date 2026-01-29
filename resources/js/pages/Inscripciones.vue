@@ -19,7 +19,7 @@ defineProps<{
                         Participa con <span class="text-primary">Nosotros</span>
                     </h1>
                     <p class="text-xl text-gray-600">
-                        Forma parte de la GUBER 2026, el evento más importante en Gestión Pública. Elige tu tipo de inscripción y únete a miles de profesionales.
+                        Forma parte de la GUBER 2026, el evento más importante en Contabilidad Gubernamental y Gestión Pública. Elige tu tipo de inscripción y únete a miles de profesionales.
                     </p>
                 </div>
 

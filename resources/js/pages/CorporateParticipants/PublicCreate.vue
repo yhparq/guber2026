@@ -9,9 +9,9 @@ defineProps<{
     canRegister?: boolean;
 }>();
 
-const numberOfParticipants = ref(2); // Default to min
+const numberOfParticipants = ref(5); // Default to min
 const maxParticipants = 20;
-const minParticipants = 2;
+const minParticipants = 5;
 const searchingStates = ref<boolean[]>([]); // Track searching state per index
 const showSuccessModal = ref(false);
 
@@ -140,7 +140,7 @@ const closeSuccessModal = () => {
                         INSCRIPCIÓN <span class="text-primary">CORPORATIVA</span>
                     </h1>
                     <p class="text-gray-600 max-w-2xl mx-auto">
-                        Registro para delegaciones, empresas e instituciones (Mínimo 2 participantes).
+                        Registro para delegaciones, empresas e instituciones (Mínimo 5 participantes).
                     </p>
                 </div>
 
@@ -152,7 +152,7 @@ const closeSuccessModal = () => {
                         <div class="bg-white rounded-2xl shadow p-6 border border-gray-100 flex items-center justify-between">
                             <div>
                                 <h3 class="text-lg font-bold text-gray-900">Número de Participantes</h3>
-                                <p class="text-xs text-primary font-medium">Mínimo 2 participantes.</p>
+                                <p class="text-xs text-primary font-medium">Mínimo 5 participantes.</p>
                             </div>
                             <div class="flex items-center gap-4">
                                 <button @click="numberOfParticipants--" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50" :disabled="numberOfParticipants <= minParticipants">-</button>
@@ -350,7 +350,7 @@ const closeSuccessModal = () => {
                             <ul class="space-y-3 text-sm text-red-800">
                                 <li class="flex items-start gap-2">
                                     <span class="mt-1.5 w-1.5 h-1.5 bg-red-400 rounded-full shrink-0"></span>
-                                    <span class="font-bold">Mínimo 2 participantes</span>.
+                                    <span class="font-bold">Mínimo 5 participantes</span>.
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="mt-1.5 w-1.5 h-1.5 bg-red-400 rounded-full shrink-0"></span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import emblaCarouselVue from 'embla-carousel-vue';
 import Autoplay from 'embla-carousel-autoplay';
-import { defineProps } from 'vue';
+import { User, Award, MapPin } from 'lucide-vue-next';
 
 const [emblaRef] = emblaCarouselVue(
     { 
@@ -17,78 +17,55 @@ const [emblaRef] = emblaCarouselVue(
     [Autoplay({ delay: 4000, stopOnInteraction: false })]
 );
 
-const speakers = [
-    { 
-        name: "Dr. Juan Perez", 
-        role: "Contralor General", 
-        country: "Perú",
-        flag: "pe",
-        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" 
-    },
-    { 
-        name: "Mg. Maria Rodriguez", 
-        role: "Experta en Compliance", 
-        country: "Colombia",
-        flag: "co",
-        image: "https://images.unsplash.com/photo-1573496359-70142d76c229?q=80&w=1000&auto=format&fit=crop" 
-    },
-    { 
-        name: "Lic. Carlos Gomez", 
-        role: "Auditor Forense", 
-        country: "México",
-        flag: "mx",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop" 
-    },
-    { 
-        name: "Dra. Ana Silva", 
-        role: "Gestión Pública", 
-        country: "Chile",
-        flag: "cl",
-        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop" 
-    },
-    { 
-        name: "Mg. Roberto Mendez", 
-        role: "Consultor NICSP", 
-        country: "Ecuador",
-        flag: "ec",
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop" 
-    }
-];
+// Lista genérica de 12 espacios para expositores
+const speakers = Array.from({ length: 12 }, (_, i) => ({
+    name: "EXPOSITOR GUBER 2026",
+    role: "ESPECIALISTA INVITADO",
+    label: "Por confirmar"
+}));
 </script>
 
 <template>
-    <section class="py-20 bg-white">
+    <section id="speakers" class="py-24 bg-slate-50 border-t border-gray-100 overflow-hidden text-center">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-heading font-bold text-black uppercase tracking-tight">Expositores Destacados</h2>
-                <div class="w-24 h-1.5 bg-primary rounded-full mx-auto mt-4"></div>
-                <p class="text-black mt-4 font-sans text-sm">Expertos nacionales e internacionales</p>
+            <div class="mb-16">
+                <h2 class="text-4xl font-heading font-bold text-black uppercase">EXPOSITORES DESTACADOS</h2>
+                <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
+                <p class="text-lg font-sans text-gray-600 max-w-2xl mx-auto font-medium">Contamos con la presencia de reconocidos especialistas de trayectoria nacional e internacional.</p>
             </div>
 
             <!-- Carousel Container -->
-            <div class="overflow-hidden" ref="emblaRef">
-                <div class="flex -ml-4 py-4">
+            <div class="embla overflow-hidden" ref="emblaRef">
+                <div class="flex -ml-6 py-10">
                     <!-- Slides -->
-                    <div v-for="(speaker, index) in speakers" :key="index" class="flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%] min-w-0 pl-4">
-                        <div class="group relative overflow-hidden rounded-xl shadow-lg aspect-[3/4] border border-gray-100 hover:shadow-2xl transition-all duration-300">
-                            <!-- Speaker Image -->
-                            <img :src="speaker.image" :alt="speaker.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div v-for="(speaker, index) in speakers" :key="index" class="flex-[0_0_85%] sm:flex-[0_0_50%] md:flex-[0_0_33%] lg:flex-[0_0_25%] min-w-0 pl-6">
+                        <div class="group bg-white rounded-[3rem] p-10 shadow-sm border border-slate-100 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 flex flex-col items-center relative min-h-[450px]">
                             
-                            <!-- Flag (Top Right) -->
-                            <div class="absolute top-3 right-3 z-20 shadow-md rounded overflow-hidden w-8 h-auto border border-white/50">
-                                <img :src="`https://flagcdn.com/w80/${speaker.flag}.png`" :alt="speaker.country" class="w-full h-full object-cover" />
+                            <!-- Avatar Container -->
+                            <div class="relative mb-12 transform group-hover:scale-105 transition-transform duration-500">
+                                <div class="w-48 h-48 rounded-[3.5rem] bg-slate-50 flex items-center justify-center border-8 border-white shadow-xl group-hover:border-primary/5 transition-all duration-500 overflow-hidden">
+                                    <User class="w-24 h-24 text-slate-200 group-hover:text-primary/40 transition-colors duration-500" />
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 bg-brand-yellow text-white p-3 rounded-2xl shadow-lg transform group-hover:rotate-12 transition-all duration-500">
+                                    <Award class="w-6 h-6" />
+                                </div>
                             </div>
 
-                            <!-- Overlay Gradient -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 transition-opacity"></div>
-                            
-                            <!-- Content -->
-                            <div class="absolute bottom-0 left-0 p-4 text-white w-full z-10 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
-                                <div class="w-8 h-0.5 bg-brand-yellow mb-2"></div>
-                                <h3 class="text-xl font-heading font-bold mb-0.5 leading-tight">{{ speaker.name }}</h3>
-                                <p class="text-[10px] text-white/90 font-medium uppercase tracking-wider font-sans leading-tight">{{ speaker.role }}</p>
-                                <p class="text-[9px] text-brand-yellow mt-1 font-bold">{{ speaker.country }}</p>
+                            <!-- Speaker Info (Generic) -->
+                            <div class="mt-auto w-full">
+                                <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2 uppercase leading-tight">{{ speaker.name }}</h3>
+                                <p class="text-primary font-bold text-xs uppercase tracking-[0.25em] mb-6">{{ speaker.role }}</p>
+                                
+                                <div class="pt-6 border-t border-slate-50 w-full">
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-50 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:bg-primary/5 group-hover:text-primary transition-colors duration-500">
+                                        <MapPin class="w-3 h-3" />
+                                        NACIONAL / INTERNACIONAL
+                                    </span>
+                                </div>
                             </div>
+
+                            <!-- Subtle background decoration -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[6rem] -z-10 group-hover:bg-primary/10 transition-colors duration-500"></div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +75,6 @@ const speakers = [
 </template>
 
 <style scoped>
-/* Optional: smoother grab cursor for carousel */
 .embla {
     cursor: grab;
 }

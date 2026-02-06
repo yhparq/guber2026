@@ -18,22 +18,39 @@ const isMenuOpen = ref(false);
 
 <template>
     <div class="min-h-screen bg-white text-black flex flex-col font-sans relative">
-        <header class="sticky top-0 z-50 w-full shadow-lg border-b border-white/10 bg-primary">
-            <div class="container mx-auto px-4 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-2 font-bold text-xl text-white">
-                    <img src="/media/imgs/logo1.png" alt="Guber Logo" class="h-8 w-auto brightness-0 invert" />
-                    <span>GUBER 2026</span>
+        <!-- Navbar with Motto Section Background Color -->
+        <header class="sticky top-0 z-50 w-full shadow-2xl border-b-2 border-brand-yellow/30 bg-slate-900 backdrop-blur-md">
+            <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3 font-bold text-xl text-white group cursor-pointer">
+                    <div class="bg-white p-1.5 rounded-lg transition-transform group-hover:rotate-12 duration-300">
+                        <img src="/media/imgs/logo1.png" alt="Guber Logo" class="h-10 w-auto" />
+                    </div>
+                    <div class="flex flex-col leading-none">
+                        <span class="font-heading font-black tracking-tighter text-2xl">GUBER</span>
+                        <span class="text-[10px] text-brand-yellow font-black tracking-[0.3em] uppercase">2026</span>
+                    </div>
                 </div>
                 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-6">
-                    <a href="#home" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Inicio</a>
-                    <a href="#material" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Material</a>
-                    <a href="#investment" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Inversión</a>
-                    <a href="#speakers" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Coreferencistas</a>
-                    <a href="#topics" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Temario</a>
-                    <a href="#info" class="text-sm font-medium text-white/90 hover:text-brand-yellow transition-colors">Información</a>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inicio</a>
+                    <a href="#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
+                    <a href="#investment" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inversión</a>
+                    <a href="#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Coreferencistas</a>
+                    <a href="#topics" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Temario</a>
+                    <a href="#info" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Información</a>
                 </nav>
+
+                <!-- Action Button (Optional highlight) -->
+                <div class="hidden lg:block">
+                    <Link 
+                        v-if="canRegister"
+                        href="/inscripciones" 
+                        class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-primary/20"
+                    >
+                        Inscribirme
+                    </Link>
+                </div>
 
                 <!-- Mobile Menu Button -->
                 <button class="md:hidden p-2 text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = !isMenuOpen">
@@ -43,16 +60,26 @@ const isMenuOpen = ref(false);
             </div>
 
             <!-- Mobile Nav -->
-            <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-primary">
-                <nav class="flex flex-col p-4 gap-4">
-                    <a href="#home" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Inicio</a>
-                    <a href="#material" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Material</a>
-                    <a href="#investment" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Inversión</a>
-                    <a href="#speakers" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
-                    <a href="#topics" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Temario</a>
-                    <a href="#info" class="text-sm font-medium text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = false">Información</a>
-                </nav>
-            </div>
+            <transition
+                enter-active-class="transition duration-200 ease-out"
+                enter-from-class="transform -translate-y-4 opacity-0"
+                enter-to-class="transform translate-y-0 opacity-100"
+                leave-active-class="transition duration-150 ease-in"
+                leave-from-class="transform translate-y-0 opacity-100"
+                leave-to-class="transform -translate-y-4 opacity-0"
+            >
+                <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl">
+                    <nav class="flex flex-col p-6 gap-6">
+                        <a href="#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
+                        <a href="#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
+                        <a href="#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
+                        <a href="#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
+                        <a href="#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
+                        <a href="#info" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Información</a>
+                        <Link v-if="canRegister" href="/inscripciones" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
+                    </nav>
+                </div>
+            </transition>
         </header>
 
         <main class="flex-1">

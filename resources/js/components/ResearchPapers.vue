@@ -2,14 +2,14 @@
 import { Calendar, Trophy, Mail, Info, ArrowRight, Medal } from 'lucide-vue-next';
 
 const researchInfo = {
-    deadline: "04 de Abril, 2026",
+    deadline: "03 de Abril, 2026",
     prizes: [
         { place: "1er Lugar", amount: "S/ 3,500.00 + Reconocimiento", color: "text-yellow-500" },
         { place: "2do Lugar", amount: "S/ 2,500.00 + Reconocimiento", color: "text-slate-400" },
         { place: "3er Lugar", amount: "S/ 1,500.00 + Reconocimiento", color: "text-orange-400" }
     ],
     submissionEmail: "ctngubernamental@jdccpp.org.pe",
-    rulesPdf: "/media/pdfs/reglamento_investigacion.pdf"
+    rulesPdf: "/media/pdfs/reglamento-in estigacion.pdf"
 };
 </script>
 

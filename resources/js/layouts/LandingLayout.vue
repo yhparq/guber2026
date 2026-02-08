@@ -61,21 +61,21 @@ const isMenuOpen = ref(false);
 
             <!-- Mobile Nav -->
             <transition
-                enter-active-class="transition duration-200 ease-out"
-                enter-from-class="transform -translate-y-4 opacity-0"
-                enter-to-class="transform translate-y-0 opacity-100"
-                leave-active-class="transition duration-150 ease-in"
-                leave-from-class="transform translate-y-0 opacity-100"
-                leave-to-class="transform -translate-y-4 opacity-0"
+                enter-active-class="transition duration-300 ease-out"
+                enter-from-class="transform -translate-y-4 scale-95 opacity-0"
+                enter-to-class="transform translate-y-0 scale-100 opacity-100"
+                leave-active-class="transition duration-200 ease-in"
+                leave-from-class="transform translate-y-0 scale-100 opacity-100"
+                leave-to-class="transform -translate-y-4 scale-95 opacity-0"
             >
-                <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl">
+                <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl origin-top">
                     <nav class="flex flex-col p-6 gap-6">
                         <a href="/#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
                         <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
                         <a href="/#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
                         <a href="/#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
                         <a href="/#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
-                        <a href="/#info" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Información</a>
+                        <a href="/#normativa" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Normativas</a>
                         <Link v-if="canRegister" href="/inscripciones" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
                     </nav>
                 </div>

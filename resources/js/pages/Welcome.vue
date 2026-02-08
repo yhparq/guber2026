@@ -9,10 +9,11 @@ import BenefitsModal from '@/components/BenefitsModal.vue';
 import AxisModal from '@/components/AxisModal.vue';
 import ResearchPapers from '@/components/ResearchPapers.vue';
 import EventCountdown from '@/components/EventCountdown.vue';
-import { Calendar, MapPin, Clock, Users, BookOpen, DollarSign, CheckCircle, Award, Eye, GraduationCap, CreditCard, QrCode, Quote, User, ChevronRight, BarChart3, Calculator, Leaf, ArrowRight, FileText, FileDown, FlaskConical } from 'lucide-vue-next';
+import { Calendar, MapPin, Clock, Users, BookOpen, DollarSign, CheckCircle, Award, Eye, GraduationCap, CreditCard, QrCode, Quote, User, ChevronRight, BarChart3, Calculator, Leaf, ArrowRight, FileText, FileDown, FlaskConical, Images, Hotel, Compass } from 'lucide-vue-next';
 
 defineProps<{
     canRegister: boolean;
+    photos: Array<{ id: number, title: string, path: string }>;
 }>();
 
 const [emblaRef] = emblaCarouselVue({ loop: true }, [Autoplay({ delay: 4000 })]);
@@ -29,13 +30,29 @@ const [topicsRef] = emblaCarouselVue(
     [Autoplay({ delay: 5000, stopOnInteraction: false })]
 );
 
+const [sponsorsRef] = emblaCarouselVue(
+    { 
+        loop: true, 
+        align: 'start',
+        slidesToScroll: 1,
+        containScroll: false
+    }, 
+    [Autoplay({ delay: 2000, stopOnInteraction: false, playOnInit: true })]
+);
+
+const getLogoExt = (i: number) => {
+    if ([4, 10, 13].includes(i)) return 'jpg';
+    if ([6, 14].includes(i)) return 'jpeg';
+    return 'png';
+};
+
 const thematicAxes = [
     {
         number: "01",
         category: "EJE TEMÁTICO Nº 01:",
         title: "Modernización de la Administración Financiera del Sector Público",
         description: "Enfoque en el planeamiento estratégico y la optimización de los recursos públicos bajo la nueva normativa.",
-        image: "https://images.unsplash.com/photo-1454165833767-027ffea9e778?q=80&w=1000&auto=format&fit=crop",
+        image: "/media/imgs/img1.webp",
         icon: BarChart3,
         items: [
             "Planeamiento estratégico en el Sector Público: Los Programas Presupuestales y su asociación con el cumplimiento de los ODS 2023.",
@@ -49,7 +66,7 @@ const thematicAxes = [
         category: "EJE TEMÁTICO Nº 02:",
         title: "Contabilidad Gubernamental y Adopción plena del marco NIC-SP",
         description: "Transición hacia estándares internacionales de contabilidad para una rendición de cuentas transparente.",
-        image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop",
+        image: "/media/imgs/img2.webp",
         icon: Calculator,
         items: [
             "Modernización del Sistema Nacional de Contabilidad hacia la adopción de plenas del marco de las NIC-SP y nuevo SIAF Web - Modulo Contable.",
@@ -64,7 +81,7 @@ const thematicAxes = [
         category: "EJE TEMÁTICO Nº 03:",
         title: "Gestión para el Desarrollo Sostenible",
         description: "Integración de la ética y la sostenibilidad en la toma de decisiones de la gestión pública moderna.",
-        image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop",
+        image: "/media/imgs/img3.webp",
         icon: Leaf,
         items: [
             "Contabilidad de la Biodiversidad, Recursos Naturales e implicancias del cambio climático hacia la sostenibilidad de las Finanzas Públicas.",
@@ -140,9 +157,11 @@ const bankMethods = [
             { label: "Cta. Cte. Soles", value: "0011-0263-0100039835" },
             { label: "CCI", value: "01126300010003983512" }
         ],
-        colorClass: "hover:border-[#1973B8] hover:shadow-[#1973B8]/20",
+        hoverClass: "hover:border-slate-900 hover:shadow-slate-900/10 hover:bg-slate-900/[0.02]",
+        iconClass: "group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900",
+        badgeClass: "group-hover:bg-slate-900/10 group-hover:text-slate-900",
+        borderClass: "group-hover:border-slate-900",
         icon: CreditCard,
-        iconColor: "text-[#1973B8]"
     },
     {
         bank: "Interbank",
@@ -151,9 +170,11 @@ const bankMethods = [
             { label: "Cta. Cte.", value: "335-300400846-2" },
             { label: "CCI", value: "003-335-003004008462-73" }
         ],
-        colorClass: "hover:border-[#059c5b] hover:shadow-[#059c5b]/20",
+        hoverClass: "hover:border-primary hover:shadow-primary/10 hover:bg-primary/[0.02]",
+        iconClass: "group-hover:bg-primary group-hover:text-white group-hover:border-primary",
+        badgeClass: "group-hover:bg-primary/10 group-hover:text-primary",
+        borderClass: "group-hover:border-primary",
         icon: CreditCard,
-        iconColor: "text-[#059c5b]"
     },
     {
         bank: "Banco de Crédito",
@@ -162,9 +183,11 @@ const bankMethods = [
             { label: "Cta. Cte.", value: "485-9971744-0-73" },
             { label: "CCI", value: "002-485-009971744073-11" }
         ],
-        colorClass: "hover:border-[#002a8d] hover:shadow-[#002a8d]/20",
+        hoverClass: "hover:border-brand-yellow hover:shadow-brand-yellow/10 hover:bg-brand-yellow/[0.02]",
+        iconClass: "group-hover:bg-brand-yellow group-hover:text-white group-hover:border-brand-yellow",
+        badgeClass: "group-hover:bg-brand-yellow/10 group-hover:text-brand-yellow",
+        borderClass: "group-hover:border-brand-yellow",
         icon: CreditCard,
-        iconColor: "text-[#002a8d]"
     }
 ];
 
@@ -244,8 +267,9 @@ const openAxisModal = (axis: any) => {
         <section id="material" class="py-16 bg-slate-50 border-y border-slate-100">
             <div class="container mx-auto px-4 text-center">
                 <div class="mb-12">
-                    <h2 class="text-4xl font-heading font-bold text-black mb-4 uppercase">MATERIAL GUBER</h2>
-                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-6"></div>
+                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Recursos Académicos</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 mb-6 uppercase tracking-tight">MATERIAL <span class="text-primary">GUBER</span></h2>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
                     <p class="text-lg text-gray-600 max-w-xl mx-auto font-medium font-sans">Descarga los documentos informativos de la Convención Guber 2026.</p>
                 </div>
 
@@ -289,8 +313,8 @@ const openAxisModal = (axis: any) => {
                 <!-- Text Block (Monumental Style kept) -->
                 <div class="w-full lg:w-[30%] px-12 py-16 text-center lg:text-left flex flex-col justify-center bg-primary relative overflow-hidden group">
                     <div class="relative z-10">
-                        <span class="text-white/60 font-heading font-bold uppercase tracking-[0.4em] text-[10px] mb-3 block">Descubre el Paraíso</span>
-                        <h2 class="text-5xl lg:text-6xl font-heading font-black text-white uppercase leading-[0.8] mb-6 tracking-tighter">
+                        <span class="text-white/60 font-black uppercase tracking-[0.4em] text-[10px] mb-3 block font-sans">Descubre el Paraíso</span>
+                        <h2 class="text-4xl lg:text-6xl font-heading font-bold text-white uppercase leading-[0.8] mb-6 tracking-tighter">
                             MADRE <br> DE DIOS
                         </h2>
                         <div class="w-16 h-1 bg-brand-yellow mb-6"></div>
@@ -317,78 +341,177 @@ const openAxisModal = (axis: any) => {
 
         <!-- Investment Section -->
         <section id="investment" class="py-24 bg-slate-50 relative overflow-hidden">
+            <!-- Decorative Background Elements -->
             <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-brand-yellow/5 blur-[120px] rounded-full -mr-20 -mt-20"></div>
             <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 blur-[100px] rounded-full -ml-20 -mb-20"></div>
+            
             <div class="container mx-auto px-4 relative z-10 text-center">
-                <div class="mb-16">
-                    <h2 class="text-4xl font-heading font-bold mb-4 text-black uppercase">DERECHOS DE INVERSIÓN</h2>
+                <div class="mb-20">
+                    <span class="text-brand-yellow font-black tracking-[0.2em] text-xs uppercase block mb-4 font-sans">Participación y Costos</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold mb-6 text-slate-900 uppercase tracking-tight">DERECHOS DE <span class="text-primary">INVERSIÓN</span></h2>
                     <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto font-medium font-sans">
-                        Asegura tu lugar en la convención más importante de gestión pública a nombre del <span class="text-primary font-bold">Colegio de Contadores Públicos de Madre de Dios</span>.
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto font-medium font-sans leading-relaxed">
+                        Asegura tu lugar en la convención más importante de gestión pública a nombre del <br class="hidden md:block">
+                        <strong class="text-slate-900 font-bold">Colegio de Contadores Públicos de Madre de Dios</strong>.
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto text-left">
-                    <div v-for="(category, index) in pricingCategories" :key="index" class="group relative bg-white rounded-[2.5rem] p-10 shadow-xl border border-slate-100 transition-all duration-500 hover:-translate-y-3 flex flex-col" :class="{ 'ring-2 ring-primary scale-105 md:scale-110 z-20': index === 1 }">
-                        <div v-if="index === 1" class="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg uppercase tracking-wider font-sans">Más solicitado</div>
-                        <div class="mb-8">
-                            <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110" :class="index === 1 ? 'bg-primary text-white' : 'bg-slate-50 text-primary'">
-                                <component :is="category.icon" class="w-8 h-8" />
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto text-left">
+                    <div v-for="(category, index) in pricingCategories" :key="index" 
+                        class="group relative bg-white rounded-[3rem] p-10 lg:p-12 shadow-sm border border-slate-100 transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl flex flex-col overflow-hidden" 
+                        :class="{ 'ring-4 ring-primary/10 scale-105 z-20': index === 1 }"
+                    >
+                        <!-- Top Tag for Featured -->
+                        <div v-if="index === 1" class="absolute top-0 right-0 bg-primary text-white px-8 py-2 rounded-bl-3xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg z-10">
+                            Más solicitado
+                        </div>
+
+                        <!-- Card Header -->
+                        <div class="relative mb-10">
+                            <div class="w-20 h-20 rounded-3xl flex items-center justify-center mb-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-inner" 
+                                :class="index === 1 ? 'bg-primary text-white shadow-primary/20' : 'bg-slate-50 text-primary'"
+                            >
+                                <component :is="category.icon" class="w-10 h-10" />
                             </div>
-                            <h3 class="text-2xl font-heading font-bold text-slate-900 mb-4 uppercase">{{ category.title }}</h3>
+                            <h3 class="text-3xl font-heading font-bold text-slate-900 mb-4 uppercase leading-none tracking-tighter">{{ category.title }}</h3>
+                            <div class="w-12 h-1 bg-brand-yellow/30 mb-6"></div>
                             <p class="text-slate-500 font-sans text-sm leading-relaxed min-h-[60px]">{{ category.description }}</p>
                         </div>
-                        <div class="mb-10 pt-6 border-t border-slate-100">
-                            <div class="flex items-baseline gap-1">
-                                <span class="text-4xl font-heading font-black text-slate-900">{{ category.price }}</span>
-                                <span class="text-gray-400 font-sans font-medium uppercase">PEN</span>
+
+                        <!-- Price Section -->
+                        <div class="mb-12 pt-8 border-t border-slate-50 relative">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-5xl lg:text-6xl font-heading font-black text-slate-900 tracking-tighter">{{ category.price }}</span>
+                                <span class="text-xs font-sans font-black text-gray-400 uppercase tracking-widest">PEN</span>
                             </div>
+                            <!-- Background Decoration -->
+                            <span class="absolute -bottom-4 -right-2 text-7xl font-heading font-black text-slate-50 select-none pointer-events-none group-hover:text-primary/5 transition-colors">0{{ index + 1 }}</span>
                         </div>
-                        <div class="mt-auto">
-                            <button @click="openModal(category)" class="w-full py-4 rounded-2xl font-bold font-sans transition-all duration-300 flex items-center justify-center gap-3 bg-slate-900 text-white hover:bg-slate-800" :class="{ 'bg-primary hover:bg-primary/90': index === 1 }">
-                                <Eye class="w-5 h-5" /> Ver beneficios completos
+
+                        <!-- Action Button -->
+                        <div class="mt-auto relative z-10">
+                            <button @click="openModal(category)" 
+                                class="w-full py-5 rounded-2xl font-black font-sans text-[10px] uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-3 shadow-lg group/btn" 
+                                :class="index === 1 
+                                    ? 'bg-primary text-white hover:bg-slate-900 shadow-primary/20' 
+                                    : 'bg-slate-900 text-white hover:bg-primary shadow-slate-900/10'"
+                            >
+                                <Eye class="w-4 h-4 transition-transform group-hover/btn:scale-125" /> 
+                                Ver beneficios completos
                             </button>
                         </div>
+
+                        <!-- Subtle background decoration shape -->
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-slate-50 rounded-full -z-10 group-hover:bg-primary/5 transition-colors duration-700"></div>
                     </div>
+                </div>
+
+                <!-- Aditional Info Info -->
+                <div class="mt-20 inline-flex items-center gap-4 px-8 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <CheckCircle class="w-6 h-6 text-primary" />
+                    <p class="text-sm font-sans font-medium text-slate-600">
+                        Todos los precios incluyen <span class="font-bold text-slate-900">Certificación Oficial</span> y acceso a la plataforma virtual.
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- Payment Methods -->
-        <section id="payments" class="py-24 bg-white">
-            <div class="container mx-auto px-4 text-center">
-                <div class="mb-16">
-                    <h2 class="text-4xl font-heading font-bold text-black mb-4 uppercase">Medios de Pago</h2>
+        <section id="payments" class="py-24 bg-white relative overflow-hidden">
+            <!-- Decorative Pattern -->
+            <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl -ml-32"></div>
+            
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <div class="mb-20">
+                    <span class="text-brand-yellow font-black tracking-[0.2em] text-xs uppercase block mb-4 font-sans">Canales Oficiales</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 mb-6 uppercase tracking-tight">MEDIOS DE <span class="text-primary">PAGO</span></h2>
                     <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
-                    <p class="text-lg text-gray-600 max-w-xl mx-auto font-medium font-sans">Realiza tu pago de forma segura a través de nuestros canales oficiales.</p>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto font-medium font-sans">
+                        Realiza tu pago de forma segura a través de nuestros canales autorizados por el <br class="hidden md:block">
+                        <strong class="text-slate-900">Colegio de Contadores Públicos de Madre de Dios</strong>.
+                    </p>
                 </div>
-                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto items-stretch text-left">
-                    <div class="lg:w-1/2 flex">
-                        <div class="bg-slate-50 p-8 rounded-[2rem] shadow-sm border border-slate-100 w-full flex flex-col items-center text-center justify-between transition-all hover:shadow-lg">
-                            <div class="w-full">
-                                <div class="flex items-center gap-4 mb-8">
-                                    <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-sm text-primary"><QrCode class="w-7 h-7" /></div>
-                                    <div class="text-left"><h3 class="font-heading font-bold text-2xl text-slate-900 leading-tight uppercase">Billetera Digital</h3><p class="text-xs text-gray-400 font-bold font-sans uppercase">Yape / Plin</p></div>
+
+                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 max-w-6xl mx-auto items-stretch text-left">
+                    <!-- Digital Wallet Card -->
+                    <div class="lg:w-5/12 flex">
+                        <div class="bg-slate-900 p-10 lg:p-12 rounded-[3.5rem] shadow-2xl shadow-slate-900/20 w-full flex flex-col items-center text-center justify-between relative overflow-hidden group">
+                            <!-- Background Decoration -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full transition-all duration-700 group-hover:scale-150"></div>
+                            
+                            <div class="w-full relative z-10">
+                                <div class="flex items-center justify-center gap-4 mb-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md text-brand-yellow border border-white/10">
+                                        <QrCode class="w-8 h-8" />
+                                    </div>
+                                    <div class="text-left">
+                                        <h3 class="font-heading font-bold text-3xl text-white leading-none uppercase">Billetera Digital</h3>
+                                        <p class="text-[10px] text-brand-yellow font-black font-sans uppercase tracking-[0.3em] mt-1">Yape / Plin</p>
+                                    </div>
                                 </div>
-                                <div class="mb-8 p-6 bg-white rounded-3xl flex items-center justify-center border border-slate-100 max-w-[280px] mx-auto w-full"><img :src="walletMethod.qrImage" alt="QR" class="w-full h-auto" /></div>
+                                
+                                <div class="mb-10 p-8 bg-white rounded-[2.5rem] shadow-inner relative group/qr">
+                                    <img :src="walletMethod.qrImage" alt="QR" class="w-full h-auto max-w-[240px] mx-auto transition-transform duration-500 group-hover/qr:scale-105" />
+                                    <div class="absolute inset-0 border-2 border-primary/20 rounded-[2.5rem] pointer-events-none"></div>
+                                </div>
                             </div>
-                            <div class="space-y-4 w-full pt-6 border-t border-slate-200">
-                                <div v-for="(info, idx) in walletMethod.info" :key="idx"><p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider font-sans">{{ info.label }}</p><p class="text-sm font-bold text-slate-900 uppercase font-sans">{{ info.value }}</p></div>
+
+                            <div class="space-y-6 w-full pt-8 border-t border-white/10 relative z-10">
+                                <div v-for="(info, idx) in walletMethod.info" :key="idx">
+                                    <p class="text-[10px] text-white/40 font-black uppercase tracking-widest font-sans mb-1">{{ info.label }}</p>
+                                    <p class="text-sm font-bold text-white uppercase font-sans tracking-tight">{{ info.value }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="lg:w-1/2 flex flex-col gap-4">
-                        <div v-for="(method, index) in bankMethods" :key="index" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1 flex items-center group hover:shadow-lg transition-all">
-                            <div class="flex items-center gap-6 w-full">
-                                <div class="w-14 h-14 rounded-xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500"><CreditCard class="w-7 h-7" /></div>
-                                <div class="flex-1">
-                                    <div class="flex justify-between items-start mb-3"><h3 class="font-heading font-bold text-xl text-slate-900 leading-tight uppercase">{{ method.bank }}</h3><span class="text-[10px] font-sans text-gray-400 font-bold uppercase">{{ method.name }}</span></div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                                        <div v-for="(info, idx) in method.info" :key="idx" class="border-l-2 border-slate-100 pl-4 group-hover:border-primary transition-colors"><p class="text-[9px] font-sans text-gray-400 font-bold uppercase tracking-wider font-sans">{{ info.label }}</p><p class="text-xs font-sans font-bold text-slate-900 font-mono">{{ info.value }}</p></div>
+
+                    <!-- Bank Methods List -->
+                    <div class="lg:w-7/12 flex flex-col gap-6">
+                        <div v-for="(method, index) in bankMethods" :key="index" 
+                            class="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 flex-1 flex items-center group transition-all duration-500"
+                            :class="method.hoverClass"
+                        >
+                            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 w-full">
+                                <!-- Bank Icon/Logo Container -->
+                                <div class="w-20 h-20 rounded-[2rem] bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100 transition-all duration-500 shrink-0"
+                                    :class="method.iconClass"
+                                >
+                                    <component :is="method.icon" class="w-10 h-10" />
+                                </div>
+
+                                <div class="flex-1 w-full text-center md:text-left">
+                                    <div class="flex flex-col md:flex-row justify-between items-center md:items-start mb-6 gap-2">
+                                        <div>
+                                            <h3 class="font-heading font-bold text-2xl text-slate-900 leading-none uppercase">{{ method.bank }}</h3>
+                                            <p class="text-[10px] font-sans text-primary font-black uppercase tracking-[0.2em] mt-2">Banca Corporativa</p>
+                                        </div>
+                                        <span class="px-4 py-1.5 bg-slate-200 rounded-full text-[10px] font-black text-slate-500 uppercase tracking-widest transition-colors"
+                                            :class="method.badgeClass"
+                                        >
+                                            {{ method.name }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div v-for="(info, idx) in method.info" :key="idx" 
+                                            class="bg-white md:bg-transparent p-4 md:p-0 rounded-2xl md:rounded-none border md:border-0 md:border-l-4 border-slate-100 md:pl-6 transition-all"
+                                            :class="method.borderClass"
+                                        >
+                                            <p class="text-[9px] font-sans text-slate-400 font-black uppercase tracking-widest mb-1">{{ info.label }}</p>
+                                            <p class="text-sm font-sans font-bold text-slate-950 font-mono tracking-tight">{{ info.value }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Trust Badge -->
+                <div class="mt-20 flex items-center justify-center gap-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
+                    <div class="h-px w-20 bg-slate-200"></div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Transacción 100% Protegida</span>
+                    <div class="h-px w-20 bg-slate-200"></div>
                 </div>
             </div>
         </section>
@@ -414,7 +537,8 @@ const openAxisModal = (axis: any) => {
         <section id="topics" class="py-24 bg-white overflow-visible border-t border-gray-100">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-20">
-                    <h2 class="text-4xl font-heading font-bold text-black mb-4 uppercase tracking-tight leading-none">TEMARIO</h2>
+                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Contenido Académico</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 mb-6 uppercase tracking-tight">TEMARIO <span class="text-primary">GUBER</span></h2>
                     <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
                     <p class="text-lg text-gray-600 max-w-4xl mx-auto font-medium font-sans italic leading-relaxed">
                         “La modernización de la gestión pública hacia la adopción de las NICSP para el desarrollo sostenible en la creación del valor público en el Perú”
@@ -473,36 +597,39 @@ const openAxisModal = (axis: any) => {
         <section id="normativa" class="py-24 bg-slate-50 border-t border-gray-100">
             <div class="container mx-auto px-4 text-center">
                 <div class="mb-16">
-                    <h2 class="text-4xl font-heading font-bold text-black mb-4 uppercase">NORMATIVA Y REGLAMENTOS</h2>
-                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-6"></div>
-                    <p class="text-lg text-gray-600 max-w-xl mx-auto font-medium font-sans">Descarga los reglamentos oficiales de la Convención Guber 2026.</p>
+                    <span class="text-brand-yellow font-black tracking-[0.2em] text-xs uppercase block mb-4 font-sans">Marco Legal y Académico</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-black mb-6 uppercase tracking-tight">NORMATIVA Y <span class="text-primary">REGLAMENTOS</span></h2>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
+                    <p class="text-lg text-gray-600 max-w-xl mx-auto font-medium font-sans">Descarga los lineamientos oficiales que rigen la Convención Guber 2026.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                    <!-- Bases de Investigación -->
                     <div class="group">
-                        <a href="/media/pdfs/reglamento.pdf" target="_blank" class="block relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/5 bg-white">
-                            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" alt="Reglamento" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <a href="/media/pdfs/reglamento-in estigacion.pdf" target="_blank" class="block relative overflow-hidden rounded-[2.5rem] shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/10 bg-white">
+                            <img src="/media/imgs/REGLAMENTO-GUBER-01.png" alt="Bases de Investigación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                             <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-300"></div>
                         </a>
                         <div class="mt-8 text-center">
-                            <h3 class="text-2xl font-heading font-bold text-black mb-2 uppercase">Reglamento Guber 2026</h3>
-                            <p class="text-gray-500 text-sm mb-6 px-4 font-sans">Normas generales de participación.</p>
-                            <a href="/media/pdfs/reglamento.pdf" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-full font-bold text-sm transition-all duration-300 shadow-sm font-sans">
-                                <FileText class="w-4 h-4" /> Descargar Reglamento (PDF)
+                            <h3 class="text-2xl font-heading font-bold text-black mb-2 uppercase">Bases de Investigación</h3>
+                            <p class="text-gray-500 text-sm mb-6 px-4 font-sans">Requisitos para la presentación de trabajos.</p>
+                            <a href="/media/pdfs/reglamento-in estigacion.pdf" target="_blank" class="inline-flex items-center gap-3 px-8 py-3.5 bg-primary text-white hover:bg-slate-900 rounded-xl font-bold text-sm transition-all duration-300 shadow-lg shadow-primary/30 font-sans">
+                                <FlaskConical class="w-4 h-4" /> Descargar Bases (PDF)
                             </a>
                         </div>
                     </div>
 
+                    <!-- Reglamento General -->
                     <div class="group">
-                        <a href="/media/pdfs/reglamento_investigacion.pdf" target="_blank" class="block relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/5 bg-white">
-                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop" alt="Investigación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <a href="/media/pdfs/reglamento-convencion.pdf" target="_blank" class="block relative overflow-hidden rounded-[2.5rem] shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/10 bg-white">
+                            <img src="/media/imgs/REGLAMENTO-GUBER-02.png" alt="Reglamento General" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                             <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-300"></div>
                         </a>
                         <div class="mt-8 text-center">
-                            <h3 class="text-2xl font-heading font-bold text-black mb-2 uppercase">Trabajos de Investigación</h3>
-                            <p class="text-gray-500 text-sm mb-6 px-4 font-sans">Bases para la presentación de ponencias.</p>
-                            <a href="/media/pdfs/reglamento_investigacion.pdf" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-full font-bold text-sm transition-all duration-300 shadow-sm font-sans">
-                                <FlaskConical class="w-4 h-4" /> Descargar Bases (PDF)
+                            <h3 class="text-2xl font-heading font-bold text-black mb-2 uppercase">Reglamento Guber 2026</h3>
+                            <p class="text-gray-500 text-sm mb-6 px-4 font-sans">Normas generales de participación y convivencia.</p>
+                            <a href="/media/pdfs/reglamento-convencion.pdf" target="_blank" class="inline-flex items-center gap-3 px-8 py-3.5 bg-slate-900 text-white hover:bg-primary rounded-xl font-bold text-sm transition-all duration-300 shadow-lg font-sans">
+                                <FileText class="w-4 h-4" /> Descargar Reglamento (PDF)
                             </a>
                         </div>
                     </div>
@@ -513,6 +640,46 @@ const openAxisModal = (axis: any) => {
         <!-- Research Papers Section -->
         <ResearchPapers />
 
+        <!-- Photo Gallery Section -->
+        <section id="gallery" class="py-16 bg-slate-50 border-t border-gray-100 overflow-hidden">
+            <div class="container mx-auto px-4 text-center">
+                <div class="mb-12">
+                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Nuestro Registro Visual</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 uppercase tracking-tight">
+                        GALERÍA DE <span class="text-primary">FOTOS</span>
+                    </h2>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mt-6 mb-8"></div>
+                    <p class="text-lg lg:text-xl font-sans font-medium text-slate-500 italic">
+                        "Revive los mejores momentos de GUBER 2026"
+                    </p>
+                </div>
+
+                <!-- Grid of Photos -->
+                <div v-if="photos && photos.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+                    <div v-for="(photo, index) in photos" :key="photo.id" 
+                        class="group relative aspect-video overflow-hidden rounded-[2rem] shadow-md bg-white border-2 border-white hover:shadow-xl transition-all duration-500"
+                    >
+                        <img :src="photo.path" :alt="photo.title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-left">
+                            <h3 class="text-white font-heading font-bold text-lg uppercase tracking-tight">{{ photo.title }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Softer & Elegant Rectangular Button -->
+                <div class="flex justify-center">
+                    <Link href="/galeria" 
+                        class="group inline-flex items-center gap-5 bg-white border border-primary/20 text-slate-900 px-10 py-4 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:border-primary hover:bg-primary/[0.02] transition-all duration-500 shadow-sm hover:shadow-md"
+                    >
+                        <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                            <Images class="w-5 h-5" />
+                        </div>
+                        <span class="font-sans">Explorar Galería Completa</span>
+                    </Link>
+                </div>
+            </div>
+        </section>
+
         <!-- Map Section -->
         <section class="relative py-48 bg-gray-900 overflow-hidden flex items-center justify-center">
             <div class="absolute inset-0 z-0">
@@ -520,11 +687,85 @@ const openAxisModal = (axis: any) => {
             </div>
             <div class="absolute inset-0 bg-black/60 z-10 backdrop-blur-[2px]"></div>
             <div class="relative z-20 text-center container mx-auto px-4">
-                <h2 class="text-4xl font-heading font-bold text-white mb-8 drop-shadow-lg uppercase tracking-wider leading-none">¿CÓMO LLEGAR?</h2>
+                <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Ubicación del Evento</span>
+                <h2 class="text-4xl lg:text-6xl font-heading font-bold text-white mb-8 drop-shadow-lg uppercase tracking-tighter leading-none">¿CÓMO <span class="text-primary">LLEGAR?</span></h2>
                 <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-12"></div>
                 <a href="https://maps.google.com/?q=Universidad+Nacional+Amazonica+de+Madre+de+Dios" target="_blank" class="inline-flex items-center gap-4 bg-brand-yellow text-white px-10 py-5 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(188,128,32,0.4)] hover:scale-105 transition-all group font-sans">
                     <MapPin class="w-6 h-6 animate-bounce" /> UBÍCANOS EN GOOGLE MAPS
                 </a>
+            </div>
+        </section>
+
+        <!-- Tourist Information Section -->
+        <section id="tourism" class="py-16 bg-white border-t border-gray-100 relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <div class="mb-16">
+                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Sugerencias Guber</span>
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 uppercase tracking-tight">
+                        INFORMACIÓN <span class="text-primary">TURÍSTICA</span>
+                    </h2>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mt-8"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <!-- Tourist Destinations Card -->
+                    <a href="/media/pdfs/lugares-turisticos.pdf" target="_blank" 
+                        class="group flex items-center gap-6 bg-slate-50 p-5 rounded-2xl border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-xl hover:border-primary/20 flex-1"
+                    >
+                        <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100 group-hover:bg-primary group-hover:text-white transition-all duration-500 shrink-0">
+                            <Compass class="w-7 h-7" />
+                        </div>
+                        <div class="text-left flex-1">
+                            <h3 class="text-base font-heading font-bold text-slate-900 uppercase leading-none mb-1">Destinos Turísticos</h3>
+                            <p class="text-[10px] text-slate-500 font-sans leading-tight">Guía de atractivos regionales.</p>
+                        </div>
+                        <div class="px-4 py-2 bg-primary text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 group-hover:scale-110 transition-all duration-300">
+                            PDF
+                        </div>
+                    </a>
+
+                    <!-- Recommended Hotels Card -->
+                    <a href="/media/pdfs/hoteles_recomendados.pdf" target="_blank" 
+                        class="group flex items-center gap-6 bg-slate-50 p-5 rounded-2xl border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-xl hover:border-brand-yellow/20 flex-1"
+                    >
+                        <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-brand-yellow shadow-sm border border-slate-100 group-hover:bg-brand-yellow group-hover:text-white transition-all duration-500 shrink-0">
+                            <Hotel class="w-7 h-7" />
+                        </div>
+                        <div class="text-left flex-1">
+                            <h3 class="text-base font-heading font-bold text-slate-900 uppercase leading-none mb-1">Hoteles Sugeridos</h3>
+                            <p class="text-[10px] text-slate-500 font-sans leading-tight">Hospedajes recomendados.</p>
+                        </div>
+                        <div class="px-4 py-2 bg-brand-yellow text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-yellow/20 group-hover:scale-110 transition-all duration-300">
+                            PDF
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sponsors Section -->
+        <section id="sponsors" class="py-20 bg-slate-50 border-t border-gray-100 overflow-hidden">
+            <div class="container mx-auto px-4 text-center">
+                <div class="mb-16">
+                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 uppercase tracking-tight">
+                        NUESTROS <span class="text-primary">AUSPICIADORES</span>
+                    </h2>
+                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mt-8"></div>
+                </div>
+
+                <div class="embla overflow-hidden" ref="sponsorsRef">
+                    <div class="flex items-center">
+                        <div v-for="i in 14" :key="i" class="flex-[0_0_50%] sm:flex-[0_0_33%] md:flex-[0_0_25%] lg:flex-[0_0_20%] min-w-0 px-4">
+                            <div class="h-32 flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 transform hover:scale-110 cursor-pointer group/logo">
+                                <img 
+                                    :src="`/media/imgs/logos/${i}.${getLogoExt(i)}`" 
+                                    :alt="`Sponsor ${i}`" 
+                                    class="max-h-20 w-auto max-w-[180px] object-contain filter drop-shadow-sm brightness-110 group-hover/logo:brightness-100" 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

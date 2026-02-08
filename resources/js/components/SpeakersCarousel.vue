@@ -29,7 +29,8 @@ const speakers = Array.from({ length: 12 }, (_, i) => ({
     <section id="speakers" class="py-24 bg-slate-50 border-t border-gray-100 overflow-hidden text-center">
         <div class="container mx-auto px-4">
             <div class="mb-16">
-                <h2 class="text-4xl font-heading font-bold text-black uppercase">EXPOSITORES DESTACADOS</h2>
+                <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Plana Académica</span>
+                <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 mb-6 uppercase tracking-tight">EXPOSITORES <span class="text-primary">DESTACADOS</span></h2>
                 <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-8"></div>
                 <p class="text-lg font-sans text-gray-600 max-w-2xl mx-auto font-medium">Contamos con la presencia de reconocidos especialistas de trayectoria nacional e internacional.</p>
             </div>

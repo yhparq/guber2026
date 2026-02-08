@@ -2,7 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { dashboard, login, register } from '@/routes';
 import { ref } from 'vue';
-import { Menu, X, MessageCircle, FileText, Calendar, MapPin, Clock, Mail, Phone } from 'lucide-vue-next';
+import { Menu, X, MessageCircle, FileText, Calendar, MapPin, Clock, Mail, Phone, Users, Monitor } from 'lucide-vue-next';
 
 withDefaults(
     defineProps<{
@@ -33,12 +33,12 @@ const isMenuOpen = ref(false);
                 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="#home" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inicio</a>
-                    <a href="#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
-                    <a href="#investment" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inversión</a>
-                    <a href="#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Coreferencistas</a>
-                    <a href="#topics" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Temario</a>
-                    <a href="#info" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Información</a>
+                    <a href="/#home" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inicio</a>
+                    <a href="/#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
+                    <a href="/#investment" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inversión</a>
+                    <a href="/#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Coreferencistas</a>
+                    <a href="/#topics" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Temario</a>
+                    <a href="/#normativa" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Normativas</a>
                 </nav>
 
                 <!-- Action Button (Optional highlight) -->
@@ -70,12 +70,12 @@ const isMenuOpen = ref(false);
             >
                 <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl">
                     <nav class="flex flex-col p-6 gap-6">
-                        <a href="#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
-                        <a href="#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
-                        <a href="#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
-                        <a href="#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
-                        <a href="#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
-                        <a href="#info" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Información</a>
+                        <a href="/#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
+                        <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
+                        <a href="/#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
+                        <a href="/#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
+                        <a href="/#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
+                        <a href="/#info" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Información</a>
                         <Link v-if="canRegister" href="/inscripciones" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
                     </nav>
                 </div>
@@ -86,88 +86,104 @@ const isMenuOpen = ref(false);
             <slot />
         </main>
 
-        <footer class="border-t-4 border-primary bg-white pt-16 pb-8 text-black">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <footer class="bg-slate-950 text-white pt-24 pb-12 relative overflow-hidden">
+            <!-- Subtle Decorative Glows -->
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-64 h-64 bg-brand-yellow/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2"></div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
                     <!-- Column 1: Informacion General -->
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-black uppercase tracking-wider text-primary border-b-2 border-primary w-fit pb-1">INFORMACIÓN GENERAL</h3>
+                    <div class="md:col-span-4 space-y-10">
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
-                                    <Calendar class="w-5 h-5" />
+                            <span class="text-brand-yellow font-heading font-black text-xs tracking-[0.4em] uppercase block">Convención Nacional</span>
+                            <h3 class="text-3xl font-heading font-black uppercase tracking-tighter text-white">INFORMACIÓN <span class="text-primary">GENERAL</span></h3>
+                            <div class="w-20 h-1.5 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-5 group/footer-item">
+                                <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-primary group-hover/footer-item:bg-primary group-hover/footer-item:text-white transition-all duration-500 shadow-lg">
+                                    <Calendar class="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <p class="font-bold text-lg leading-tight">GUBER 2026</p>
-                                    <p class="text-gray-600">23, 24 y 25 de abril</p>
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Fecha del Evento</p>
+                                    <p class="text-sm font-bold text-slate-200 uppercase font-sans">23, 24 y 25 de Abril, 2026</p>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
-                                    <Users class="w-5 h-5" />
+                            <div class="flex items-center gap-5 group/footer-item">
+                                <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-yellow group-hover/footer-item:bg-brand-yellow group-hover/footer-item:text-slate-950 transition-all duration-500 shadow-lg relative">
+                                    <Users class="w-5 h-5 absolute -translate-x-1 -translate-y-1 opacity-100 group-hover/footer-item:opacity-0 transition-opacity" />
+                                    <Monitor class="w-5 h-5 absolute translate-x-1 translate-y-1 opacity-50 group-hover/footer-item:opacity-100 group-hover/footer-item:translate-x-0 group-hover/footer-item:translate-y-0 transition-all" />
                                 </div>
-                                <p class="text-gray-600 font-medium pt-2">Presencial y Virtual</p>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="p-2 bg-primary/10 rounded-lg text-primary mt-1">
-                                    <MapPin class="w-5 h-5" />
+                                <div>
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Modalidad</p>
+                                    <p class="text-sm font-bold text-slate-200 uppercase font-sans tracking-tight flex items-center gap-2">
+                                        Presencial <span class="w-1 h-1 bg-brand-yellow rounded-full"></span> Virtual
+                                    </p>
                                 </div>
-                                <a 
-                                    href="https://maps.google.com/?q=UNIVERSIDAD+NACIONAL+AMAZONICA+DE+MADRE+DE+DIOS" 
-                                    target="_blank" 
-                                    class="text-gray-600 hover:text-primary transition-colors text-sm font-medium leading-relaxed underline decoration-dotted"
-                                >
-                                    AUDITORIO de la UNIVERSIDAD NACIONAL AMAZÓNICA DE MADRE DE DIOS
-                                </a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Column 2: Contacto -->
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-black uppercase tracking-wider text-primary border-b-2 border-primary w-fit pb-1">CCP MADRE DE DIOS</h3>
+                    <div class="md:col-span-5 space-y-10">
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3">
-                                <MapPin class="w-5 h-5 text-primary mt-1 shrink-0" />
-                                <p class="text-sm text-gray-600">Jr. Libertad 850, Puerto Maldonado, Perú</p>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <Clock class="w-5 h-5 text-primary mt-1 shrink-0" />
-                                <div class="text-xs text-gray-600 space-y-1">
-                                    <p><span class="font-bold">Lunes a Viernes:</span> 09:00 a 13:00 hrs. y 15:00 a 18:00 hrs.</p>
-                                    <p><span class="font-bold">Sábados:</span> 09:00 a 13:00 hrs.</p>
+                            <span class="text-brand-yellow font-heading font-black text-xs tracking-[0.4em] uppercase block">Canales Oficiales</span>
+                            <h3 class="text-3xl font-heading font-black uppercase tracking-tighter text-white">CONTACTO <span class="text-primary">DIRECTO</span></h3>
+                            <div class="w-20 h-1.5 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <div class="space-y-6 text-sm">
+                                <div class="group/link">
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2">Ubicación Sede</p>
+                                    <a href="https://maps.google.com/?q=UNIVERSIDAD+NACIONAL+AMAZONICA+DE+MADRE+DE+DIOS" target="_blank" class="text-slate-300 font-medium hover:text-primary transition-colors leading-relaxed block underline decoration-primary/20 underline-offset-4">
+                                        Auditorio UNAMAD,<br> Puerto Maldonado, Perú
+                                    </a>
+                                </div>
+                                <div class="group/link">
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2">Escríbenos</p>
+                                    <a href="mailto:ccpmdd@gmail.com" class="font-bold text-white hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4 tracking-tight">ccpmdd@gmail.com</a>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <Mail class="w-5 h-5 text-primary shrink-0" />
-                                <a href="mailto:ccpmdd@gmail.com" class="text-sm text-gray-600 hover:text-primary transition-colors underline decoration-dotted">ccpmdd@gmail.com</a>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <Phone class="w-5 h-5 text-primary shrink-0" />
-                                <div class="text-sm text-gray-600 font-bold space-y-0.5">
-                                    <p>+51 997 161 347</p>
+                            <div class="space-y-6 border-l border-slate-800 pl-8">
+                                <div>
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2 font-sans">Central Telefónica</p>
+                                    <p class="text-xl font-heading font-black text-white tracking-tighter leading-none">+51 997 161 347</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2 font-sans">Horario de Atención</p>
+                                    <p class="text-[11px] text-slate-400 leading-tight uppercase font-sans tracking-wide">Lun - Vie: 09:00 - 18:00<br>Sáb: 09:00 - 13:00</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Column 3: Logo -->
-                    <div class="flex flex-col items-center md:items-end justify-start">
-                        <img src="/media/imgs/logo1.png" alt="Guber 2026 Logo" class="w-64 h-auto drop-shadow-xl" />
-                        <div class="mt-6 text-right hidden md:block">
-                            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black">Puerto Maldonado</p>
-                            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-black">Capital de la Biodiversidad</p>
+                    <div class="md:col-span-3 flex flex-col items-center md:items-end justify-center">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-primary/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="bg-white p-8 rounded-[2.5rem] shadow-2xl relative z-10 border-b-8 border-brand-yellow transition-transform duration-500 hover:-translate-y-2 hover:rotate-2">
+                                <img src="/media/imgs/logo1.png" alt="Guber 2026 Logo" class="w-32 h-auto" />
+                            </div>
+                        </div>
+                        <div class="mt-8 text-right hidden md:block">
+                            <p class="text-[10px] text-slate-600 font-black uppercase tracking-[0.5em] leading-none mb-2 font-sans">Madre de Dios</p>
+                            <p class="text-[10px] text-primary font-black uppercase tracking-[0.3em] font-sans italic">Capital de la Biodiversidad</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">
-                        &copy; 2026 Guber. Todos los derechos reservados.
-                    </p>
-                    <div class="flex gap-6">
-                        <!-- Redes Sociales placeholders -->
-                        <span class="text-[10px] font-black text-primary/40 uppercase tracking-widest">Excelencia en Gestión</span>
+                <div class="pt-10 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-px bg-slate-800"></div>
+                        <p class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase font-sans">
+                            &copy; 2026 Guber. Todos los derechos reservados.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-10 grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] font-sans">Excelencia en Gestión Pública</span>
                     </div>
                 </div>
             </div>

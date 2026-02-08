@@ -16,8 +16,15 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
+        'photos' => Photo::latest()->take(6)->get(),
     ]);
 })->name('home');
+
+Route::get('/galeria', function () {
+    return Inertia::render('Gallery', [
+        'photos' => Photo::latest()->get(),
+    ]);
+})->name('galeria');
 
 // DNI Search API
 Route::get('/api/dni/{dni}', [DniController::class, 'buscar'])->name('api.dni');
@@ -65,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('photos', [PhotoController::class, 'index'])->name('photos.index');
     Route::get('photos/create', [PhotoController::class, 'create'])->name('photos.create');
     Route::post('photos', [PhotoController::class, 'store'])->name('photos.store');
+    Route::delete('photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
 });
 
 require __DIR__.'/settings.php';

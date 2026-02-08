@@ -31,4 +31,10 @@ class PhotoController extends Controller
 
         return redirect()->route('photos.index');
     }
+
+    public function destroy(Photo $photo)
+    {
+        $photo->delete();
+        return redirect()->route('photos.index');
+    }
 }

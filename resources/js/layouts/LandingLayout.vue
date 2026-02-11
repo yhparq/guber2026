@@ -34,11 +34,11 @@ const isMenuOpen = ref(false);
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
                     <a href="/#home" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inicio</a>
-                    <a href="/#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
                     <a href="/#investment" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inversión</a>
-                    <a href="/#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Coreferencistas</a>
+                    <a href="/#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Conferencistas</a>
                     <a href="/#topics" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Temario</a>
-                    <a href="/#normativa" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Normativas</a>
+                    <a href="/#reglamentos" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Reglamentos</a>
+                    <a href="/#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
                 </nav>
 
                 <!-- Action Button (Optional highlight) -->
@@ -71,11 +71,11 @@ const isMenuOpen = ref(false);
                 <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl origin-top">
                     <nav class="flex flex-col p-6 gap-6">
                         <a href="/#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
-                        <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
                         <a href="/#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
-                        <a href="/#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Coreferencistas</a>
+                        <a href="/#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Conferencistas</a>
                         <a href="/#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
-                        <a href="/#normativa" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Normativas</a>
+                        <a href="/#reglamentos" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Reglamentos</a>
+                        <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
                         <Link v-if="canRegister" href="/inscripciones" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
                     </nav>
                 </div>

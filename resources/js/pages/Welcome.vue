@@ -276,14 +276,14 @@ const openAxisModal = (axis: any) => {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
                     <!-- Conoce Guber -->
                     <div class="group">
-                        <a href="/media/pdfs/invitacion.pdf" target="_blank" class="block relative overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/10 bg-white">
+                        <a href="/media/pdfs/conoce_guber.pdf" target="_blank" class="block relative overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2 aspect-[3/4] border border-black/10 bg-white">
                             <img src="/media/imgs/CONOCE-GUBER-2026.png" alt="Conoce Guber 2026" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                             <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-300"></div>
                         </a>
                         <div class="mt-8 text-center">
                             <h3 class="text-2xl font-heading font-bold text-black mb-2 uppercase">Conoce Guber 2026</h3>
                             <p class="text-gray-500 text-sm mb-6 px-4 font-sans">Detalles generales y alcances del evento.</p>
-                            <a href="/media/pdfs/invitacion.pdf" target="_blank" class="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white hover:bg-slate-900 rounded-xl font-bold text-sm transition-all duration-300 shadow-lg shadow-primary/30 font-sans">
+                            <a href="/media/pdfs/conoce_guber.pdf" target="_blank" class="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white hover:bg-slate-900 rounded-xl font-bold text-sm transition-all duration-300 shadow-lg shadow-primary/30 font-sans">
                                 <BookOpen class="w-4 h-4" /> Descargar Invitación
                             </a>
                         </div>
@@ -594,7 +594,7 @@ const openAxisModal = (axis: any) => {
         </section>
 
         <!-- Normativa Section -->
-        <section id="normativa" class="py-24 bg-slate-50 border-t border-gray-100">
+        <section id="reglamentos" class="py-24 bg-slate-50 border-t border-gray-100">
             <div class="container mx-auto px-4 text-center">
                 <div class="mb-16">
                     <span class="text-brand-yellow font-black tracking-[0.2em] text-xs uppercase block mb-4 font-sans">Marco Legal y Académico</span>

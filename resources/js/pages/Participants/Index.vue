@@ -3,7 +3,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, Eye, X, Users } from 'lucide-vue-next';
+import { Edit, Trash2, Eye, X, Users, CheckCircle } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 const props = defineProps<{
@@ -33,6 +33,17 @@ const props = defineProps<{
 const deleteParticipant = (id: number) => {
     if (confirm('¿Estás seguro de que deseas eliminar este participante?')) {
         router.delete(`/participants/${id}`);
+    }
+};
+
+const activateParticipant = (p: any) => {
+    if (confirm(`¿Deseas activar a ${p.nombres} y enviarle su correo de acceso?`)) {
+        router.put(`/participants/${p.id}`, {
+            ...p,
+            status: 1
+        }, {
+            preserveScroll: true
+        });
     }
 };
 
@@ -90,7 +101,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <td class="px-4 py-3 font-mono text-gray-500">{{ p.id }}</td>
                                 <td class="px-4 py-3">
                                     <span v-if="p.status === 1" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Activo</span>
-                                    <span v-else class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">Pendiente</span>
+                                    <button v-else @click="activateParticipant(p)" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 hover:bg-green-600 hover:text-white transition-all group">
+                                        <CheckCircle class="w-3 h-3 mr-1" /> Activar
+                                    </button>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="font-bold text-gray-900 dark:text-white">{{ p.dni }}</div>

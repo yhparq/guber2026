@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login, register, inscripciones } from '@/routes';
+import * as aulaVirtual from '@/routes/aula-virtual';
 import { ref } from 'vue';
 import { Menu, X, MessageCircle, FileText, Calendar, MapPin, Clock, Mail, Phone, Users, Monitor } from 'lucide-vue-next';
 
@@ -42,10 +43,16 @@ const isMenuOpen = ref(false);
                 </nav>
 
                 <!-- Action Button (Optional highlight) -->
-                <div class="hidden lg:block">
+                <div class="hidden lg:flex items-center gap-4">
+                    <Link 
+                        :href="aulaVirtual.index().url" 
+                        class="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all border border-white/10"
+                    >
+                        Aula Virtual
+                    </Link>
                     <Link 
                         v-if="canRegister"
-                        href="/inscripciones" 
+                        :href="inscripciones().url" 
                         class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-primary/20"
                     >
                         Inscribirme
@@ -76,7 +83,8 @@ const isMenuOpen = ref(false);
                         <a href="/#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
                         <a href="/#reglamentos" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Reglamentos</a>
                         <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
-                        <Link v-if="canRegister" href="/inscripciones" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
+                        <Link :href="aulaVirtual.index().url" class="bg-white/10 text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Aula Virtual</Link>
+                        <Link v-if="canRegister" :href="inscripciones().url" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
                     </nav>
                 </div>
             </transition>

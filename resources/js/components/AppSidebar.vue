@@ -40,6 +40,11 @@ const mainNavItems: NavItem[] = [
         href: '/photos',
         icon: ImageIcon,
     },
+    {
+        title: 'Ponencias',
+        href: '/ponencias',
+        icon: BookOpen,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

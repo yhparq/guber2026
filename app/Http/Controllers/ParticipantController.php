@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ParticipantActivated;
 
 class ParticipantController extends Controller
 {
@@ -49,12 +51,19 @@ class ParticipantController extends Controller
             'status' => 'required|integer',
         ]);
 
+        $oldStatus = $participant->status;
+
         if ($request->hasFile('foto_voucher')) {
             $path = $request->file('foto_voucher')->store('vouchers', 'public');
             $validated['foto_voucher'] = $path;
         }
 
         $participant->update($validated);
+
+        // Send email if activated
+        if ($oldStatus == 0 && $participant->status == 1) {
+            Mail::to($participant->email)->send(new ParticipantActivated($participant));
+        }
 
         return redirect()->route('participants.index')->with('success', 'Participante actualizado.');
     }

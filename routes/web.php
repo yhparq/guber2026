@@ -9,6 +9,9 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DniController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\AulaVirtualAuthController;
+use App\Http\Controllers\AulaVirtualController;
+use App\Http\Controllers\PonenciaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -42,6 +45,12 @@ Route::post('/inscripcion-individual', [ParticipantController::class, 'storePubl
 Route::get('/inscripcion-corporativa', [CorporateParticipantController::class, 'createPublic'])->name('public.corporate-participants.create');
 Route::post('/inscripcion-corporativa', [CorporateParticipantController::class, 'storePublic'])->name('public.corporate-participants.store');
 
+// Aula Virtual Routes
+Route::get('/aula-virtual/login', [AulaVirtualAuthController::class, 'showLogin'])->name('aula-virtual.login');
+Route::post('/aula-virtual/login', [AulaVirtualAuthController::class, 'login']);
+Route::post('/aula-virtual/logout', [AulaVirtualAuthController::class, 'logout'])->name('aula-virtual.logout');
+Route::get('/aula-virtual', [AulaVirtualController::class, 'index'])->name('aula-virtual.index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return redirect()->route('participants.index');
@@ -58,7 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Corporate Participants
     Route::get('corporate-participants', [CorporateParticipantController::class, 'index'])->name('corporate-participants.index');
     Route::get('corporate-participants/create', [CorporateParticipantController::class, 'create'])->name('corporate-participants.create');
-    Route::post('corporate-participants', [CorporateParticipantController::class, 'store'])->name('corporate-participants.store');
+    Route::post('corporate-participants', [CorporateParticipant::class, 'store'])->name('corporate-participants.store');
     Route::get('corporate-participants/{corporateParticipant}/edit', [CorporateParticipantController::class, 'edit'])->name('corporate-participants.edit');
     Route::put('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'update'])->name('corporate-participants.update');
     Route::delete('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'destroy'])->name('corporate-participants.destroy');
@@ -73,6 +82,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('photos/create', [PhotoController::class, 'create'])->name('photos.create');
     Route::post('photos', [PhotoController::class, 'store'])->name('photos.store');
     Route::delete('photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+
+    // Ponencias
+    Route::resource('ponencias', PonenciaController::class);
 });
 
 require __DIR__.'/settings.php';

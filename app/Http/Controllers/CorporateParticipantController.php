@@ -6,14 +6,21 @@ use App\Models\CorporateParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Exports\CorporateParticipantsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CorporateParticipantController extends Controller
 {
     public function index()
     {
         return Inertia::render('CorporateParticipants/Index', [
-            'participants' => CorporateParticipant::all(),
+            'participants' => CorporateParticipant::latest()->paginate(50),
         ]);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CorporateParticipantsExport, 'participantes_corporativos_' . date('Y-m-d') . '.xlsx');
     }
 
     public function create()

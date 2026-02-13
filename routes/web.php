@@ -19,13 +19,18 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
-        'photos' => Photo::latest()->take(6)->get(),
     ]);
 })->name('home');
 
 Route::get('/galeria', function () {
     return Inertia::render('Gallery', [
-        'photos' => Photo::latest()->get(),
+        'photos' => Photo::latest()->get()->map(function ($photo) {
+            return [
+                'id' => $photo->id,
+                'title' => $photo->title,
+                'path' => \Illuminate\Support\Facades\Storage::url($photo->path),
+            ];
+        }),
     ]);
 })->name('galeria');
 
@@ -57,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Participants
+    Route::get('participants/export', [ParticipantController::class, 'exportExcel'])->name('participants.export');
     Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
     Route::get('participants/create', [ParticipantController::class, 'create'])->name('participants.create');
     Route::post('participants', [ParticipantController::class, 'store'])->name('participants.store');
@@ -65,6 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('participants/{participant}', [ParticipantController::class, 'destroy'])->name('participants.destroy');
 
     // Corporate Participants
+    Route::get('corporate-participants/export', [CorporateParticipantController::class, 'exportExcel'])->name('corporate-participants.export');
     Route::get('corporate-participants', [CorporateParticipantController::class, 'index'])->name('corporate-participants.index');
     Route::get('corporate-participants/create', [CorporateParticipantController::class, 'create'])->name('corporate-participants.create');
     Route::post('corporate-participants', [CorporateParticipant::class, 'store'])->name('corporate-participants.store');
@@ -81,6 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('photos', [PhotoController::class, 'index'])->name('photos.index');
     Route::get('photos/create', [PhotoController::class, 'create'])->name('photos.create');
     Route::post('photos', [PhotoController::class, 'store'])->name('photos.store');
+    Route::get('photos/{photo}/edit', [PhotoController::class, 'edit'])->name('photos.edit');
+    Route::post('photos/{photo}', [PhotoController::class, 'update'])->name('photos.update'); // Using POST for update to support FormData with image
     Route::delete('photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
 
     // Ponencias

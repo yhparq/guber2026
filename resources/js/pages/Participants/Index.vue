@@ -3,31 +3,35 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, Eye, X, Users, CheckCircle } from 'lucide-vue-next';
+import { Edit, Trash2, Eye, X, Users, CheckCircle, FileDown } from 'lucide-vue-next';
 import { ref } from 'vue';
+import Pagination from '@/components/Pagination.vue';
 
 const props = defineProps<{
-    participants: Array<{
-        id: number;
-        dni: string;
-        ruc: string | null;
-        razon_social: string | null;
-        nombres: string;
-        apellidos: string;
-        email: string;
-        celular: string;
-        colegio_departamental: string;
-        departamento: string;
-        provincia: string;
-        distrito: string;
-        direccion_actual: string;
-        categoria_participante: string;
-        modalidad_participante: string;
-        codigo_pago: string;
-        tipo_comprobante: string;
-        foto_voucher: string | null;
-        status: number;
-    }>;
+    participants: {
+        data: Array<{
+            id: number;
+            dni: string;
+            ruc: string | null;
+            razon_social: string | null;
+            nombres: string;
+            apellidos: string;
+            email: string;
+            celular: string;
+            colegio_departamental: string;
+            departamento: string;
+            provincia: string;
+            distrito: string;
+            direccion_actual: string;
+            categoria_participante: string;
+            modalidad_participante: string;
+            codigo_pago: string;
+            tipo_comprobante: string;
+            foto_voucher: string | null;
+            status: number;
+        }>;
+        links: any[];
+    };
 }>();
 
 const deleteParticipant = (id: number) => {
@@ -75,9 +79,14 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="flex h-full flex-1 flex-col gap-4 p-4">
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-bold">Lista de Participantes</h1>
-                <Button as-child>
-                    <Link href="/participants/create">Nuevo Participante</Link>
-                </Button>
+                <div class="flex gap-2">
+                    <a href="/participants/export" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-md transition-colors shadow-sm">
+                        <FileDown class="w-4 h-4 mr-2" /> Exportar Excel
+                    </a>
+                    <Button as-child>
+                        <Link href="/participants/create">Nuevo Participante</Link>
+                    </Button>
+                </div>
             </div>
 
             <div class="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
@@ -97,7 +106,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-sidebar-border/70 dark:divide-sidebar-border">
-                            <tr v-for="p in participants" :key="p.id" class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                            <tr v-for="p in participants.data" :key="p.id" class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                 <td class="px-4 py-3 font-mono text-gray-500">{{ p.id }}</td>
                                 <td class="px-4 py-3">
                                     <span v-if="p.status === 1" class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Activo</span>
@@ -145,7 +154,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </div>
                                 </td>
                             </tr>
-                            <tr v-if="!participants || participants.length === 0">
+                            <tr v-if="!participants.data || participants.data.length === 0">
                                 <td colspan="9" class="px-4 py-12 text-center text-gray-500">
                                     <div class="flex flex-col items-center justify-center gap-2">
                                         <Users class="w-8 h-8 text-gray-300" />
@@ -156,6 +165,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </tbody>
                     </table>
                 </div>
+                <Pagination :links="participants.links" />
             </div>
         </div>
 

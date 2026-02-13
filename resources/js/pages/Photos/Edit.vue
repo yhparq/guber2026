@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,14 +7,19 @@ import { Label } from '@/components/ui/label';
 import InputError from '@/components/InputError.vue';
 import { type BreadcrumbItem } from '@/types';
 import { ref } from 'vue';
-import { Upload, X, Image as ImageIcon } from 'lucide-vue-next';
+import { Upload, X, Save } from 'lucide-vue-next';
+
+const props = defineProps<{
+    photo: { id: number, title: string, path: string };
+}>();
 
 const form = useForm({
-    title: '',
+    title: props.photo.title,
     image: null as File | null,
+    _method: 'POST' // We use POST for update with files
 });
 
-const imagePreview = ref<string | null>(null);
+const imagePreview = ref<string | null>(props.photo.path);
 
 const handleImageChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -30,15 +35,8 @@ const handleImageChange = (e: Event) => {
     }
 };
 
-const removeImage = () => {
-    form.image = null;
-    imagePreview.value = null;
-};
-
 const submit = () => {
-    form.post('/photos', {
-        forceFormData: true,
-    });
+    form.post(`/photos/${props.photo.id}`);
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -47,20 +45,20 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/photos',
     },
     {
-        title: 'Nueva Foto',
-        href: '/photos/create',
+        title: 'Editar Foto',
+        href: `/photos/${props.photo.id}/edit`,
     },
 ];
 </script>
 
 <template>
-    <Head title="Nueva Foto" />
+    <Head title="Editar Foto" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-6 max-w-2xl mx-auto">
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-slate-900">Subir Nueva Foto</h1>
-                <p class="text-slate-500 text-sm mt-1">Sube una imagen para la galería del evento.</p>
+                <h1 class="text-3xl font-bold text-slate-900">Editar Foto</h1>
+                <p class="text-slate-500 text-sm mt-1">Actualiza la descripción o la imagen de la galería.</p>
             </div>
             
             <form @submit.prevent="submit" class="space-y-8 bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
@@ -78,34 +76,24 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
 
                 <div class="space-y-2">
-                    <Label class="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Imagen</Label>
+                    <Label class="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Imagen (Dejar en blanco para mantener la actual)</Label>
                     
-                    <div v-if="!imagePreview" class="relative">
-                        <input
-                            id="image"
-                            type="file"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                            @change="handleImageChange"
-                            accept="image/*"
-                        />
-                        <div class="border-2 border-dashed border-slate-200 rounded-3xl p-12 flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
-                                <Upload class="w-8 h-8 text-primary" />
-                            </div>
-                            <p class="text-sm font-bold text-slate-900">Haz clic para subir o arrastra una imagen</p>
-                            <p class="text-xs text-slate-500 mt-1">PNG, JPG, WebP hasta 5MB</p>
-                        </div>
-                    </div>
-
-                    <div v-else class="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 p-2">
+                    <div class="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 p-2">
                         <img :src="imagePreview" class="w-full aspect-video object-cover rounded-2xl" />
-                        <button 
-                            @click="removeImage" 
-                            type="button"
-                            class="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-xl shadow-lg hover:bg-red-600 transition-colors"
-                        >
-                            <X class="w-5 h-5" />
-                        </button>
+                        
+                        <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+                            <input
+                                id="image"
+                                type="file"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                @change="handleImageChange"
+                                accept="image/*"
+                            />
+                            <div class="flex flex-col items-center text-white">
+                                <Upload class="w-8 h-8 mb-2" />
+                                <span class="text-xs font-bold uppercase tracking-widest">Cambiar Imagen</span>
+                            </div>
+                        </div>
                     </div>
                     
                     <InputError :message="form.errors.image" />
@@ -116,8 +104,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <Link href="/photos">Cancelar</Link>
                     </Button>
                     <Button type="submit" :disabled="form.processing" class="rounded-xl h-12 px-8 font-bold uppercase tracking-widest text-xs">
-                        <span v-if="form.processing">Subiendo...</span>
-                        <span v-else>Guardar Foto</span>
+                        <Save class="w-4 h-4 mr-2" />
+                        <span v-if="form.processing">Guardando...</span>
+                        <span v-else>Actualizar Foto</span>
                     </Button>
                 </div>
             </form>

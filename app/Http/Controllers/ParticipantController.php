@@ -7,14 +7,23 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ParticipantActivated;
+use App\Exports\ParticipantsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
     public function index()
     {
         return Inertia::render('Participants/Index', [
-            'participants' => Participant::where('categoria_participante', '!=', 'Corporativo')->get(),
+            'participants' => Participant::where('categoria_participante', '!=', 'Corporativo')
+                ->latest()
+                ->paginate(50),
         ]);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ParticipantsExport, 'participantes_individuales_' . date('Y-m-d') . '.xlsx');
     }
 
     public function create()

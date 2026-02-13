@@ -641,7 +641,7 @@ const openAxisModal = (axis: any) => {
         <ResearchPapers />
 
         <!-- Photo Gallery Section -->
-        <section id="gallery" class="py-16 bg-slate-50 border-t border-gray-100 overflow-hidden">
+        <section id="gallery" class="py-24 bg-slate-50 border-t border-gray-100 overflow-hidden">
             <div class="container mx-auto px-4 text-center">
                 <div class="mb-12">
                     <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Nuestro Registro Visual</span>
@@ -649,30 +649,18 @@ const openAxisModal = (axis: any) => {
                         GALERÍA DE <span class="text-primary">FOTOS</span>
                     </h2>
                     <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mt-6 mb-8"></div>
-                    <p class="text-lg lg:text-xl font-sans font-medium text-slate-500 italic">
-                        "Revive los mejores momentos de GUBER 2026"
+                    <p class="text-lg lg:text-xl font-sans font-medium text-slate-500 italic max-w-2xl mx-auto">
+                        "Explora los momentos más memorables de la XI Convención Nacional de Contabilidad Gubernamental y Gestión Pública"
                     </p>
                 </div>
 
-                <!-- Grid of Photos -->
-                <div v-if="photos && photos.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
-                    <div v-for="(photo, index) in photos" :key="photo.id" 
-                        class="group relative aspect-video overflow-hidden rounded-[2rem] shadow-md bg-white border-2 border-white hover:shadow-xl transition-all duration-500"
-                    >
-                        <img :src="photo.path" :alt="photo.title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-left">
-                            <h3 class="text-white font-heading font-bold text-lg uppercase tracking-tight">{{ photo.title }}</h3>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Softer & Elegant Rectangular Button -->
-                <div class="flex justify-center">
+                <div class="flex justify-center mt-8">
                     <Link href="/galeria" 
-                        class="group inline-flex items-center gap-5 bg-white border border-primary/20 text-slate-900 px-10 py-4 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:border-primary hover:bg-primary/[0.02] transition-all duration-500 shadow-sm hover:shadow-md"
+                        class="group inline-flex items-center gap-5 bg-white border border-primary/20 text-slate-900 px-12 py-5 rounded-[2rem] font-bold text-xs uppercase tracking-[0.2em] hover:border-primary hover:bg-primary/[0.02] transition-all duration-500 shadow-sm hover:shadow-2xl"
                     >
-                        <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                            <Images class="w-5 h-5" />
+                        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                            <Images class="w-6 h-6" />
                         </div>
                         <span class="font-sans">Explorar Galería Completa</span>
                     </Link>

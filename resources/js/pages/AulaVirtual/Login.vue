@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { Mail, CreditCard, LogIn, AlertCircle } from 'lucide-vue-next';
+import { Mail, Lock, LogIn, AlertCircle, Info } from 'lucide-vue-next';
 import * as aulaVirtual from '@/routes/aula-virtual';
 
 const form = useForm({
@@ -20,8 +20,14 @@ const submit = () => {
     <Head title="Aula Virtual - Login" />
 
     <LandingLayout :can-register="false">
-        <div class="min-h-[80vh] flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-100">
+        <div class="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+            <!-- Background Image with Blur -->
+            <div 
+                class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat scale-105"
+                style="background-image: url('/media/imgs/img2.webp'); filter: blur(8px) brightness(0.7);"
+            ></div>
+
+            <div class="relative z-10 max-w-md w-full space-y-8 bg-white/95 backdrop-blur-md p-10 rounded-[2.5rem] shadow-2xl border border-white/20">
                 <div class="text-center">
                     <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/10 text-primary mb-6 shadow-inner">
                         <LogIn class="w-10 h-10" />
@@ -53,14 +59,14 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <label for="dni" class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">DNI / Documento</label>
+                            <label for="dni" class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">Contraseña</label>
                             <div class="relative group">
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
-                                    <CreditCard class="h-5 w-5" />
+                                    <Lock class="h-5 w-5" />
                                 </div>
-                                <input id="dni" v-model="form.dni" type="text" required 
+                                <input id="dni" v-model="form.dni" type="password" required 
                                     class="block w-full pl-12 pr-4 py-4 border-2 border-slate-100 rounded-2xl focus:ring-0 focus:border-primary transition-all font-sans text-sm font-medium placeholder:text-slate-300" 
-                                    placeholder="Ingresa tu DNI"
+                                    placeholder="Ingresa tu contraseña"
                                 />
                             </div>
                             <p v-if="form.errors.dni" class="mt-2 text-xs text-red-600 font-bold flex items-center gap-1">
@@ -76,6 +82,13 @@ const submit = () => {
                             <span v-if="form.processing">Ingresando...</span>
                             <span v-else>Entrar al Aula</span>
                         </button>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex items-start gap-3">
+                        <Info class="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                        <p class="text-xs text-blue-700 font-medium leading-relaxed">
+                            Sus credenciales le llegaron a su correo electrónico registrado.
+                        </p>
                     </div>
                 </form>
 

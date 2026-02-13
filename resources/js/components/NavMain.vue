@@ -19,18 +19,19 @@ const { urlIsActive } = useActiveUrl();
 </script>
 
 <template>
-    <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
+    <SidebarGroup class="px-2 py-4">
+        <SidebarGroupLabel class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-2 px-4">Administración</SidebarGroupLabel>
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title">
                 <SidebarMenuButton
                     as-child
                     :is-active="urlIsActive(item.href)"
                     :tooltip="item.title"
+                    class="hover:bg-white/5 hover:text-white text-slate-400 py-6 px-4 transition-all rounded-xl data-[active=true]:bg-primary data-[active=true]:text-white data-[active=true]:shadow-lg data-[active=true]:shadow-primary/20"
                 >
-                    <Link :href="item.href">
-                        <component :is="item.icon" />
-                        <span>{{ item.title }}</span>
+                    <Link :href="item.href" class="flex items-center gap-3">
+                        <component :is="item.icon" class="size-5" />
+                        <span class="text-xs font-bold uppercase tracking-widest">{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>
             </SidebarMenuItem>

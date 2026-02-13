@@ -31,11 +31,6 @@ const mainNavItems: NavItem[] = [
         icon: Building2,
     },
     {
-        title: 'Cursos',
-        href: '/courses',
-        icon: GraduationCap,
-    },
-    {
         title: 'Fotos',
         href: '/photos',
         icon: ImageIcon,
@@ -47,26 +42,15 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
-];
+const footerNavItems: NavItem[] = [];
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
-        <SidebarHeader>
+    <Sidebar collapsible="icon" variant="inset" class="bg-slate-950 text-slate-200 border-r border-white/5">
+        <SidebarHeader class="bg-slate-950 border-b border-white/5 py-4">
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
+                    <SidebarMenuButton size="lg" as-child class="hover:bg-white/5 text-white transition-all">
                         <Link :href="dashboard()">
                             <AppLogo />
                         </Link>
@@ -75,13 +59,13 @@ const footerNavItems: NavItem[] = [
             </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent>
+        <SidebarContent class="bg-slate-950">
             <NavMain :items="mainNavItems" />
         </SidebarContent>
 
-        <SidebarFooter>
+        <SidebarFooter class="bg-slate-950 border-t border-white/5">
             <NavFooter :items="footerNavItems" />
-            <NavUser />
+            <NavUser class="hover:bg-white/5" />
         </SidebarFooter>
     </Sidebar>
     <slot />

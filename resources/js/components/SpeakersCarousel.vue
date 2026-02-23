@@ -17,8 +17,14 @@ const [emblaRef] = emblaCarouselVue(
     [Autoplay({ delay: 4000, stopOnInteraction: false })]
 );
 
-// Lista real de expositores
+// Lista real y completa de expositores según el documento
 const speakers = [
+    {
+        name: "Mg. Abg. Cesar Enrique Aguilar Surichaqui",
+        role: "Contralor General de la República",
+        label: "Nacional",
+        image: null // Foto pendiente
+    },
     {
         name: "CPA. Agustina Llambi",
         role: "Directora del IPSASB - Canadá",
@@ -26,32 +32,38 @@ const speakers = [
         image: "/media/ponentes/AGUSTINA LLAMBI.png"
     },
     {
-        name: "Mg. Judith Tania Apaza",
-        role: "Miembro IPSASB / IFAC - Bolivia",
+        name: "Mg. Judith Tania Apaza Marca",
+        role: "Miembro IPSASB/ IFAC - Bolivia",
         label: "Internacional",
         image: "/media/ponentes/JUDITH APAZA.png"
     },
     {
-        name: "Dr. CPC. Marlon Prieto",
-        role: "Especialista Normativo MEF",
+        name: "Dr. CPC. Marlon Ivan Prieto Hormaza",
+        role: "Especialista Normativo de la Dirección General de Contabilidad Publica - MEF",
         label: "Nacional",
         image: "/media/ponentes/MARLON PRIETO.png"
     },
     {
-        name: "Abog. Laura Lisset Gutiérrez",
-        role: "Past Presidenta Ejecutiva OSCE",
+        name: "Abog. Laura Lisset Gutiérrez Gonzales",
+        role: "Past presidenta ejecutiva del OSCE",
         label: "Nacional",
         image: "/media/ponentes/LAURA GUTIERREZ.png"
     },
     {
-        name: "CPC. Juan Francisco Aranibar",
-        role: "Presidente Comité Técnico JDCCPP",
+        name: "CPC. Juan Francisco Aranibar Romero",
+        role: "Presidente del Comité Técnico de Contabilidad Gubernamental JDCCPP",
         label: "Nacional",
         image: "/media/ponentes/JUAN ARANIBAR.png"
     },
     {
+        name: "Dr. Alexei Estrella Morales",
+        role: "Secretario Técnico del Comité Sector Público AIC - Ecuador",
+        label: "Internacional",
+        image: null // Foto pendiente
+    },
+    {
         name: "Mg. Jesús Ruitón Cabanillas",
-        role: "Especialista Proyectos de Inversión",
+        role: "Especialista en Proyectos de Inversión Pública",
         label: "Nacional",
         image: "/media/ponentes/JESUS RUITON.png"
     }
@@ -88,12 +100,12 @@ const speakers = [
 
                             <!-- Speaker Info -->
                             <div class="flex flex-col flex-1 w-full text-center">
-                                <div class="min-h-[60px] flex items-center justify-center mb-2">
-                                    <h3 class="text-xl lg:text-2xl font-heading font-bold text-slate-900 uppercase leading-tight">{{ speaker.name }}</h3>
+                                <div class="min-h-[80px] flex items-center justify-center mb-2">
+                                    <h3 class="text-lg lg:text-xl font-heading font-bold text-slate-900 uppercase leading-tight">{{ speaker.name }}</h3>
                                 </div>
                                 
-                                <div class="min-h-[50px] flex items-center justify-center mb-8">
-                                    <p class="text-primary font-bold text-[10px] lg:text-xs uppercase tracking-[0.25em]">{{ speaker.role }}</p>
+                                <div class="min-h-[70px] flex items-center justify-center mb-8">
+                                    <p class="text-primary font-bold text-[10px] lg:text-[11px] uppercase tracking-[0.2em] leading-relaxed">{{ speaker.role }}</p>
                                 </div>
                                 
                                 <div class="mt-auto pt-6 border-t border-slate-50 w-full">
@@ -113,6 +125,15 @@ const speakers = [
         </div>
     </section>
 </template>
+
+<style scoped>
+.embla {
+    cursor: grab;
+}
+.embla:active {
+    cursor: grabbing;
+}
+</style>
 
 <style scoped>
 .embla {

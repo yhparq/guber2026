@@ -17,12 +17,45 @@ const [emblaRef] = emblaCarouselVue(
     [Autoplay({ delay: 4000, stopOnInteraction: false })]
 );
 
-// Lista genérica de 12 espacios para expositores
-const speakers = Array.from({ length: 12 }, (_, i) => ({
-    name: "EXPOSITOR GUBER 2026",
-    role: "ESPECIALISTA INVITADO",
-    label: "Por confirmar"
-}));
+// Lista real de expositores
+const speakers = [
+    {
+        name: "CPA. Agustina Llambi",
+        role: "Directora del IPSASB - Canadá",
+        label: "Internacional",
+        image: "/media/ponentes/AGUSTINA LLAMBI.png"
+    },
+    {
+        name: "Mg. Judith Tania Apaza",
+        role: "Miembro IPSASB / IFAC - Bolivia",
+        label: "Internacional",
+        image: "/media/ponentes/JUDITH APAZA.png"
+    },
+    {
+        name: "Dr. CPC. Marlon Prieto",
+        role: "Especialista Normativo MEF",
+        label: "Nacional",
+        image: "/media/ponentes/MARLON PRIETO.png"
+    },
+    {
+        name: "Abog. Laura Lisset Gutiérrez",
+        role: "Past Presidenta Ejecutiva OSCE",
+        label: "Nacional",
+        image: "/media/ponentes/LAURA GUTIERREZ.png"
+    },
+    {
+        name: "CPC. Juan Francisco Aranibar",
+        role: "Presidente Comité Técnico JDCCPP",
+        label: "Nacional",
+        image: "/media/ponentes/JUAN ARANIBAR.png"
+    },
+    {
+        name: "Mg. Jesús Ruitón Cabanillas",
+        role: "Especialista Proyectos de Inversión",
+        label: "Nacional",
+        image: "/media/ponentes/JESUS RUITON.png"
+    }
+];
 </script>
 
 <template>
@@ -39,28 +72,34 @@ const speakers = Array.from({ length: 12 }, (_, i) => ({
             <div class="embla overflow-hidden" ref="emblaRef">
                 <div class="flex -ml-6 py-10">
                     <!-- Slides -->
-                    <div v-for="(speaker, index) in speakers" :key="index" class="flex-[0_0_85%] sm:flex-[0_0_50%] md:flex-[0_0_33%] lg:flex-[0_0_25%] min-w-0 pl-6">
-                        <div class="group bg-white rounded-[3rem] p-10 shadow-sm border border-slate-100 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 flex flex-col items-center relative min-h-[450px]">
+                    <div v-for="(speaker, index) in speakers" :key="index" class="flex-[0_0_85%] sm:flex-[0_0_50%] md:flex-[0_0_33%] lg:flex-[0_0_25%] min-w-0 pl-6 flex items-stretch">
+                        <div class="group bg-white rounded-[3rem] p-10 shadow-sm border border-slate-100 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 flex flex-col items-center relative w-full h-full">
                             
                             <!-- Avatar Container -->
-                            <div class="relative mb-12 transform group-hover:scale-105 transition-transform duration-500">
-                                <div class="w-48 h-48 rounded-[3.5rem] bg-slate-50 flex items-center justify-center border-8 border-white shadow-xl group-hover:border-primary/5 transition-all duration-500 overflow-hidden">
-                                    <User class="w-24 h-24 text-slate-200 group-hover:text-primary/40 transition-colors duration-500" />
+                            <div class="relative mb-10 transform group-hover:scale-105 transition-transform duration-500 shrink-0">
+                                <div class="w-40 h-40 lg:w-48 lg:h-48 rounded-[3.5rem] bg-slate-50 flex items-center justify-center border-8 border-white shadow-xl group-hover:border-primary/5 transition-all duration-500 overflow-hidden">
+                                    <img v-if="speaker.image" :src="speaker.image" :alt="speaker.name" class="w-full h-full object-cover" />
+                                    <User v-else class="w-20 h-20 text-slate-200 group-hover:text-primary/40 transition-colors duration-500" />
                                 </div>
                                 <div class="absolute -bottom-2 -right-2 bg-brand-yellow text-white p-3 rounded-2xl shadow-lg transform group-hover:rotate-12 transition-all duration-500">
-                                    <Award class="w-6 h-6" />
+                                    <Award class="w-5 h-5" />
                                 </div>
                             </div>
 
-                            <!-- Speaker Info (Generic) -->
-                            <div class="mt-auto w-full">
-                                <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2 uppercase leading-tight">{{ speaker.name }}</h3>
-                                <p class="text-primary font-bold text-xs uppercase tracking-[0.25em] mb-6">{{ speaker.role }}</p>
+                            <!-- Speaker Info -->
+                            <div class="flex flex-col flex-1 w-full text-center">
+                                <div class="min-h-[60px] flex items-center justify-center mb-2">
+                                    <h3 class="text-xl lg:text-2xl font-heading font-bold text-slate-900 uppercase leading-tight">{{ speaker.name }}</h3>
+                                </div>
                                 
-                                <div class="pt-6 border-t border-slate-50 w-full">
+                                <div class="min-h-[50px] flex items-center justify-center mb-8">
+                                    <p class="text-primary font-bold text-[10px] lg:text-xs uppercase tracking-[0.25em]">{{ speaker.role }}</p>
+                                </div>
+                                
+                                <div class="mt-auto pt-6 border-t border-slate-50 w-full">
                                     <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-50 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:bg-primary/5 group-hover:text-primary transition-colors duration-500">
                                         <MapPin class="w-3 h-3" />
-                                        NACIONAL / INTERNACIONAL
+                                        {{ speaker.label }}
                                     </span>
                                 </div>
                             </div>

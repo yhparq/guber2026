@@ -640,6 +640,89 @@ const openAxisModal = (axis: any) => {
         <!-- Research Papers Section -->
         <ResearchPapers />
 
+        <!-- Tourist Information Section -->
+        <section id="tourism" class="py-16 bg-white border-t border-gray-100 relative overflow-hidden group">
+            <!-- Background Image Watermark -->
+            <div class="absolute inset-0 z-0 opacity-15 transition-transform duration-1000 group-hover:scale-105 pointer-events-none">
+                <img src="/media/imgs/img5.png" alt="Madre de Dios Nature" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
+            </div>
+            
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <div class="mb-12">
+                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-3 font-sans">Sugerencias Guber 2026</span>
+                    <h2 class="text-4xl lg:text-5xl font-heading font-bold text-slate-900 mb-4 uppercase tracking-tight">
+                        INFORMACIÓN <span class="text-primary">TURÍSTICA</span>
+                    </h2>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mb-6"></div>
+                    <p class="text-base text-gray-500 max-w-2xl mx-auto font-medium font-sans leading-relaxed">
+                        Explora la biodiversidad y la hospitalidad de la Capital de la Biodiversidad del Perú. Hemos preparado estas guías para facilitar tu estadía.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto text-center">
+                    <!-- Tourist Destinations Card -->
+                    <div class="group/card relative bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-xl hover:shadow-2xl border border-slate-100 transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden">
+                        <!-- Decorative Shape -->
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 rounded-full group-hover/card:scale-150 transition-transform duration-700"></div>
+                        
+                        <div class="relative z-10 mb-6">
+                            <!-- Image Container -->
+                            <div class="w-full h-60 rounded-3xl overflow-hidden mb-8 border border-slate-100 shadow-inner group-hover/card:shadow-lg transition-all duration-500">
+                                <img src="/media/imgs/img2.webp" alt="Destinos Turísticos" class="w-full h-full object-cover object-center transition-transform duration-1000 group-hover/card:scale-110" />
+                            </div>
+                            
+                            <h3 class="text-2xl font-heading font-bold text-slate-900 mb-3 uppercase leading-none">Destinos Turísticos</h3>
+                            <div class="w-10 h-1 bg-brand-yellow rounded-full mb-4 mx-auto"></div>
+                            <p class="text-slate-500 font-sans text-sm leading-relaxed">
+                                Descubre los atractivos naturales más impresionantes de la región, desde la Reserva Nacional Tambopata hasta el Lago Sandoval.
+                            </p>
+                        </div>
+
+                        <div class="mt-auto relative z-10 flex justify-center">
+                            <a href="/media/pdfs/lugares-turisticos.pdf" target="_blank" 
+                                class="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white hover:bg-primary rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all duration-300 shadow-lg group/btn"
+                            >
+                                <FileDown class="w-4 h-4 transition-transform group-hover/btn:-translate-y-1" /> 
+                                Ver Guía de Destinos
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Hotels Card -->
+                    <div class="group/card relative bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-xl hover:shadow-2xl border border-slate-100 transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden">
+                        <!-- Decorative Shape -->
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-yellow/5 rounded-full group-hover/card:scale-150 transition-transform duration-700"></div>
+
+                        <div class="relative z-10 mb-6">
+                            <!-- Image Container - Fine-tuned position to show plaza -->
+                            <div class="w-full h-60 rounded-3xl overflow-hidden mb-8 border border-slate-100 shadow-inner group-hover/card:shadow-lg transition-all duration-500">
+                                <img src="/media/imgs/img7.jpeg" alt="Hoteles Sugeridos" class="w-full h-full object-cover object-[center_95%] transition-transform duration-1000 group-hover/card:scale-110" />
+                            </div>
+
+                            <h3 class="text-2xl font-heading font-bold text-slate-900 mb-3 uppercase leading-none">Hoteles Sugeridos</h3>
+                            <div class="w-10 h-1 bg-primary rounded-full mb-4 mx-auto"></div>
+                            <p class="text-slate-500 font-sans text-sm leading-relaxed">
+                                Consulta nuestra lista de establecimientos recomendados con tarifas especiales para los participantes de la GUBER 2026.
+                            </p>
+                        </div>
+
+                        <div class="mt-auto relative z-10 flex justify-center">
+                            <a href="/media/pdfs/hoteles.pdf" target="_blank" 
+                                class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white hover:bg-slate-900 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all duration-300 shadow-lg group/btn"
+                            >
+                                <FileDown class="w-4 h-4 transition-transform group-hover/btn:-translate-y-1" /> 
+                                Ver Lista de Hoteles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Photo Gallery Section -->
         <section id="gallery" class="py-24 bg-slate-50 border-t border-gray-100 overflow-hidden">
             <div class="container mx-auto px-4 text-center">
@@ -683,54 +766,6 @@ const openAxisModal = (axis: any) => {
                 </a>
             </div>
         </section>
-
-        <!-- Tourist Information Section -->
-        <section id="tourism" class="py-16 bg-white border-t border-gray-100 relative overflow-hidden">
-            <div class="container mx-auto px-4 relative z-10 text-center">
-                <div class="mb-16">
-                    <span class="text-brand-yellow font-black tracking-[0.3em] text-xs uppercase block mb-4 font-sans">Sugerencias Guber</span>
-                    <h2 class="text-4xl lg:text-6xl font-heading font-bold text-slate-900 uppercase tracking-tight">
-                        INFORMACIÓN <span class="text-primary">TURÍSTICA</span>
-                    </h2>
-                    <div class="w-32 h-1.5 bg-gradient-to-r from-primary to-brand-yellow rounded-full mx-auto mt-8"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                    <!-- Tourist Destinations Card -->
-                    <a href="/media/pdfs/lugares-turisticos.pdf" target="_blank" 
-                        class="group flex items-center gap-6 bg-slate-50 p-5 rounded-2xl border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-xl hover:border-primary/20 flex-1"
-                    >
-                        <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100 group-hover:bg-primary group-hover:text-white transition-all duration-500 shrink-0">
-                            <Compass class="w-7 h-7" />
-                        </div>
-                        <div class="text-left flex-1">
-                            <h3 class="text-base font-heading font-bold text-slate-900 uppercase leading-none mb-1">Destinos Turísticos</h3>
-                            <p class="text-[10px] text-slate-500 font-sans leading-tight">Guía de atractivos regionales.</p>
-                        </div>
-                        <div class="px-4 py-2 bg-primary text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 group-hover:scale-110 transition-all duration-300">
-                            PDF
-                        </div>
-                    </a>
-
-                    <!-- Recommended Hotels Card -->
-                    <a href="/media/pdfs/hoteles_recomendados.pdf" target="_blank" 
-                        class="group flex items-center gap-6 bg-slate-50 p-5 rounded-2xl border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-xl hover:border-brand-yellow/20 flex-1"
-                    >
-                        <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-brand-yellow shadow-sm border border-slate-100 group-hover:bg-brand-yellow group-hover:text-white transition-all duration-500 shrink-0">
-                            <Hotel class="w-7 h-7" />
-                        </div>
-                        <div class="text-left flex-1">
-                            <h3 class="text-base font-heading font-bold text-slate-900 uppercase leading-none mb-1">Hoteles Sugeridos</h3>
-                            <p class="text-[10px] text-slate-500 font-sans leading-tight">Hospedajes recomendados.</p>
-                        </div>
-                        <div class="px-4 py-2 bg-brand-yellow text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-brand-yellow/20 group-hover:scale-110 transition-all duration-300">
-                            PDF
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Sponsors Section -->
         <section id="sponsors" class="py-20 bg-slate-50 border-t border-gray-100 overflow-hidden">
             <div class="container mx-auto px-4 text-center">
@@ -744,11 +779,11 @@ const openAxisModal = (axis: any) => {
                 <div class="embla overflow-hidden" ref="sponsorsRef">
                     <div class="flex items-center">
                         <div v-for="i in 14" :key="i" class="flex-[0_0_50%] sm:flex-[0_0_33%] md:flex-[0_0_25%] lg:flex-[0_0_20%] min-w-0 px-4">
-                            <div class="h-32 flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 transform hover:scale-110 cursor-pointer group/logo">
+                            <div class="h-32 flex items-center justify-center transition-all duration-500 transform hover:scale-110 cursor-pointer group/logo">
                                 <img 
                                     :src="`/media/imgs/logos/${i}.${getLogoExt(i)}`" 
                                     :alt="`Sponsor ${i}`" 
-                                    class="max-h-20 w-auto max-w-[180px] object-contain filter drop-shadow-sm brightness-110 group-hover/logo:brightness-100" 
+                                    class="max-h-20 w-auto max-w-[180px] object-contain filter drop-shadow-sm" 
                                 />
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const targetDate = new Date('2026-04-23T09:00:00').getTime();
 
@@ -20,7 +20,9 @@ const updateCountdown = () => {
     }
 
     days.value = Math.floor(distance / (1000 * 60 * 60 * 24));
-    hours.value = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    hours.value = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
     minutes.value = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     seconds.value = Math.floor((distance % (1000 * 60)) / 1000);
 };
@@ -35,59 +37,125 @@ onUnmounted(() => {
 });
 
 const units = [
-    { label: 'Días', value: days, color: 'text-primary', bg: 'bg-primary/5', border: 'border-primary/20' },
-    { label: 'Horas', value: hours, color: 'text-brand-yellow', bg: 'bg-brand-yellow/5', border: 'border-brand-yellow/20' },
-    { label: 'Minutos', value: minutes, color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-100' }
+    {
+        label: 'Días',
+        value: days,
+        color: 'text-primary',
+        bg: 'bg-primary/5',
+        border: 'border-primary/20',
+    },
+    {
+        label: 'Horas',
+        value: hours,
+        color: 'text-brand-yellow',
+        bg: 'bg-brand-yellow/5',
+        border: 'border-brand-yellow/20',
+    },
+    {
+        label: 'Minutos',
+        value: minutes,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        border: 'border-blue-100',
+    },
 ];
 </script>
 
 <template>
-    <section class="w-full bg-white py-10 border-b border-gray-100 relative overflow-hidden">
-        <div class="container mx-auto px-4 relative z-10">
+    <section
+        class="relative w-full overflow-hidden border-b border-gray-100 bg-white py-10"
+    >
+        <div class="relative z-10 container mx-auto px-4">
             <!-- Grid Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-8 lg:gap-16 w-full">
-                
+            <div
+                class="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-16"
+            >
                 <!-- Left: Faltan -->
-                <div class="text-center lg:text-right order-1">
-                    <span class="text-primary font-heading font-black uppercase tracking-[0.4em] text-3xl lg:text-5xl">Faltan</span>
+                <div class="order-1 text-center lg:text-right">
+                    <span
+                        class="font-heading text-3xl font-black tracking-[0.4em] text-primary uppercase lg:text-5xl"
+                        >Faltan</span
+                    >
                 </div>
 
                 <!-- Center: Clock (Multicolor) -->
-                <div class="flex items-center justify-center gap-3 md:gap-5 order-2">
-                    
-                    <div v-for="unit in units" :key="unit.label" class="flex flex-col items-center">
-                        <div :class="['w-20 h-22 md:w-28 md:h-28 rounded-[2rem] border flex flex-col items-center justify-center shadow-sm transition-all duration-500', unit.bg, unit.border]">
-                            <span :class="['text-3xl md:text-5xl font-heading font-black leading-none', unit.color]">
-                                {{ unit.value.value.toString().padStart(2, '0') }}
+                <div
+                    class="order-2 flex items-center justify-center gap-3 md:gap-5"
+                >
+                    <div
+                        v-for="unit in units"
+                        :key="unit.label"
+                        class="flex flex-col items-center"
+                    >
+                        <div
+                            :class="[
+                                'flex h-22 w-20 flex-col items-center justify-center rounded-[2rem] border shadow-sm transition-all duration-500 md:h-28 md:w-28',
+                                unit.bg,
+                                unit.border,
+                            ]"
+                        >
+                            <span
+                                :class="[
+                                    'font-heading text-3xl leading-none font-black md:text-5xl',
+                                    unit.color,
+                                ]"
+                            >
+                                {{
+                                    unit.value.value.toString().padStart(2, '0')
+                                }}
                             </span>
-                            <span :class="['text-[8px] md:text-[9px] font-sans font-black uppercase tracking-[0.1em] mt-2 opacity-70', unit.color]">{{ unit.label }}</span>
+                            <span
+                                :class="[
+                                    'mt-2 font-sans text-[8px] font-black tracking-[0.1em] uppercase opacity-70 md:text-[9px]',
+                                    unit.color,
+                                ]"
+                                >{{ unit.label }}</span
+                            >
                         </div>
                     </div>
 
-                    <div class="text-xl md:text-2xl font-black text-slate-200 animate-pulse">:</div>
+                    <div
+                        class="animate-pulse text-xl font-black text-slate-200 md:text-2xl"
+                    >
+                        :
+                    </div>
 
                     <!-- Seconds (Dark Blue/Slate Style) -->
                     <div class="flex flex-col items-center">
-                        <div class="w-20 h-22 md:w-28 md:h-28 bg-slate-900 rounded-[2rem] shadow-lg shadow-slate-900/20 flex flex-col items-center justify-center transition-all duration-500 relative overflow-hidden group">
-                            <div class="relative z-10 flex flex-col items-center">
-                                <span class="text-3xl md:text-5xl font-heading font-black text-white leading-none">
+                        <div
+                            class="group relative flex h-22 w-20 flex-col items-center justify-center overflow-hidden rounded-[2rem] bg-slate-900 shadow-lg shadow-slate-900/20 transition-all duration-500 md:h-28 md:w-28"
+                        >
+                            <div
+                                class="relative z-10 flex flex-col items-center"
+                            >
+                                <span
+                                    class="font-heading text-3xl leading-none font-black text-white md:text-5xl"
+                                >
                                     {{ seconds.toString().padStart(2, '0') }}
                                 </span>
-                                <span class="text-[8px] md:text-[9px] font-sans font-black text-white/60 uppercase tracking-[0.1em] mt-2">Segundos</span>
+                                <span
+                                    class="mt-2 font-sans text-[8px] font-black tracking-[0.1em] text-white/60 uppercase md:text-[9px]"
+                                    >Segundos</span
+                                >
                             </div>
-                            <div class="absolute inset-0 bg-blue-600/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                            <div
+                                class="absolute inset-0 translate-y-full bg-blue-600/20 transition-transform duration-500 group-hover:translate-y-0"
+                            ></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Frase -->
-                <div class="text-center lg:text-left order-3">
-                    <h2 class="text-xl lg:text-3xl font-heading font-black text-slate-900 uppercase tracking-[0.1em] leading-[0.9]">
-                        PARA ESTE <br> 
-                        <span class="text-brand-yellow text-2xl lg:text-4xl">MAGNO EVENTO</span>
+                <div class="order-3 text-center lg:text-left">
+                    <h2
+                        class="font-heading text-xl leading-[0.9] font-black tracking-[0.1em] text-slate-900 uppercase lg:text-3xl"
+                    >
+                        PARA ESTE <br />
+                        <span class="text-2xl text-brand-yellow lg:text-4xl"
+                            >MAGNO EVENTO</span
+                        >
                     </h2>
                 </div>
-
             </div>
         </div>
     </section>

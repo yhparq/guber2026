@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
+
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 
 const form = useForm({
@@ -45,11 +46,15 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Nuevo Participante" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-4 max-w-4xl mx-auto">
-            <h1 class="text-2xl font-bold mb-6">Registrar Nuevo Participante</h1>
-            
-            <form @submit.prevent="submit" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-gray-800 p-6 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                
+        <div class="mx-auto max-w-4xl p-4">
+            <h1 class="mb-6 text-2xl font-bold">
+                Registrar Nuevo Participante
+            </h1>
+
+            <form
+                @submit.prevent="submit"
+                class="grid grid-cols-1 gap-6 rounded-xl border border-sidebar-border/70 bg-white p-6 md:grid-cols-2 dark:border-sidebar-border dark:bg-gray-800"
+            >
                 <div class="space-y-2">
                     <Label for="dni">DNI</Label>
                     <Input id="dni" v-model="form.dni" required />
@@ -70,7 +75,12 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="space-y-2">
                     <Label for="email">Email</Label>
-                    <Input id="email" type="email" v-model="form.email" required />
+                    <Input
+                        id="email"
+                        type="email"
+                        v-model="form.email"
+                        required
+                    />
                     <InputError :message="form.errors.email" />
                 </div>
 
@@ -81,8 +91,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
 
                 <div class="space-y-2">
-                    <Label for="colegio_departamental">Colegio Departamental</Label>
-                    <Input id="colegio_departamental" v-model="form.colegio_departamental" />
+                    <Label for="colegio_departamental"
+                        >Colegio Departamental</Label
+                    >
+                    <Input
+                        id="colegio_departamental"
+                        v-model="form.colegio_departamental"
+                    />
                 </div>
 
                 <div class="space-y-2">
@@ -102,14 +117,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="space-y-2 md:col-span-2">
                     <Label for="direccion_actual">Dirección Actual</Label>
-                    <Input id="direccion_actual" v-model="form.direccion_actual" />
+                    <Input
+                        id="direccion_actual"
+                        v-model="form.direccion_actual"
+                    />
                 </div>
 
                 <div class="space-y-2">
                     <Label for="categoria_participante">Categoría</Label>
                     <!-- Simple select using native HTML for now, could use a UI Select component if available -->
-                    <select id="categoria_participante" v-model="form.categoria_participante" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-sidebar-border dark:text-white">
-                        <option value="" disabled>Seleccione una categoría</option>
+                    <select
+                        id="categoria_participante"
+                        v-model="form.categoria_participante"
+                        class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-sidebar-border dark:text-white"
+                    >
+                        <option value="" disabled>
+                            Seleccione una categoría
+                        </option>
                         <option value="ESTUDIANTES">ESTUDIANTES</option>
                         <option value="PLENOS">PLENOS</option>
                         <option value="OBSERVADORES">OBSERVADORES</option>
@@ -119,7 +143,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="space-y-2">
                     <Label for="modalidad_participante">Modalidad</Label>
-                    <select id="modalidad_participante" v-model="form.modalidad_participante" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-sidebar-border dark:text-white">
+                    <select
+                        id="modalidad_participante"
+                        v-model="form.modalidad_participante"
+                        class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-sidebar-border dark:text-white"
+                    >
                         <option value="" disabled>Seleccione modalidad</option>
                         <option value="Presencial">Presencial</option>
                         <option value="Virtual">Virtual</option>
@@ -133,16 +161,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="space-y-2">
                     <Label for="tipo_comprobante">Tipo de Comprobante</Label>
-                    <Input id="tipo_comprobante" v-model="form.tipo_comprobante" />
+                    <Input
+                        id="tipo_comprobante"
+                        v-model="form.tipo_comprobante"
+                    />
                 </div>
-                
+
                 <!-- Voucher can be text for now as per controller logic -->
                 <div class="space-y-2">
                     <Label for="foto_voucher">Foto Voucher (URL/Path)</Label>
-                    <Input id="foto_voucher" v-model="form.foto_voucher" placeholder="Ruta del archivo" />
+                    <Input
+                        id="foto_voucher"
+                        v-model="form.foto_voucher"
+                        placeholder="Ruta del archivo"
+                    />
                 </div>
 
-                <div class="md:col-span-2 flex justify-end">
+                <div class="flex justify-end md:col-span-2">
                     <Button type="submit" :disabled="form.processing">
                         Guardar Participante
                     </Button>

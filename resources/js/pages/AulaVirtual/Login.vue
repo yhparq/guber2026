@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
+import { AlertCircle, Info, Lock, LogIn, Mail } from 'lucide-vue-next';
+
 import LandingLayout from '@/layouts/LandingLayout.vue';
-import { Mail, Lock, LogIn, AlertCircle, Info } from 'lucide-vue-next';
+
 import * as aulaVirtual from '@/routes/aula-virtual';
 
 const form = useForm({
@@ -20,22 +22,35 @@ const submit = () => {
     <Head title="Aula Virtual - Login" />
 
     <LandingLayout :can-register="false">
-        <div class="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div
+            class="relative flex min-h-[85vh] items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8"
+        >
             <!-- Background Image with Blur -->
-            <div 
-                class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat scale-105"
-                style="background-image: url('/media/imgs/img2.webp'); filter: blur(8px) brightness(0.7);"
+            <div
+                class="absolute inset-0 z-0 scale-105 bg-cover bg-center bg-no-repeat"
+                style="
+                    background-image: url('/media/imgs/img2.webp');
+                    filter: blur(8px) brightness(0.7);
+                "
             ></div>
 
-            <div class="relative z-10 max-w-md w-full space-y-8 bg-white/95 backdrop-blur-md p-10 rounded-[2.5rem] shadow-2xl border border-white/20">
+            <div
+                class="relative z-10 w-full max-w-md space-y-8 rounded-[2.5rem] border border-white/20 bg-white/95 p-10 shadow-2xl backdrop-blur-md"
+            >
                 <div class="text-center">
-                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/10 text-primary mb-6 shadow-inner">
-                        <LogIn class="w-10 h-10" />
+                    <div
+                        class="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/10 text-primary shadow-inner"
+                    >
+                        <LogIn class="h-10 w-10" />
                     </div>
-                    <h2 class="text-4xl font-heading font-bold text-slate-900 uppercase tracking-tighter mb-2">
+                    <h2
+                        class="mb-2 font-heading text-4xl font-bold tracking-tighter text-slate-900 uppercase"
+                    >
                         Aula <span class="text-primary">Virtual</span>
                     </h2>
-                    <p class="text-sm font-sans font-medium text-slate-500 uppercase tracking-widest">
+                    <p
+                        class="font-sans text-sm font-medium tracking-widest text-slate-500 uppercase"
+                    >
                         Ingresa con tus datos de registro
                     </p>
                 </div>
@@ -43,60 +58,101 @@ const submit = () => {
                 <form class="mt-8 space-y-6" @submit.prevent="submit">
                     <div class="space-y-4">
                         <div>
-                            <label for="email" class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">Correo Electrónico</label>
-                            <div class="relative group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+                            <label
+                                for="email"
+                                class="mb-2 ml-1 block text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                                >Correo Electrónico</label
+                            >
+                            <div class="group relative">
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 transition-colors group-focus-within:text-primary"
+                                >
                                     <Mail class="h-5 w-5" />
                                 </div>
-                                <input id="email" v-model="form.email" type="email" required 
-                                    class="block w-full pl-12 pr-4 py-4 border-2 border-slate-100 rounded-2xl focus:ring-0 focus:border-primary transition-all font-sans text-sm font-medium placeholder:text-slate-300" 
+                                <input
+                                    id="email"
+                                    v-model="form.email"
+                                    type="email"
+                                    required
+                                    class="block w-full rounded-2xl border-2 border-slate-100 py-4 pr-4 pl-12 font-sans text-sm font-medium transition-all placeholder:text-slate-300 focus:border-primary focus:ring-0"
                                     placeholder="ejemplo@correo.com"
                                 />
                             </div>
-                            <p v-if="form.errors.email" class="mt-2 text-xs text-red-600 font-bold flex items-center gap-1">
-                                <AlertCircle class="w-3 h-3" /> {{ form.errors.email }}
+                            <p
+                                v-if="form.errors.email"
+                                class="mt-2 flex items-center gap-1 text-xs font-bold text-red-600"
+                            >
+                                <AlertCircle class="h-3 w-3" />
+                                {{ form.errors.email }}
                             </p>
                         </div>
 
                         <div>
-                            <label for="dni" class="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 ml-1">Contraseña</label>
-                            <div class="relative group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+                            <label
+                                for="dni"
+                                class="mb-2 ml-1 block text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                                >Contraseña</label
+                            >
+                            <div class="group relative">
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 transition-colors group-focus-within:text-primary"
+                                >
                                     <Lock class="h-5 w-5" />
                                 </div>
-                                <input id="dni" v-model="form.dni" type="password" required 
-                                    class="block w-full pl-12 pr-4 py-4 border-2 border-slate-100 rounded-2xl focus:ring-0 focus:border-primary transition-all font-sans text-sm font-medium placeholder:text-slate-300" 
+                                <input
+                                    id="dni"
+                                    v-model="form.dni"
+                                    type="password"
+                                    required
+                                    class="block w-full rounded-2xl border-2 border-slate-100 py-4 pr-4 pl-12 font-sans text-sm font-medium transition-all placeholder:text-slate-300 focus:border-primary focus:ring-0"
                                     placeholder="Ingresa tu contraseña"
                                 />
                             </div>
-                            <p v-if="form.errors.dni" class="mt-2 text-xs text-red-600 font-bold flex items-center gap-1">
-                                <AlertCircle class="w-3 h-3" /> {{ form.errors.dni }}
+                            <p
+                                v-if="form.errors.dni"
+                                class="mt-2 flex items-center gap-1 text-xs font-bold text-red-600"
+                            >
+                                <AlertCircle class="h-3 w-3" />
+                                {{ form.errors.dni }}
                             </p>
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" :disabled="form.processing"
-                            class="group relative w-full flex justify-center py-4 px-4 border border-transparent rounded-2xl text-sm font-black uppercase tracking-[0.2em] text-white bg-primary hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-lg shadow-primary/20 disabled:opacity-50"
+                        <button
+                            type="submit"
+                            :disabled="form.processing"
+                            class="group relative flex w-full justify-center rounded-2xl border border-transparent bg-primary px-4 py-4 text-sm font-black tracking-[0.2em] text-white uppercase shadow-lg shadow-primary/20 transition-all hover:bg-slate-900 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none disabled:opacity-50"
                         >
                             <span v-if="form.processing">Ingresando...</span>
                             <span v-else>Entrar al Aula</span>
                         </button>
                     </div>
 
-                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex items-start gap-3">
-                        <Info class="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-                        <p class="text-xs text-blue-700 font-medium leading-relaxed">
-                            Sus credenciales le llegaron a su correo electrónico registrado.
+                    <div
+                        class="flex items-start gap-3 rounded-2xl border border-blue-100 bg-blue-50 p-4"
+                    >
+                        <Info class="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
+                        <p
+                            class="text-xs leading-relaxed font-medium text-blue-700"
+                        >
+                            Sus credenciales le llegaron a su correo electrónico
+                            registrado.
                         </p>
                     </div>
                 </form>
 
-                <div class="mt-10 pt-8 border-t border-slate-50 text-center">
-                    <p class="text-[10px] font-sans font-bold text-slate-400 uppercase tracking-widest">
+                <div class="mt-10 border-t border-slate-50 pt-8 text-center">
+                    <p
+                        class="font-sans text-[10px] font-bold tracking-widest text-slate-400 uppercase"
+                    >
                         ¿Tienes problemas para ingresar?
                     </p>
-                    <a href="https://wa.me/51997161347" target="_blank" class="mt-2 inline-flex items-center gap-2 text-primary font-black uppercase text-[10px] tracking-widest hover:text-slate-900 transition-colors">
+                    <a
+                        href="https://wa.me/51997161347"
+                        target="_blank"
+                        class="mt-2 inline-flex items-center gap-2 text-[10px] font-black tracking-widest text-primary uppercase transition-colors hover:text-slate-900"
+                    >
                         Soporte Técnico Guber
                     </a>
                 </div>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { dashboard, login, register, inscripciones } from '@/routes';
-import * as aulaVirtual from '@/routes/aula-virtual';
+import { Calendar, FileText, Menu, Monitor, Users, X } from 'lucide-vue-next';
 import { ref } from 'vue';
-import { Menu, X, MessageCircle, FileText, Calendar, MapPin, Clock, Mail, Phone, Users, Monitor } from 'lucide-vue-next';
+
+import { inscripciones } from '@/routes';
+import * as aulaVirtual from '@/routes/aula-virtual';
 
 withDefaults(
     defineProps<{
@@ -18,49 +19,96 @@ const isMenuOpen = ref(false);
 </script>
 
 <template>
-    <div class="min-h-screen bg-white text-black flex flex-col font-sans relative">
+    <div
+        class="relative flex min-h-screen flex-col bg-white font-sans text-black"
+    >
         <!-- Navbar with Motto Section Background Color -->
-        <header class="sticky top-0 z-50 w-full shadow-2xl border-b-2 border-brand-yellow/30 bg-slate-900 backdrop-blur-md">
-            <div class="container mx-auto px-4 h-20 flex items-center justify-between">
-                <div class="flex items-center gap-3 font-bold text-xl text-white group cursor-pointer">
-                    <div class="bg-white p-1.5 rounded-lg transition-transform group-hover:rotate-12 duration-300">
-                        <img src="/media/imgs/logo1.png" alt="Guber Logo" class="h-10 w-auto" />
+        <header
+            class="sticky top-0 z-50 w-full border-b-2 border-brand-yellow/30 bg-slate-900 shadow-2xl backdrop-blur-md"
+        >
+            <div
+                class="container mx-auto flex h-20 items-center justify-between px-4"
+            >
+                <div
+                    class="group flex cursor-pointer items-center gap-3 text-xl font-bold text-white"
+                >
+                    <div
+                        class="rounded-lg bg-white p-1.5 transition-transform duration-300 group-hover:rotate-12"
+                    >
+                        <img
+                            src="/media/imgs/logo1.png"
+                            alt="Guber Logo"
+                            class="h-10 w-auto"
+                        />
                     </div>
                     <div class="flex flex-col leading-none">
-                        <span class="font-heading font-black tracking-tighter text-2xl">GUBER</span>
-                        <span class="text-[10px] text-brand-yellow font-black tracking-[0.3em] uppercase">2026</span>
+                        <span
+                            class="font-heading text-2xl font-black tracking-tighter"
+                            >GUBER</span
+                        >
+                        <span
+                            class="text-[10px] font-black tracking-[0.3em] text-brand-yellow uppercase"
+                            >2026</span
+                        >
                     </div>
                 </div>
-                
+
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-8">
-                    <a href="/#home" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inicio</a>
-                    <a href="/#investment" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Inversión</a>
-                    <a href="/#speakers" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Conferencistas</a>
-                    <a href="/#topics" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Temario</a>
-                    <a href="/#reglamentos" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Reglamentos</a>
-                    <a href="/#material" class="text-xs font-black text-white/80 hover:text-brand-yellow uppercase tracking-widest transition-all">Material</a>
+                <nav class="hidden items-center gap-8 md:flex">
+                    <a
+                        href="/#home"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Inicio</a
+                    >
+                    <a
+                        href="/#investment"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Inversión</a
+                    >
+                    <a
+                        href="/#speakers"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Conferencistas</a
+                    >
+                    <a
+                        href="/#topics"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Temario</a
+                    >
+                    <a
+                        href="/#reglamentos"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Reglamentos</a
+                    >
+                    <a
+                        href="/#material"
+                        class="text-xs font-black tracking-widest text-white/80 uppercase transition-all hover:text-brand-yellow"
+                        >Material</a
+                    >
                 </nav>
 
                 <!-- Action Button (Optional highlight) -->
-                <div class="hidden lg:flex items-center gap-4">
-                    <Link 
-                        :href="aulaVirtual.index().url" 
-                        class="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all border border-white/10"
+                <div class="hidden items-center gap-4 lg:flex">
+                    <Link
+                        :href="aulaVirtual.index().url"
+                        class="rounded-xl border border-white/10 bg-white/10 px-6 py-2.5 text-xs font-bold tracking-widest text-white uppercase transition-all hover:bg-white/20"
                     >
                         Aula Virtual
                     </Link>
-                    <Link 
+                    <Link
                         v-if="canRegister"
-                        :href="inscripciones().url" 
-                        class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-primary/20"
+                        :href="inscripciones().url"
+                        class="rounded-xl bg-primary px-6 py-2.5 text-xs font-bold tracking-widest text-white uppercase shadow-lg shadow-primary/20 transition-all hover:bg-primary/90"
                     >
                         Inscribirme
                     </Link>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button class="md:hidden p-2 text-white hover:text-brand-yellow transition-colors" @click="isMenuOpen = !isMenuOpen">
+                <button
+                    class="p-2 text-white transition-colors hover:text-brand-yellow md:hidden"
+                    @click="isMenuOpen = !isMenuOpen"
+                >
                     <Menu v-if="!isMenuOpen" class="h-6 w-6" />
                     <X v-else class="h-6 w-6" />
                 </button>
@@ -75,16 +123,58 @@ const isMenuOpen = ref(false);
                 leave-from-class="transform translate-y-0 scale-100 opacity-100"
                 leave-to-class="transform -translate-y-4 scale-95 opacity-0"
             >
-                <div v-if="isMenuOpen" class="md:hidden border-t border-white/10 bg-slate-900 shadow-2xl origin-top">
-                    <nav class="flex flex-col p-6 gap-6">
-                        <a href="/#home" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inicio</a>
-                        <a href="/#investment" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Inversión</a>
-                        <a href="/#speakers" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Conferencistas</a>
-                        <a href="/#topics" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Temario</a>
-                        <a href="/#reglamentos" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Reglamentos</a>
-                        <a href="/#material" class="text-sm font-black text-white hover:text-brand-yellow uppercase tracking-widest transition-colors" @click="isMenuOpen = false">Material</a>
-                        <Link :href="aulaVirtual.index().url" class="bg-white/10 text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Aula Virtual</Link>
-                        <Link v-if="canRegister" :href="inscripciones().url" class="bg-primary text-white text-center py-4 rounded-xl font-bold uppercase tracking-widest">Inscribirme ahora</Link>
+                <div
+                    v-if="isMenuOpen"
+                    class="origin-top border-t border-white/10 bg-slate-900 shadow-2xl md:hidden"
+                >
+                    <nav class="flex flex-col gap-6 p-6">
+                        <a
+                            href="/#home"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Inicio</a
+                        >
+                        <a
+                            href="/#investment"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Inversión</a
+                        >
+                        <a
+                            href="/#speakers"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Conferencistas</a
+                        >
+                        <a
+                            href="/#topics"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Temario</a
+                        >
+                        <a
+                            href="/#reglamentos"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Reglamentos</a
+                        >
+                        <a
+                            href="/#material"
+                            class="text-sm font-black tracking-widest text-white uppercase transition-colors hover:text-brand-yellow"
+                            @click="isMenuOpen = false"
+                            >Material</a
+                        >
+                        <Link
+                            :href="aulaVirtual.index().url"
+                            class="rounded-xl bg-white/10 py-4 text-center font-bold tracking-widest text-white uppercase"
+                            >Aula Virtual</Link
+                        >
+                        <Link
+                            v-if="canRegister"
+                            :href="inscripciones().url"
+                            class="rounded-xl bg-primary py-4 text-center font-bold tracking-widest text-white uppercase"
+                            >Inscribirme ahora</Link
+                        >
                     </nav>
                 </div>
             </transition>
@@ -94,40 +184,86 @@ const isMenuOpen = ref(false);
             <slot />
         </main>
 
-        <footer class="bg-slate-950 text-white pt-24 pb-12 relative overflow-hidden">
+        <footer
+            class="relative overflow-hidden bg-slate-950 pt-24 pb-12 text-white"
+        >
             <!-- Subtle Decorative Glows -->
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -translate-y-1/2"></div>
-            <div class="absolute bottom-0 right-0 w-64 h-64 bg-brand-yellow/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2"></div>
+            <div
+                class="absolute top-0 left-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-primary/5 blur-[120px]"
+            ></div>
+            <div
+                class="absolute right-0 bottom-0 h-64 w-64 translate-x-1/2 translate-y-1/2 rounded-full bg-brand-yellow/5 blur-[100px]"
+            ></div>
 
-            <div class="container mx-auto px-4 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-20">
+            <div class="relative z-10 container mx-auto px-4">
+                <div class="mb-20 grid grid-cols-1 gap-16 md:grid-cols-12">
                     <!-- Column 1: Informacion General -->
-                    <div class="md:col-span-4 space-y-10">
+                    <div class="space-y-10 md:col-span-4">
                         <div class="space-y-4">
-                            <span class="text-brand-yellow font-heading font-black text-xs tracking-[0.4em] uppercase block">Convención Nacional</span>
-                            <h3 class="text-3xl font-heading font-black uppercase tracking-tighter text-white">INFORMACIÓN <span class="text-primary">GENERAL</span></h3>
-                            <div class="w-20 h-1.5 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                            <span
+                                class="block font-heading text-xs font-black tracking-[0.4em] text-brand-yellow uppercase"
+                                >Convención Nacional</span
+                            >
+                            <h3
+                                class="font-heading text-3xl font-black tracking-tighter text-white uppercase"
+                            >
+                                INFORMACIÓN
+                                <span class="text-primary">GENERAL</span>
+                            </h3>
+                            <div
+                                class="h-1.5 w-20 rounded-full bg-gradient-to-r from-primary to-transparent"
+                            ></div>
                         </div>
-                        
+
                         <div class="space-y-6">
-                            <div class="flex items-center gap-5 group/footer-item">
-                                <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-primary group-hover/footer-item:bg-primary group-hover/footer-item:text-white transition-all duration-500 shadow-lg">
-                                    <Calendar class="w-6 h-6" />
+                            <div
+                                class="group/footer-item flex items-center gap-5"
+                            >
+                                <div
+                                    class="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 text-primary shadow-lg transition-all duration-500 group-hover/footer-item:bg-primary group-hover/footer-item:text-white"
+                                >
+                                    <Calendar class="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Fecha del Evento</p>
-                                    <p class="text-sm font-bold text-slate-200 uppercase font-sans">23, 24 y 25 de Abril, 2026</p>
+                                    <p
+                                        class="mb-1 text-[10px] leading-none font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Fecha del Evento
+                                    </p>
+                                    <p
+                                        class="font-sans text-sm font-bold text-slate-200 uppercase"
+                                    >
+                                        23, 24 y 25 de Abril, 2026
+                                    </p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-5 group/footer-item">
-                                <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-yellow group-hover/footer-item:bg-brand-yellow group-hover/footer-item:text-slate-950 transition-all duration-500 shadow-lg relative">
-                                    <Users class="w-5 h-5 absolute -translate-x-1 -translate-y-1 opacity-100 group-hover/footer-item:opacity-0 transition-opacity" />
-                                    <Monitor class="w-5 h-5 absolute translate-x-1 translate-y-1 opacity-50 group-hover/footer-item:opacity-100 group-hover/footer-item:translate-x-0 group-hover/footer-item:translate-y-0 transition-all" />
+                            <div
+                                class="group/footer-item flex items-center gap-5"
+                            >
+                                <div
+                                    class="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 text-brand-yellow shadow-lg transition-all duration-500 group-hover/footer-item:bg-brand-yellow group-hover/footer-item:text-slate-950"
+                                >
+                                    <Users
+                                        class="absolute h-5 w-5 -translate-x-1 -translate-y-1 opacity-100 transition-opacity group-hover/footer-item:opacity-0"
+                                    />
+                                    <Monitor
+                                        class="absolute h-5 w-5 translate-x-1 translate-y-1 opacity-50 transition-all group-hover/footer-item:translate-x-0 group-hover/footer-item:translate-y-0 group-hover/footer-item:opacity-100"
+                                    />
                                 </div>
                                 <div>
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Modalidad</p>
-                                    <p class="text-sm font-bold text-slate-200 uppercase font-sans tracking-tight flex items-center gap-2">
-                                        Presencial <span class="w-1 h-1 bg-brand-yellow rounded-full"></span> Virtual
+                                    <p
+                                        class="mb-1 text-[10px] leading-none font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Modalidad
+                                    </p>
+                                    <p
+                                        class="flex items-center gap-2 font-sans text-sm font-bold tracking-tight text-slate-200 uppercase"
+                                    >
+                                        Presencial
+                                        <span
+                                            class="h-1 w-1 rounded-full bg-brand-yellow"
+                                        ></span>
+                                        Virtual
                                     </p>
                                 </div>
                             </div>
@@ -135,94 +271,175 @@ const isMenuOpen = ref(false);
                     </div>
 
                     <!-- Column 2: Contacto -->
-                    <div class="md:col-span-5 space-y-10">
+                    <div class="space-y-10 md:col-span-5">
                         <div class="space-y-4">
-                            <span class="text-brand-yellow font-heading font-black text-xs tracking-[0.4em] uppercase block">Canales Oficiales</span>
-                            <h3 class="text-3xl font-heading font-black uppercase tracking-tighter text-white">CONTACTO <span class="text-primary">DIRECTO</span></h3>
-                            <div class="w-20 h-1.5 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                            <span
+                                class="block font-heading text-xs font-black tracking-[0.4em] text-brand-yellow uppercase"
+                                >Canales Oficiales</span
+                            >
+                            <h3
+                                class="font-heading text-3xl font-black tracking-tighter text-white uppercase"
+                            >
+                                CONTACTO
+                                <span class="text-primary">DIRECTO</span>
+                            </h3>
+                            <div
+                                class="h-1.5 w-20 rounded-full bg-gradient-to-r from-primary to-transparent"
+                            ></div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
                             <div class="space-y-6 text-sm">
                                 <div class="group/link">
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2">Ubicación Sede</p>
-                                    <a href="https://maps.google.com/?q=UNIVERSIDAD+NACIONAL+AMAZONICA+DE+MADRE+DE+DIOS" target="_blank" class="text-slate-300 font-medium hover:text-primary transition-colors leading-relaxed block underline decoration-primary/20 underline-offset-4">
-                                        Auditorio UNAMAD,<br> Puerto Maldonado, Perú
+                                    <p
+                                        class="mb-2 text-[10px] font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Ubicación Sede
+                                    </p>
+                                    <a
+                                        href="https://maps.google.com/?q=UNIVERSIDAD+NACIONAL+AMAZONICA+DE+MADRE+DE+DIOS"
+                                        target="_blank"
+                                        class="block leading-relaxed font-medium text-slate-300 underline decoration-primary/20 underline-offset-4 transition-colors hover:text-primary"
+                                    >
+                                        Auditorio UNAMAD,<br />
+                                        Puerto Maldonado, Perú
                                     </a>
                                 </div>
                                 <div class="group/link">
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2">Escríbenos</p>
-                                    <a href="mailto:ccpmdd@gmail.com" class="font-bold text-white hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4 tracking-tight">ccpmdd@gmail.com</a>
+                                    <p
+                                        class="mb-2 text-[10px] font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Escríbenos
+                                    </p>
+                                    <a
+                                        href="mailto:ccpmdd@gmail.com"
+                                        class="font-bold tracking-tight text-white underline decoration-primary/30 underline-offset-4 transition-colors hover:text-primary"
+                                        >ccpmdd@gmail.com</a
+                                    >
                                 </div>
                             </div>
-                            <div class="space-y-6 border-l border-slate-800 pl-8">
+                            <div
+                                class="space-y-6 border-l border-slate-800 pl-8"
+                            >
                                 <div>
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2 font-sans">Central Telefónica</p>
-                                    <p class="text-xl font-heading font-black text-white tracking-tighter leading-none">+51 997 161 347</p>
+                                    <p
+                                        class="mb-2 font-sans text-[10px] font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Central Telefónica
+                                    </p>
+                                    <p
+                                        class="font-heading text-xl leading-none font-black tracking-tighter text-white"
+                                    >
+                                        +51 997 161 347
+                                    </p>
                                 </div>
                                 <div>
-                                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-2 font-sans">Horario de Atención</p>
-                                    <p class="text-[11px] text-slate-400 leading-tight uppercase font-sans tracking-wide">Lun - Vie: 09:00 - 18:00<br>Sáb: 09:00 - 13:00</p>
+                                    <p
+                                        class="mb-2 font-sans text-[10px] font-black tracking-widest text-slate-500 uppercase"
+                                    >
+                                        Horario de Atención
+                                    </p>
+                                    <p
+                                        class="font-sans text-[11px] leading-tight tracking-wide text-slate-400 uppercase"
+                                    >
+                                        Lun - Vie: 09:00 - 18:00<br />Sáb: 09:00
+                                        - 13:00
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Column 3: Logo -->
-                    <div class="md:col-span-3 flex flex-col items-center md:items-end justify-center">
-                        <div class="relative group">
-                            <div class="absolute -inset-4 bg-primary/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                            <div class="bg-white p-8 rounded-[2.5rem] shadow-2xl relative z-10 border-b-8 border-brand-yellow transition-transform duration-500 hover:-translate-y-2 hover:rotate-2">
-                                <img src="/media/imgs/logo1.png" alt="Guber 2026 Logo" class="w-32 h-auto" />
+                    <div
+                        class="flex flex-col items-center justify-center md:col-span-3 md:items-end"
+                    >
+                        <div class="group relative">
+                            <div
+                                class="absolute -inset-4 rounded-[3rem] bg-primary/20 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
+                            ></div>
+                            <div
+                                class="relative z-10 rounded-[2.5rem] border-b-8 border-brand-yellow bg-white p-8 shadow-2xl transition-transform duration-500 hover:-translate-y-2 hover:rotate-2"
+                            >
+                                <img
+                                    src="/media/imgs/logo1.png"
+                                    alt="Guber 2026 Logo"
+                                    class="h-auto w-32"
+                                />
                             </div>
                         </div>
-                        <div class="mt-8 text-right hidden md:block">
-                            <p class="text-[10px] text-slate-600 font-black uppercase tracking-[0.5em] leading-none mb-2 font-sans">Madre de Dios</p>
-                            <p class="text-[10px] text-primary font-black uppercase tracking-[0.3em] font-sans italic">Capital de la Biodiversidad</p>
+                        <div class="mt-8 hidden text-right md:block">
+                            <p
+                                class="mb-2 font-sans text-[10px] leading-none font-black tracking-[0.5em] text-slate-600 uppercase"
+                            >
+                                Madre de Dios
+                            </p>
+                            <p
+                                class="font-sans text-[10px] font-black tracking-[0.3em] text-primary uppercase italic"
+                            >
+                                Capital de la Biodiversidad
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="pt-10 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div
+                    class="flex flex-col items-center justify-between gap-8 border-t border-slate-900 pt-10 md:flex-row"
+                >
                     <div class="flex items-center gap-4">
-                        <div class="w-8 h-px bg-slate-800"></div>
-                        <p class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase font-sans">
+                        <div class="h-px w-8 bg-slate-800"></div>
+                        <p
+                            class="font-sans text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase"
+                        >
                             &copy; 2026 Guber. Todos los derechos reservados.
                         </p>
                     </div>
-                    <div class="flex items-center gap-10 grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] font-sans">Excelencia en Gestión Pública</span>
+                    <div
+                        class="flex items-center gap-10 opacity-30 grayscale transition-all duration-700 hover:opacity-100 hover:grayscale-0"
+                    >
+                        <span
+                            class="font-sans text-[10px] font-black tracking-[0.5em] text-slate-400 uppercase"
+                            >Excelencia en Gestión Pública</span
+                        >
                     </div>
                 </div>
             </div>
         </footer>
 
         <!-- Floating Action Buttons (Bottom Right) -->
-        <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div class="fixed right-6 bottom-6 z-50 flex flex-col items-end gap-3">
             <!-- WhatsApp Button -->
-            <a 
-                href="https://wa.me/51997161347" 
-                target="_blank" 
+            <a
+                href="https://wa.me/51997161347"
+                target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center gap-3 bg-primary text-white px-5 py-2.5 rounded-full shadow-lg hover:bg-primary/90 hover:scale-105 transition-all duration-300 group"
+                class="group flex items-center gap-3 rounded-full bg-primary px-5 py-2.5 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90"
             >
-                <span class="font-bold text-sm tracking-wide">Escríbenos</span>
-                <div class="bg-white/20 p-1.5 rounded-full text-white">
-                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.869-1.29-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.536 0 1.52 1.115 2.988 1.27 3.196.155.208 2.195 3.35 5.317 4.698.742.32 1.32.511 1.77.65.742.228 1.417.196 1.956.116.602-.089 1.758-.718 2.006-1.412.248-.694.248-1.334.174-1.463-.075-.129-.272-.208-.57-.357zM12.007 2C6.475 2 2 6.475 2 12a9.99 9.99 0 0 0 1.34 4.832l-1.427 5.212 5.346-1.402A9.99 9.99 0 0 0 12.007 22c5.523 0 10-4.475 10-10s-4.477-10-10-10z" />
+                <span class="text-sm font-bold tracking-wide">Escríbenos</span>
+                <div class="rounded-full bg-white/20 p-1.5 text-white">
+                    <svg
+                        viewBox="0 0 24 24"
+                        class="h-5 w-5 fill-current"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.869-1.29-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.536 0 1.52 1.115 2.988 1.27 3.196.155.208 2.195 3.35 5.317 4.698.742.32 1.32.511 1.77.65.742.228 1.417.196 1.956.116.602-.089 1.758-.718 2.006-1.412.248-.694.248-1.334.174-1.463-.075-.129-.272-.208-.57-.357zM12.007 2C6.475 2 2 6.475 2 12a9.99 9.99 0 0 0 1.34 4.832l-1.427 5.212 5.346-1.402A9.99 9.99 0 0 0 12.007 22c5.523 0 10-4.475 10-10s-4.477-10-10-10z"
+                        />
                     </svg>
                 </div>
             </a>
 
             <!-- Registration Alert Button -->
-            <Link 
+            <Link
                 v-if="canRegister"
-                href="/inscripciones" 
-                class="flex items-center gap-3 bg-brand-yellow text-white px-5 py-2.5 rounded-full shadow-[0_10px_20px_rgba(188,128,32,0.3)] hover:bg-brand-yellow/90 hover:scale-105 transition-all duration-300 border border-white/10"
+                href="/inscripciones"
+                class="flex items-center gap-3 rounded-full border border-white/10 bg-brand-yellow px-5 py-2.5 text-white shadow-[0_10px_20px_rgba(188,128,32,0.3)] transition-all duration-300 hover:scale-105 hover:bg-brand-yellow/90"
             >
-                <span class="font-bold text-sm tracking-wide">Regístrate y Participa</span>
-                <div class="bg-white/20 p-1.5 rounded-full animate-bounce">
-                    <FileText class="w-5 h-5" />
+                <span class="text-sm font-bold tracking-wide"
+                    >Regístrate y Participa</span
+                >
+                <div class="animate-bounce rounded-full bg-white/20 p-1.5">
+                    <FileText class="h-5 w-5" />
                 </div>
             </Link>
         </div>

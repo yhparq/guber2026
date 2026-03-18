@@ -9,9 +9,10 @@ import {
     DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import UserInfo from '@/components/UserInfo.vue';
+import type { User } from '@/types';
+
 import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
-import type { User } from '@/types';
 
 interface Props {
     user: User;
@@ -35,7 +36,7 @@ defineProps<Props>();
         <DropdownMenuItem :as-child="true">
             <Link class="block w-full cursor-pointer" :href="edit()" prefetch>
                 <Settings class="mr-2 h-4 w-4" />
-                Settings
+                Configuración
             </Link>
         </DropdownMenuItem>
     </DropdownMenuGroup>
@@ -49,7 +50,7 @@ defineProps<Props>();
             data-test="logout-button"
         >
             <LogOut class="mr-2 h-4 w-4" />
-            Log out
+            Cerrar Sesión
         </Link>
     </DropdownMenuItem>
 </template>

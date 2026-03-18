@@ -5,6 +5,7 @@ import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+
 import { logout } from '@/routes';
 import { send } from '@/routes/verification';
 
@@ -24,7 +25,8 @@ defineProps<{
             v-if="verificationLinkSent"
             class="mb-4 text-center text-sm font-medium text-primary"
         >
-            A new verification link has been sent to the email address you provided during registration.
+            A new verification link has been sent to the email address you
+            provided during registration.
         </div>
 
         <Form

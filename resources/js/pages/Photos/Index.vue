@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
+import { Edit2, ExternalLink, Plus, Trash2 } from 'lucide-vue-next';
+
+import Pagination from '@/components/Pagination.vue';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Trash2, ExternalLink, Edit2, Plus } from 'lucide-vue-next';
-import Pagination from '@/components/Pagination.vue';
 
 const props = defineProps<{
     photos: {
-        data: Array<{ id: number, title: string, path: string }>;
+        data: Array<{ id: number; title: string; path: string }>;
         links: any[];
     };
 }>();
@@ -32,52 +33,109 @@ const deletePhoto = (id: number) => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+            <div
+                class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center"
+            >
                 <div>
-                    <h1 class="text-3xl font-bold text-slate-900">Galería del Administrador</h1>
-                    <p class="text-slate-500 text-sm mt-1">Gestiona las imágenes que se muestran en el sitio web principal.</p>
+                    <h1 class="text-3xl font-bold text-slate-900">
+                        Galería del Administrador
+                    </h1>
+                    <p class="mt-1 text-sm text-slate-500">
+                        Gestiona las imágenes que se muestran en el sitio web
+                        principal.
+                    </p>
                 </div>
-                <Button as-child class="rounded-xl h-12 px-6 shadow-lg shadow-primary/20">
+                <Button
+                    as-child
+                    class="h-12 rounded-xl px-6 shadow-lg shadow-primary/20"
+                >
                     <Link href="/photos/create">
-                        <Plus class="w-4 h-4 mr-2" />
+                        <Plus class="mr-2 h-4 w-4" />
                         Nueva Foto
                     </Link>
                 </Button>
             </div>
 
-            <div v-if="photos.data.length > 0" class="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden">
-                <table class="w-full text-left border-collapse">
+            <div
+                v-if="photos.data.length > 0"
+                class="overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-sm"
+            >
+                <table class="w-full border-collapse text-left">
                     <thead>
-                        <tr class="bg-slate-50/50 border-b border-slate-100">
-                            <th class="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Miniatura</th>
-                            <th class="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Descripción / Título</th>
-                            <th class="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Fecha</th>
-                            <th class="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-right">Acciones</th>
+                        <tr class="border-b border-slate-100 bg-slate-50/50">
+                            <th
+                                class="px-6 py-5 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                            >
+                                Miniatura
+                            </th>
+                            <th
+                                class="px-6 py-5 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                            >
+                                Descripción / Título
+                            </th>
+                            <th
+                                class="px-6 py-5 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                            >
+                                Fecha
+                            </th>
+                            <th
+                                class="px-6 py-5 text-right text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
+                            >
+                                Acciones
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-50">
-                        <tr v-for="photo in photos.data" :key="photo.id" class="hover:bg-slate-50/50 transition-colors group">
+                        <tr
+                            v-for="photo in photos.data"
+                            :key="photo.id"
+                            class="group transition-colors hover:bg-slate-50/50"
+                        >
                             <td class="px-6 py-4">
-                                <div class="w-20 h-12 rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
-                                    <img :src="photo.path" :alt="photo.title" class="w-full h-full object-cover" />
+                                <div
+                                    class="h-12 w-20 overflow-hidden rounded-lg border border-slate-200 bg-slate-100"
+                                >
+                                    <img
+                                        :src="photo.path"
+                                        :alt="photo.title"
+                                        class="h-full w-full object-cover"
+                                    />
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-sm font-bold text-slate-900">{{ photo.title }}</span>
+                                <span
+                                    class="text-sm font-bold text-slate-900"
+                                    >{{ photo.title }}</span
+                                >
                             </td>
                             <td class="px-6 py-4">
-                                <span class="text-xs font-medium text-slate-500">Reciente</span>
+                                <span class="text-xs font-medium text-slate-500"
+                                    >Reciente</span
+                                >
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                    <a :href="photo.path" target="_blank" class="p-2 text-slate-400 hover:text-primary hover:bg-white rounded-xl transition-all border border-transparent hover:border-slate-100 shadow-none hover:shadow-sm" title="Ver original">
-                                        <ExternalLink class="w-4 h-4" />
+                                    <a
+                                        :href="photo.path"
+                                        target="_blank"
+                                        class="rounded-xl border border-transparent p-2 text-slate-400 shadow-none transition-all hover:border-slate-100 hover:bg-white hover:text-primary hover:shadow-sm"
+                                        title="Ver original"
+                                    >
+                                        <ExternalLink class="h-4 w-4" />
                                     </a>
-                                    <Link :href="`/photos/${photo.id}/edit`" class="p-2 text-slate-400 hover:text-primary hover:bg-white rounded-xl transition-all border border-transparent hover:border-slate-100 shadow-none hover:shadow-sm" title="Editar">
-                                        <Edit2 class="w-4 h-4" />
+                                    <Link
+                                        :href="`/photos/${photo.id}/edit`"
+                                        class="rounded-xl border border-transparent p-2 text-slate-400 shadow-none transition-all hover:border-slate-100 hover:bg-white hover:text-primary hover:shadow-sm"
+                                        title="Editar"
+                                    >
+                                        <Edit2 class="h-4 w-4" />
                                     </Link>
-                                    <button @click="deletePhoto(photo.id)" class="p-2 text-slate-400 hover:text-red-500 hover:bg-white rounded-xl transition-all border border-transparent hover:border-slate-100 shadow-none hover:shadow-sm" title="Eliminar">
-                                        <Trash2 class="w-4 h-4" />
+                                    <button
+                                        @click="deletePhoto(photo.id)"
+                                        class="rounded-xl border border-transparent p-2 text-slate-400 shadow-none transition-all hover:border-slate-100 hover:bg-white hover:text-red-500 hover:shadow-sm"
+                                        title="Eliminar"
+                                    >
+                                        <Trash2 class="h-4 w-4" />
                                     </button>
                                 </div>
                             </td>
@@ -86,13 +144,24 @@ const deletePhoto = (id: number) => {
                 </table>
                 <Pagination :links="photos.links" />
             </div>
-            
-            <div v-else class="flex flex-col items-center justify-center py-20 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800">
-                <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mb-4">
-                    <Trash2 class="w-8 h-8 text-slate-300" />
+
+            <div
+                v-else
+                class="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 py-20 dark:border-slate-800 dark:bg-slate-900/50"
+            >
+                <div
+                    class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm dark:bg-slate-800"
+                >
+                    <Trash2 class="h-8 w-8 text-slate-300" />
                 </div>
-                <p class="text-slate-500 font-medium">No hay fotos registradas aún.</p>
-                <Link href="/photos/create" class="text-primary font-bold text-sm mt-4 hover:underline">Subir la primera foto</Link>
+                <p class="font-medium text-slate-500">
+                    No hay fotos registradas aún.
+                </p>
+                <Link
+                    href="/photos/create"
+                    class="mt-4 text-sm font-bold text-primary hover:underline"
+                    >Subir la primera foto</Link
+                >
             </div>
         </div>
     </AppLayout>

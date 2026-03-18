@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
+import { ArrowLeft, Save } from 'lucide-vue-next';
+
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Save, ArrowLeft, Upload } from 'lucide-vue-next';
 
 const props = defineProps<{
     participant: {
@@ -75,18 +76,31 @@ const professionalColleges = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 p-4">
             <div class="flex items-center justify-between">
-                <h1 class="text-2xl font-bold">Editar Participante #{{ participant.id }}</h1>
+                <h1 class="text-2xl font-bold">
+                    Editar Participante #{{ participant.id }}
+                </h1>
                 <Button variant="outline" as-child>
-                    <a href="/participants"><ArrowLeft class="w-4 h-4 mr-2" /> Volver</a>
+                    <a href="/participants"
+                        ><ArrowLeft class="mr-2 h-4 w-4" /> Volver</a
+                    >
                 </Button>
             </div>
 
-            <div class="bg-white dark:bg-gray-900 rounded-xl border border-sidebar-border/70 p-6 shadow-sm max-w-4xl">
-                <form @submit.prevent="submit" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
+            <div
+                class="max-w-4xl rounded-xl border border-sidebar-border/70 bg-white p-6 shadow-sm dark:bg-gray-900"
+            >
+                <form
+                    @submit.prevent="submit"
+                    class="grid grid-cols-1 gap-6 md:grid-cols-2"
+                >
                     <div class="space-y-2">
-                        <label class="text-sm font-bold">Estado de Activación</label>
-                        <select v-model="form.status" class="w-full px-3 py-2 rounded-lg border focus:ring-2 focus:ring-primary/20 outline-none bg-white dark:bg-gray-800">
+                        <label class="text-sm font-bold"
+                            >Estado de Activación</label
+                        >
+                        <select
+                            v-model="form.status"
+                            class="w-full rounded-lg border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-primary/20 dark:bg-gray-800"
+                        >
                             <option :value="0">Pendiente (Inactivo)</option>
                             <option :value="1">Activo (Verificado)</option>
                         </select>
@@ -94,55 +108,113 @@ const professionalColleges = [
 
                     <div class="space-y-2">
                         <label class="text-sm font-bold">DNI</label>
-                        <input v-model="form.dni" type="text" class="w-full px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800" />
+                        <input
+                            v-model="form.dni"
+                            type="text"
+                            class="w-full rounded-lg border bg-gray-50 px-3 py-2 dark:bg-gray-800"
+                        />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-bold">Nombres</label>
-                        <input v-model="form.nombres" type="text" class="w-full px-3 py-2 rounded-lg border" />
+                        <input
+                            v-model="form.nombres"
+                            type="text"
+                            class="w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-bold">Apellidos</label>
-                        <input v-model="form.apellidos" type="text" class="w-full px-3 py-2 rounded-lg border" />
+                        <input
+                            v-model="form.apellidos"
+                            type="text"
+                            class="w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-bold">Email</label>
-                        <input v-model="form.email" type="email" class="w-full px-3 py-2 rounded-lg border" />
+                        <input
+                            v-model="form.email"
+                            type="email"
+                            class="w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-bold">Celular</label>
-                        <input v-model="form.celular" type="text" class="w-full px-3 py-2 rounded-lg border" />
+                        <input
+                            v-model="form.celular"
+                            type="text"
+                            class="w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-sm font-bold">Tipo Comprobante</label>
-                        <select v-model="form.tipo_comprobante" class="w-full px-3 py-2 rounded-lg border bg-white dark:bg-gray-800">
+                        <label class="text-sm font-bold"
+                            >Tipo Comprobante</label
+                        >
+                        <select
+                            v-model="form.tipo_comprobante"
+                            class="w-full rounded-lg border bg-white px-3 py-2 dark:bg-gray-800"
+                        >
                             <option value="Boleta">Boleta</option>
                             <option value="Factura">Factura</option>
                         </select>
                     </div>
 
-                    <div v-if="form.tipo_comprobante === 'Factura'" class="space-y-2">
-                        <label class="text-sm font-bold text-primary">RUC</label>
-                        <input v-model="form.ruc" type="text" class="w-full px-3 py-2 rounded-lg border border-primary/50" />
+                    <div
+                        v-if="form.tipo_comprobante === 'Factura'"
+                        class="space-y-2"
+                    >
+                        <label class="text-sm font-bold text-primary"
+                            >RUC</label
+                        >
+                        <input
+                            v-model="form.ruc"
+                            type="text"
+                            class="w-full rounded-lg border border-primary/50 px-3 py-2"
+                        />
                     </div>
 
-                    <div v-if="form.tipo_comprobante === 'Factura'" class="space-y-2">
-                        <label class="text-sm font-bold text-primary">Razón Social</label>
-                        <input v-model="form.razon_social" type="text" class="w-full px-3 py-2 rounded-lg border border-primary/50" />
+                    <div
+                        v-if="form.tipo_comprobante === 'Factura'"
+                        class="space-y-2"
+                    >
+                        <label class="text-sm font-bold text-primary"
+                            >Razón Social</label
+                        >
+                        <input
+                            v-model="form.razon_social"
+                            type="text"
+                            class="w-full rounded-lg border border-primary/50 px-3 py-2"
+                        />
                     </div>
 
                     <div class="space-y-2 md:col-span-2">
-                        <label class="text-sm font-bold">Actualizar Voucher (Opcional)</label>
-                        <input type="file" @input="form.foto_voucher = $event.target.files[0]" class="w-full px-3 py-2 rounded-lg border" />
+                        <label class="text-sm font-bold"
+                            >Actualizar Voucher (Opcional)</label
+                        >
+                        <input
+                            type="file"
+                            @input="form.foto_voucher = $event.target.files[0]"
+                            class="w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
 
-                    <div class="md:col-span-2 pt-4 border-t mt-4">
-                        <Button type="submit" :disabled="form.processing" class="w-full md:w-auto">
-                            <Save class="w-4 h-4 mr-2" /> {{ form.processing ? 'Guardando...' : 'Guardar Cambios' }}
+                    <div class="mt-4 border-t pt-4 md:col-span-2">
+                        <Button
+                            type="submit"
+                            :disabled="form.processing"
+                            class="w-full md:w-auto"
+                        >
+                            <Save class="mr-2 h-4 w-4" />
+                            {{
+                                form.processing
+                                    ? 'Guardando...'
+                                    : 'Guardar Cambios'
+                            }}
                         </Button>
                     </div>
                 </form>

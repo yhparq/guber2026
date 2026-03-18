@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
+
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 
 const form = useForm({
     dni: '', // RUC
     nombres: '', // Company Name
-    // apellidos: '', // Maybe Contact Name? Controller needs handling. 
+    // apellidos: '', // Maybe Contact Name? Controller needs handling.
     // Wait, DB schema for Corporate: ruc, address, contact_name, contact_phone...
     // But Controller stores into 'participants' table using 'dni' for 'ruc' etc?
     // Let's check the CorporateParticipantController again.
@@ -18,8 +19,8 @@ const form = useForm({
     // But I added specific columns to the DB: ruc, company_name, etc.
     // AND I updated the Participant model to have 'dni', 'nombres', etc.
     // AND I updated CorporateParticipant model (which IS Participant class in code now) to have 'company_name', 'ruc' etc.
-    
-    // WAIT. I made a mistake in previous steps. 
+
+    // WAIT. I made a mistake in previous steps.
     // I made 'participants' table have 'dni', 'nombres'.
     // I made 'corporate_participants' table have 'ruc', 'company_name'.
     // BUT I am using Participant model for BOTH in the routes?
@@ -29,8 +30,8 @@ const form = useForm({
     // But I am using Participant model which links to 'participants' table.
     // So if I save a corporate participant using Participant model, it goes to 'participants' table.
     // The 'corporate_participants' table is currently UNUSED by the app logic I wrote.
-    
-    // I should probably consolidate or fix this. 
+
+    // I should probably consolidate or fix this.
     // The user asked for "same table just filtered".
     // "en participantes tiene que ser la misma tabla que participantes solo se filtrata por el campo de categoria de participante"
     // So YES, I should use the 'participants' table for EVERYTHING.
@@ -45,12 +46,12 @@ const form = useForm({
     // Contact Name -> apellidos
     // Contact Email -> email
     // Contact Phone -> celular
-    
+
     // This matches the Seeder logic I wrote:
     // 'dni' => '20123456789', // RUC
     // 'nombres' => 'Tech Solutions',
     // 'apellidos' => 'SAC', // or Contact Name
-    
+
     // I will proceed with this mapping for the Form.
     apellidos: '', // Contact Name
     email: '', // Contact Email
@@ -79,14 +80,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Nuevo Participante Corporativo" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-4 max-w-4xl mx-auto">
-            <h1 class="text-2xl font-bold mb-6">Registrar Empresa</h1>
-            
-            <form @submit.prevent="submit" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-gray-800 p-6 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                
+        <div class="mx-auto max-w-4xl p-4">
+            <h1 class="mb-6 text-2xl font-bold">Registrar Empresa</h1>
+
+            <form
+                @submit.prevent="submit"
+                class="grid grid-cols-1 gap-6 rounded-xl border border-sidebar-border/70 bg-white p-6 md:grid-cols-2 dark:border-sidebar-border dark:bg-gray-800"
+            >
                 <div class="space-y-2">
                     <Label for="dni">RUC</Label>
-                    <Input id="dni" v-model="form.dni" required placeholder="20..." />
+                    <Input
+                        id="dni"
+                        v-model="form.dni"
+                        required
+                        placeholder="20..."
+                    />
                     <InputError :message="form.errors.dni" />
                 </div>
 
@@ -98,12 +106,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="space-y-2">
                     <Label for="apellidos">Persona de Contacto</Label>
-                    <Input id="apellidos" v-model="form.apellidos" placeholder="Nombre del contacto" />
+                    <Input
+                        id="apellidos"
+                        v-model="form.apellidos"
+                        placeholder="Nombre del contacto"
+                    />
                 </div>
 
                 <div class="space-y-2">
                     <Label for="email">Email de Contacto</Label>
-                    <Input id="email" type="email" v-model="form.email" required />
+                    <Input
+                        id="email"
+                        type="email"
+                        v-model="form.email"
+                        required
+                    />
                     <InputError :message="form.errors.email" />
                 </div>
 
@@ -113,11 +130,16 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
 
                 <div class="space-y-2 md:col-span-2">
-                    <Label for="direccion_actual">Dirección Fiscal / Oficina</Label>
-                    <Input id="direccion_actual" v-model="form.direccion_actual" />
+                    <Label for="direccion_actual"
+                        >Dirección Fiscal / Oficina</Label
+                    >
+                    <Input
+                        id="direccion_actual"
+                        v-model="form.direccion_actual"
+                    />
                 </div>
 
-                <div class="md:col-span-2 flex justify-end">
+                <div class="flex justify-end md:col-span-2">
                     <Button type="submit" :disabled="form.processing">
                         Guardar Empresa
                     </Button>

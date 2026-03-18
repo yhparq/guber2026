@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Users, Building2, GraduationCap, Image as ImageIcon } from 'lucide-vue-next';
+import {
+    BookOpen,
+    Building2,
+    Image as ImageIcon,
+    Users,
+} from 'lucide-vue-next';
 
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -14,10 +19,11 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 
 import AppLogo from './AppLogo.vue';
+
+import { dashboard } from '@/routes';
 
 const mainNavItems: NavItem[] = [
     {
@@ -46,11 +52,19 @@ const footerNavItems: NavItem[] = [];
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset" class="bg-slate-950 text-slate-200 border-r border-white/5">
-        <SidebarHeader class="bg-slate-950 border-b border-white/5 py-4">
+    <Sidebar
+        collapsible="icon"
+        variant="inset"
+        class="border-r border-white/5 bg-slate-950 text-slate-200"
+    >
+        <SidebarHeader class="border-b border-white/5 bg-slate-950 py-4">
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child class="hover:bg-white/5 text-white transition-all">
+                    <SidebarMenuButton
+                        size="lg"
+                        as-child
+                        class="text-white transition-all hover:bg-white/5"
+                    >
                         <Link :href="dashboard()">
                             <AppLogo />
                         </Link>
@@ -63,7 +77,7 @@ const footerNavItems: NavItem[] = [];
             <NavMain :items="mainNavItems" />
         </SidebarContent>
 
-        <SidebarFooter class="bg-slate-950 border-t border-white/5">
+        <SidebarFooter class="border-t border-white/5 bg-slate-950">
             <NavFooter :items="footerNavItems" />
             <NavUser class="hover:bg-white/5" />
         </SidebarFooter>

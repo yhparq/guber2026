@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
+import { Upload, X } from 'lucide-vue-next';
+import { ref } from 'vue';
+
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { ref } from 'vue';
-import { Upload, X, Image as ImageIcon } from 'lucide-vue-next';
 
 const form = useForm({
     title: '',
@@ -21,7 +22,7 @@ const handleImageChange = (e: Event) => {
     if (target.files && target.files[0]) {
         const file = target.files[0];
         form.image = file;
-        
+
         const reader = new FileReader();
         reader.onload = (e) => {
             imagePreview.value = e.target?.result as string;
@@ -57,20 +58,30 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Nueva Foto" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="p-6 max-w-2xl mx-auto">
+        <div class="mx-auto max-w-2xl p-6">
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-slate-900">Subir Nueva Foto</h1>
-                <p class="text-slate-500 text-sm mt-1">Sube una imagen para la galería del evento.</p>
+                <h1 class="text-3xl font-bold text-slate-900">
+                    Subir Nueva Foto
+                </h1>
+                <p class="mt-1 text-sm text-slate-500">
+                    Sube una imagen para la galería del evento.
+                </p>
             </div>
-            
-            <form @submit.prevent="submit" class="space-y-8 bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
-                
+
+            <form
+                @submit.prevent="submit"
+                class="space-y-8 rounded-[2rem] border border-slate-100 bg-white p-8 shadow-sm"
+            >
                 <div class="space-y-2">
-                    <Label for="title" class="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Descripción / Título</Label>
-                    <Input 
-                        id="title" 
-                        v-model="form.title" 
-                        required 
+                    <Label
+                        for="title"
+                        class="ml-1 text-xs font-bold tracking-widest text-slate-400 uppercase"
+                        >Descripción / Título</Label
+                    >
+                    <Input
+                        id="title"
+                        v-model="form.title"
+                        required
                         placeholder="Ej: Ceremonia de Inauguración"
                         class="h-12 rounded-xl border-slate-100 focus:border-primary focus:ring-primary"
                     />
@@ -78,44 +89,67 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
 
                 <div class="space-y-2">
-                    <Label class="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Imagen</Label>
-                    
+                    <Label
+                        class="ml-1 text-xs font-bold tracking-widest text-slate-400 uppercase"
+                        >Imagen</Label
+                    >
+
                     <div v-if="!imagePreview" class="relative">
                         <input
                             id="image"
                             type="file"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                            class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                             @change="handleImageChange"
                             accept="image/*"
                         />
-                        <div class="border-2 border-dashed border-slate-200 rounded-3xl p-12 flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 transition-colors">
-                            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
-                                <Upload class="w-8 h-8 text-primary" />
+                        <div
+                            class="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-12 transition-colors hover:bg-slate-50"
+                        >
+                            <div
+                                class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm"
+                            >
+                                <Upload class="h-8 w-8 text-primary" />
                             </div>
-                            <p class="text-sm font-bold text-slate-900">Haz clic para subir o arrastra una imagen</p>
-                            <p class="text-xs text-slate-500 mt-1">PNG, JPG, WebP hasta 5MB</p>
+                            <p class="text-sm font-bold text-slate-900">
+                                Haz clic para subir o arrastra una imagen
+                            </p>
+                            <p class="mt-1 text-xs text-slate-500">
+                                PNG, JPG, WebP hasta 5MB
+                            </p>
                         </div>
                     </div>
 
-                    <div v-else class="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 p-2">
-                        <img :src="imagePreview" class="w-full aspect-video object-cover rounded-2xl" />
-                        <button 
-                            @click="removeImage" 
+                    <div
+                        v-else
+                        class="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-2"
+                    >
+                        <img
+                            :src="imagePreview"
+                            class="aspect-video w-full rounded-2xl object-cover"
+                        />
+                        <button
+                            @click="removeImage"
                             type="button"
-                            class="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-xl shadow-lg hover:bg-red-600 transition-colors"
+                            class="absolute top-4 right-4 rounded-xl bg-red-500 p-2 text-white shadow-lg transition-colors hover:bg-red-600"
                         >
-                            <X class="w-5 h-5" />
+                            <X class="h-5 w-5" />
                         </button>
                     </div>
-                    
+
                     <InputError :message="form.errors.image" />
                 </div>
 
-                <div class="flex items-center justify-end gap-4 pt-4 border-t border-slate-50">
+                <div
+                    class="flex items-center justify-end gap-4 border-t border-slate-50 pt-4"
+                >
                     <Button variant="ghost" as-child class="rounded-xl">
                         <Link href="/photos">Cancelar</Link>
                     </Button>
-                    <Button type="submit" :disabled="form.processing" class="rounded-xl h-12 px-8 font-bold uppercase tracking-widest text-xs">
+                    <Button
+                        type="submit"
+                        :disabled="form.processing"
+                        class="h-12 rounded-xl px-8 text-xs font-bold tracking-widest uppercase"
+                    >
                         <span v-if="form.processing">Subiendo...</span>
                         <span v-else>Guardar Foto</span>
                     </Button>

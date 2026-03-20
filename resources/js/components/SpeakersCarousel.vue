@@ -32,7 +32,7 @@ const speakers = [
         topic: 'Avance de la Reforma del Sistema Nacional de Contabilidad.',
         label: 'Nacional',
         image: '/media/ponentes/OSCAR NUÑEZ.png',
-        flyer: null,
+        flyer: '/media/ponentes/flayers/OSCAR-GUSTAVO.png',
     },
     {
         name: 'Mg. Abg. Cesar Enrique Aguilar Surichaqui',
@@ -40,7 +40,7 @@ const speakers = [
         topic: 'Responsabilidad administrativa funcional en la Gestión Pública.',
         label: 'Nacional',
         image: '/media/ponentes/CESAR SURICHAQUI.png',
-        flyer: null,
+        flyer: '/media/ponentes/flayers/MG-ABG-CESAR.png',
     },
     {
         name: 'Mg. Judith Tania Apaza Marca',
@@ -64,7 +64,7 @@ const speakers = [
         topic: 'Planeamiento estratégico en el Sector Público: Los Programas Presupuestales y su asociación con el cumplimiento de los ODS 2023.',
         label: 'Nacional',
         image: '/media/ponentes/LOLI CHAVEZ.png',
-        flyer: null,
+        flyer: '/media/ponentes/flayers/CPC-LOLY.png',
     },
     {
         name: 'Abog. Laura Lisset Gutiérrez Gonzales',
@@ -104,7 +104,7 @@ const speakers = [
         topic: 'Contabilidad de la Biodiversidad, Recursos Naturales e Implicancias del cambio climático hacia la sostenibilidad de las Finanzas Públicas.',
         label: 'Internacional',
         image: '/media/ponentes/JESUS ARAYA.png',
-        flyer: null,
+        flyer: '/media/ponentes/flayers/MBA-JESUS-ARAYA.png',
     },
     {
         name: 'CPC. Juan Pablo Diaz Soria',
@@ -112,7 +112,7 @@ const speakers = [
         topic: 'Marco Contable Simplificado para entidades menos complejas del Sector Público.',
         label: 'Nacional',
         image: '/media/ponentes/JUAN DIAZ.png',
-        flyer: null,
+        flyer: '/media/ponentes/flayers/CPC-JUAN-PABLO.png',
     },
     {
         name: 'Mg. Jesús Ruitón Cabanillas',

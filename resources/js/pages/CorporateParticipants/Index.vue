@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Edit, Eye, FileDown, Trash2, Users, X } from 'lucide-vue-next';
+import { Edit, Eye, FileDown, Trash2, Users, X, CheckCircle } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 import Pagination from '@/components/Pagination.vue';
@@ -48,6 +48,25 @@ const deleteParticipant = (id: number) => {
         )
     ) {
         router.delete(`/corporate-participants/${id}`);
+    }
+};
+
+const activateParticipant = (p: any) => {
+    if (
+        confirm(
+            `¿Deseas activar a ${p.nombres} y enviarle su correo de acceso?`,
+        )
+    ) {
+        router.put(
+            `/corporate-participants/${p.id}`,
+            {
+                ...p,
+                status: 1,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
     }
 };
 
@@ -146,11 +165,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700"
                                         >Activo</span
                                     >
-                                    <span
+                                    <button
                                         v-else
-                                        class="inline-flex items-center rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700"
-                                        >Pendiente</span
+                                        @click="activateParticipant(p)"
+                                        class="group inline-flex items-center rounded-full bg-yellow-100 px-2 py-1 text-xs font-bold text-yellow-700 transition-all hover:bg-green-600 hover:text-white"
                                     >
+                                        <CheckCircle class="mr-1 h-3 w-3" />
+                                        Activar
+                                    </button>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div

@@ -334,23 +334,7 @@ const selectDay = (dayId: number) => {
 
                                     <!-- Content Body -->
                                     <div class="relative flex-1 p-8 lg:p-10">
-                                        <!-- Category Tag Decor -->
-                                        <div
-                                            class="absolute top-8 right-8 hidden sm:block"
-                                        >
-                                            <div
-                                                class="flex items-center gap-2 rounded-full border border-primary/10 bg-primary/5 px-3 py-1"
-                                            >
-                                                <Circle
-                                                    class="h-1.5 w-1.5 fill-primary text-primary"
-                                                />
-                                                <span
-                                                    class="text-[9px] font-black tracking-widest text-primary uppercase"
-                                                    >Ponencia Magistral</span
-                                                >
-                                            </div>
-                                        </div>
-
+                                        
                                         <h3
                                             class="mb-4 font-heading text-xl leading-tight font-black tracking-tight text-slate-900 uppercase transition-colors group-hover:text-primary lg:text-2xl"
                                         >

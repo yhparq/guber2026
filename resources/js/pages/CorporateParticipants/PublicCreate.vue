@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import axios from 'axios';
 import {
     AlertCircle,
     Award,
@@ -112,9 +113,11 @@ const initializeParticipants = () => {
                 tipo_comprobante: 'Boleta',
                 ruc: '',
             });
+            searchingStates.value.push(false);
         }
     } else if (targetCount < currentCount) {
         form.participants.splice(targetCount);
+        searchingStates.value.splice(targetCount);
     }
 };
 
@@ -130,6 +133,25 @@ watch(
     },
     { immediate: true },
 );
+
+const searchDni = async (index: number) => {
+    const dni = form.participants[index].dni;
+    if (dni && dni.length === 8) {
+        searchingStates.value[index] = true;
+        try {
+            const response = await axios.get(`/api/dni/${dni}`);
+            if (response.data && response.data.success) {
+                const data = response.data.data;
+                form.participants[index].nombres = data.nombres;
+                form.participants[index].apellidos = `${data.apellido_paterno} ${data.apellido_materno}`;
+            }
+        } catch (error) {
+            console.error('Error buscando DNI:', error);
+        } finally {
+            searchingStates.value[index] = false;
+        }
+    }
+};
 
 const submit = () => {
     form.post('/inscripcion-corporativa', {

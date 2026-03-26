@@ -71,7 +71,11 @@ class ParticipantController extends Controller
 
         // Send email if activated
         if ($oldStatus == 0 && $participant->status == 1) {
-            Mail::to($participant->email)->send(new ParticipantActivated($participant));
+            try {
+                Mail::to($participant->email)->send(new ParticipantActivated($participant));
+            } catch (\Exception $e) {
+                return redirect()->route('participants.index')->with('success', 'Participante actualizado, pero no se pudo enviar el correo de activación.');
+            }
         }
 
         return redirect()->route('participants.index')->with('success', 'Participante actualizado.');

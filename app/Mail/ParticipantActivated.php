@@ -20,7 +20,7 @@ class ParticipantActivated extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Participant $participant)
+    public function __construct($participant)
     {
         $this->participant = $participant;
         $this->loginUrl = route('aula-virtual.login');

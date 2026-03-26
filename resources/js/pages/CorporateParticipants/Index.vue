@@ -88,11 +88,6 @@ const breadcrumbs: BreadcrumbItem[] = [
                     >
                         <FileDown class="mr-2 h-4 w-4" /> Exportar Excel
                     </a>
-                    <Button as-child>
-                        <Link href="/corporate-participants/create"
-                            >Nuevo Registro</Link
-                        >
-                    </Button>
                 </div>
             </div>
 

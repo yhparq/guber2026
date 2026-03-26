@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Exports\CorporateParticipantsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ParticipantActivated;
 
 class CorporateParticipantController extends Controller
 {
@@ -64,12 +66,24 @@ class CorporateParticipantController extends Controller
             'status' => 'required|integer',
         ]);
 
+        $oldStatus = $corporateParticipant->status;
+
         if ($request->hasFile('foto_voucher')) {
             $path = $request->file('foto_voucher')->store('vouchers', 'public');
             $validated['foto_voucher'] = $path;
         }
 
         $corporateParticipant->update($validated);
+
+        // --- Logic: Email Activation with Try-Catch ---
+        if ($oldStatus == 0 && $corporateParticipant->status == 1) {
+            try {
+                Mail::to($corporateParticipant->email)->send(new ParticipantActivated($corporateParticipant));
+            } catch (\Exception $e) {
+                // If mail fails, participant is updated but we notify the admin
+                return redirect()->route('corporate-participants.index')->with('success', 'Participante actualizado, pero no se pudo enviar el correo de activación (Error en el servidor de correos).');
+            }
+        }
 
         return redirect()->route('corporate-participants.index')->with('success', 'Participante corporativo actualizado.');
     }

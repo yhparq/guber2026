@@ -74,7 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('corporate-participants/export', [CorporateParticipantController::class, 'exportExcel'])->name('corporate-participants.export');
     Route::get('corporate-participants', [CorporateParticipantController::class, 'index'])->name('corporate-participants.index');
     Route::get('corporate-participants/create', [CorporateParticipantController::class, 'create'])->name('corporate-participants.create');
-    Route::post('corporate-participants', [CorporateParticipant::class, 'store'])->name('corporate-participants.store');
+    Route::post('corporate-participants', [CorporateParticipantController::class, 'store'])->name('corporate-participants.store');
     Route::get('corporate-participants/{corporateParticipant}/edit', [CorporateParticipantController::class, 'edit'])->name('corporate-participants.edit');
     Route::put('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'update'])->name('corporate-participants.update');
     Route::delete('corporate-participants/{corporateParticipant}', [CorporateParticipantController::class, 'destroy'])->name('corporate-participants.destroy');

@@ -45,7 +45,7 @@ class ParticipantController extends Controller
             'nombres' => 'required|string',
             'apellidos' => 'required|string',
             'email' => 'required|email',
-            'celular' => 'required|string',
+            'celular' => 'nullable|string',
             'colegio_departamental' => 'nullable|string',
             'departamento' => 'nullable|string',
             'provincia' => 'nullable|string',

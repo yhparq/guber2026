@@ -167,7 +167,7 @@ const pricingCategories = [
         icon: Eye,
         description:
             'Empresarios, profesionales de otras ramas del conocimiento, así como los bachilleres, egresados y otras personas interesadas.',
-        price: 'S/ 250.00',
+        price: 'S/ 200.00',
         benefits: {
             presencial: [
                 '12 conferencias magistrales',
@@ -194,7 +194,7 @@ const pricingCategories = [
         icon: GraduationCap,
         description:
             'Que se encuentren cursando estudios de nivel superior en Ciencias Contables y afines.',
-        price: 'S/ 150.00',
+        price: 'S/ 100.00',
         benefits: {
             presencial: [
                 '12 conferencias magistrales',

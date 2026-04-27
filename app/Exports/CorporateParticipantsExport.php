@@ -32,6 +32,9 @@ class CorporateParticipantsExport implements FromCollection, WithHeadings, WithM
             'Categoría',
             'Modalidad',
             'Código Pago',
+            'Tipo Comprobante Pago',
+            'Tipo Comprobante Individual',
+            'RUC Individual',
             'Estado',
             'Fecha de Registro'
         ];
@@ -55,6 +58,9 @@ class CorporateParticipantsExport implements FromCollection, WithHeadings, WithM
             $p->categoria_participante,
             $p->modalidad_participante,
             $p->codigo_pago,
+            $p->tipo_comprobante_pago,
+            $p->tipo_comprobante_individual,
+            $p->ruc_individual,
             $p->status == 1 ? 'Activo' : 'Pendiente',
             $p->created_at->format('d/m/Y H:i')
         ];

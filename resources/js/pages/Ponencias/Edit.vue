@@ -22,6 +22,7 @@ const form = useForm({
     hora_fin: props.ponencia.hora_fin,
     dia: props.ponencia.dia,
     link_video: props.ponencia.link_video || '',
+    link_material: props.ponencia.link_material || '',
     archivo_material: null as File | null,
 });
 
@@ -123,6 +124,18 @@ const breadcrumbs: BreadcrumbItem[] = [
                         v-model="form.link_video"
                     />
                     <InputError :message="form.errors.link_video" />
+                </div>
+
+                <div class="space-y-2">
+                    <Label for="link_material"
+                        >Link de Material Externo (Opcional)</Label
+                    >
+                    <Input
+                        id="link_material"
+                        type="url"
+                        v-model="form.link_material"
+                    />
+                    <InputError :message="form.errors.link_material" />
                 </div>
 
                 <div class="space-y-2">

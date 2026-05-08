@@ -134,6 +134,19 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
 
                 <div class="space-y-2">
+                    <Label for="link_material"
+                        >Link de Material Externo (Opcional)</Label
+                    >
+                    <Input
+                        id="link_material"
+                        type="url"
+                        v-model="form.link_material"
+                        placeholder="https://drive.google.com/..."
+                    />
+                    <InputError :message="form.errors.link_material" />
+                </div>
+
+                <div class="space-y-2">
                     <Label
                         for="archivo_material"
                         class="flex items-center gap-2"

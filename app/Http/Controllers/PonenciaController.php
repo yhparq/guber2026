@@ -73,6 +73,8 @@ class PonenciaController extends Controller
             }
             $path = $request->file('archivo_material')->store('materiales', 'public');
             $validated['archivo_material'] = $path;
+        } else {
+            unset($validated['archivo_material']);
         }
 
         $ponencia->update($validated);
